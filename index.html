@@ -48,34 +48,9 @@
   .teaser-foot{margin-top:22px;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(248,245,238,0.55);}
   @media (max-width:700px){ .teaser-grid{grid-template-columns:repeat(3,1fr);gap:6px;} .teaser{padding:50px 6vw 44px;} }
 
-  .modal-overlay{position:fixed;inset:0;background:rgba(10,8,7,0.88);z-index:50;display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:6vh 16px;}
-  .modal-overlay.open{display:flex;}
-  .modal-box{background:var(--ivory);border-radius:18px;max-width:480px;width:100%;padding:36px 30px 30px;position:relative;text-align:left;}
-  .modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:26px;line-height:1;color:var(--anthrazit);cursor:pointer;}
-  .modal-box .eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:600;}
-  .modal-box h2{font-family:'Fraunces',serif;font-weight:500;font-size:26px;color:var(--anthrazit);margin:8px 0 10px;}
-  .modal-intro{font-size:13.5px;color:#5a5d55;line-height:1.6;margin-bottom:22px;}
-  .form-row{display:flex;gap:12px;}
-  .form-row .form-field{flex:1;}
-  .form-field{margin-bottom:14px;}
-  .form-field label{display:block;font-size:11px;letter-spacing:0.5px;color:#6b6d64;margin-bottom:5px;}
-  .form-field input,.form-field select,.form-field textarea{width:100%;padding:10px 12px;border:1px solid #ddd8cb;border-radius:8px;font-family:'Inter',sans-serif;font-size:14px;color:var(--anthrazit);background:#fff;}
-  .form-field textarea{resize:vertical;}
-  .modal-submit{width:100%;margin-top:8px;background:var(--gold);color:var(--ivory);border:none;cursor:pointer;font-family:'Inter',sans-serif;}
-  .modal-submit:hover{background:#b3925d;}
-  @media (max-width:480px){ .form-row{flex-direction:column;gap:0;} }
   .social a:hover{color:var(--gold);}
   @media (max-width:600px){ .content{padding:4vh 6vw;} .stage img{object-fit:contain;object-position:center 12vh;background:#1B140E;} .stage{background:#1B140E;} }
 
-  .gl-msg{margin-top:18px;padding:16px 18px;border:1px solid rgba(200,167,106,0.45);border-radius:10px;text-align:left;}
-  .gl-msg h3{font-family:'Fraunces',serif;font-weight:500;font-size:19px;margin-bottom:8px;}
-  .gl-msg p{font-size:13px;line-height:1.6;opacity:0.85;margin-bottom:10px;}
-  .gl-text{width:100%;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;padding:10px 12px;border:1px solid rgba(120,120,120,0.35);border-radius:8px;background:rgba(0,0,0,0.04);color:inherit;resize:vertical;}
-  .gl-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
-  .gl-mini{padding:10px 20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;border-radius:999px;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;text-decoration:none;display:inline-block;}
-  .gl-mini:hover{background:var(--gold);color:var(--ivory);}
-  .gl-primary{background:var(--gold);color:var(--ivory);}
-  .modal-submit[disabled]{opacity:0.55;cursor:default;}
 </style>
 </head>
 <body>
@@ -86,7 +61,7 @@
     <div class="countdown" id="countdown">
       <div class="cd-item"><div class="cd-num" style="font-size:clamp(22px,4vw,34px);">September 2026</div><div class="cd-label">Genaues Datum folgt in Kürze</div></div>
     </div>
-    <button class="btn" type="button" onclick="document.getElementById('guestlist-modal').classList.add('open');document.body.style.overflow='hidden';">Auf die Gästeliste</button>
+    <a class="btn" href="reservierung.html">Tisch reservieren</a>
     <div class="social">
       <a href="https://www.instagram.com/vienero.vienna" target="_blank" rel="noopener">Instagram</a>·<a href="https://www.tiktok.com/@vienero.vienna" target="_blank" rel="noopener">TikTok</a>
     </div>
@@ -118,153 +93,6 @@
   <p class="teaser-foot">Coming September 2026</p>
 </div>
 
-<div class="modal-overlay" id="guestlist-modal">
-  <div class="modal-box">
-    <button class="modal-close" type="button" onclick="document.getElementById('guestlist-modal').classList.remove('open');document.body.style.overflow='';">&times;</button>
-    <div id="guestlist-inner">
-    <span class="eyebrow">Gästeliste</span>
-    <h2>Sei einer der Ersten.</h2>
-    <p class="modal-intro">Trag dich ein. Sobald wir eröffnen, bekommst du als Erstes Bescheid und hast die Möglichkeit, dir und deiner Gruppe einen Platz zu sichern.</p>
-    <form id="guestlist-form" onsubmit="return submitGuestlist(event)">
-      <div class="form-row">
-        <div class="form-field"><label>Vorname*</label><input type="text" name="vorname" required></div>
-        <div class="form-field"><label>Nachname*</label><input type="text" name="nachname" required></div>
-      </div>
-      <div class="form-field"><label>E-Mail*</label><input type="email" name="email" required></div>
-      <div class="form-row">
-        <div class="form-field"><label>Personenanzahl*</label><input type="number" name="personen" min="1" value="2" required></div>
-        <div class="form-field"><label>Telefonnummer</label><input type="tel" name="telefon"></div>
-      </div>
-      <div class="form-field"><label>Instagram (falls vorhanden)</label><input type="text" name="instagram" placeholder="@dein.name"></div>
-      <div class="form-field"><label>Wunschtermin / Zeitraum</label><input type="text" name="termin" placeholder="z.B. erste Septemberwoche, abends"></div>
-      <div class="form-field"><label>Wie bist du auf uns aufmerksam geworden?</label>
-        <select name="quelle">
-          <option value="">Bitte wählen (optional)</option>
-          <option>Instagram</option>
-          <option>TikTok</option>
-          <option>Freunde &amp; Familie</option>
-          <option>Presse</option>
-          <option>Zufällig vorbeigekommen</option>
-          <option>Sonstiges</option>
-        </select>
-      </div>
-      <div class="form-field"><label>Anmerkungen (Allergien, Wünsche)</label><textarea name="anmerkungen" rows="3"></textarea></div>
-      <button type="submit" class="btn modal-submit">Eintragen</button>
-    </form>
-    <div id="gl-result"></div>
-    </div>
-  </div>
-</div>
-<script>
-/* Zieladresse für die Gästeliste.
-   Leer lassen = Eintragung geht per E-Mail raus.
-   Sobald ein Formulardienst eingerichtet ist (Formspree, Tally, Basin),
-   hier einfach die Endpunkt-URL eintragen, z.B.:
-   const GUESTLIST_ENDPOINT = 'https://formspree.io/f/abcdwxyz'; */
-const GUESTLIST_ENDPOINT = '';
-const GUESTLIST_MAIL = 'Reservierung@vienero.at';
 
-function glCollect(f){
-  const v = n => ((f[n] && f[n].value) || '').trim();
-  return {
-    vorname: v('vorname'),
-    nachname: v('nachname'),
-    email: v('email'),
-    personen: v('personen'),
-    telefon: v('telefon') || 'keine Angabe',
-    instagram: v('instagram') || 'keine Angabe',
-    termin: v('termin') || 'keine Angabe',
-    quelle: v('quelle') || 'keine Angabe',
-    anmerkungen: v('anmerkungen') || 'keine Angabe'
-  };
-}
-
-function glText(d){
-  return [
-    'Neue Eintragung Gästeliste VIENERO',
-    '',
-    'Vorname: ' + d.vorname,
-    'Nachname: ' + d.nachname,
-    'E-Mail: ' + d.email,
-    'Personenanzahl: ' + d.personen,
-    'Telefonnummer: ' + d.telefon,
-    'Instagram: ' + d.instagram,
-    'Wunschtermin/Zeitraum: ' + d.termin,
-    'Aufmerksam geworden durch: ' + d.quelle,
-    'Anmerkungen: ' + d.anmerkungen
-  ].join('\n');
-}
-
-function glDone(){
-  const box = document.getElementById('guestlist-inner');
-  box.innerHTML = '<span class="eyebrow">Gästeliste</span>'
-    + '<h2>Wir haben dich notiert.</h2>'
-    + '<p class="modal-intro">Sobald der Eröffnungstermin steht, bekommst du eine Nachricht von uns. Bis dahin gibt es die besten Vorgeschmacksbilder auf Instagram.</p>'
-    + '<div class="gl-actions"><a class="gl-mini" href="https://www.instagram.com/vienero.vienna" target="_blank" rel="noopener">Instagram folgen</a>'
-    + '<button class="gl-mini" type="button" onclick="glClose()">Schließen</button></div>';
-}
-
-function glClose(){
-  document.getElementById('guestlist-modal').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-function glManual(text, mailtoUrl, note){
-  const wrap = document.getElementById('gl-result');
-  wrap.innerHTML = '<div class="gl-msg"><h3>Fast geschafft.</h3>'
-    + '<p>' + note + '</p>'
-    + '<textarea class="gl-text" rows="9" readonly id="gl-copy-src"></textarea>'
-    + '<div class="gl-actions">'
-    + '<a class="gl-mini gl-primary" href="' + mailtoUrl + '">Mailprogramm öffnen</a>'
-    + '<button class="gl-mini" type="button" onclick="glCopy(this)">Text kopieren</button>'
-    + '</div></div>';
-  document.getElementById('gl-copy-src').value = text;
-  wrap.scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-
-function glCopy(btn){
-  const el = document.getElementById('gl-copy-src');
-  el.select();
-  el.setSelectionRange(0, 99999);
-  const done = () => { btn.textContent = 'Kopiert'; setTimeout(()=>{btn.textContent='Text kopieren';}, 2200); };
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(el.value).then(done).catch(()=>{ try{document.execCommand('copy'); done();}catch(e){} });
-  } else {
-    try { document.execCommand('copy'); done(); } catch(e) {}
-  }
-}
-
-function submitGuestlist(e){
-  e.preventDefault();
-  const f = e.target;
-  const btn = f.querySelector('.modal-submit');
-  const d = glCollect(f);
-  const text = glText(d);
-  const subject = encodeURIComponent('Gästeliste VIENERO, ' + d.vorname + ' ' + d.nachname);
-  const mailtoUrl = 'mailto:' + GUESTLIST_MAIL + '?subject=' + subject + '&body=' + encodeURIComponent(text);
-
-  if (GUESTLIST_ENDPOINT) {
-    btn.disabled = true;
-    btn.textContent = 'Wird gesendet';
-    fetch(GUESTLIST_ENDPOINT, {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json', 'Accept': 'application/json'},
-      body: JSON.stringify(d)
-    }).then(function(r){
-      if (r.ok) { glDone(); return; }
-      throw new Error('fehlgeschlagen');
-    }).catch(function(){
-      btn.disabled = false;
-      btn.textContent = 'Eintragen';
-      glManual(text, mailtoUrl, 'Die Übertragung hat gerade nicht geklappt. Kopier deine Angaben und schick sie uns an ' + GUESTLIST_MAIL + ', dann sind wir sofort informiert.');
-    });
-    return false;
-  }
-
-  /* Ohne Formulardienst: keine automatische Weiterleitung, sondern zwei sichere Wege anbieten. */
-  glManual(text, mailtoUrl, 'Nur noch ein Schritt. Schick uns deine Angaben per E-Mail an ' + GUESTLIST_MAIL + '. Entweder du öffnest dein Mailprogramm mit fertig ausgefüllter Nachricht oder du kopierst den Text und schickst ihn selbst.');
-  return false;
-}
-</script>
 </body>
 </html>
