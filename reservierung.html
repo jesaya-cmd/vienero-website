@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tisch reservieren: VIENERO</title>
+<meta name="description" content="Tisch reservieren im VIENERO, Dr.-Karl-Lueger-Platz 3, 1010 Wien. Datum und Uhrzeit wählen, wir bestätigen persönlich.">
+<meta name="robots" content="index, follow">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@400;500;600&display=swap');
+  :root{
+    --ivory:#F8F5EE; --sage:#AEB2A0; --gold:#C8A76A; --anthrazit:#2F3133;
+    --line:#E4DFD4; --muted:#6b6d64;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--ivory);color:var(--anthrazit);line-height:1.6;}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--line);}
+  nav .mark{font-family:'Fraunces',serif;font-weight:500;font-size:18px;letter-spacing:4px;text-decoration:none;color:var(--anthrazit);}
+  nav .back{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;text-decoration:none;color:var(--muted);}
+  nav .back:hover{color:var(--gold);}
+
+  .wrap{max-width:660px;margin:0 auto;padding:44px 24px 80px;}
+  .eyebrow{display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(30px,6vw,44px);line-height:1.15;margin-bottom:10px;}
+  .lead{font-size:15px;color:var(--muted);margin-bottom:8px;}
+  .place{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-bottom:34px;}
+
+  .step{margin-bottom:34px;}
+  .step-label{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;}
+  .step-label .n{font-family:'Fraunces',serif;font-size:13px;color:var(--gold);letter-spacing:1px;}
+  .step-label .t{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+
+  /* Kalender */
+  .cal{border:1px solid var(--line);border-radius:14px;background:#fff;padding:18px 16px 20px;}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+  .cal-month{font-family:'Fraunces',serif;font-weight:500;font-size:19px;}
+  .cal-nav{display:flex;gap:6px;}
+  .cal-nav button{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--anthrazit);cursor:pointer;font-size:15px;line-height:1;}
+  .cal-nav button:hover:not(:disabled){border-color:var(--gold);color:var(--gold);}
+  .cal-nav button:disabled{opacity:0.3;cursor:default;}
+  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
+  .cal-dow{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:8px;}
+  .day{aspect-ratio:1/1;border:none;background:transparent;border-radius:50%;font-family:'Fraunces',serif;font-size:15px;color:var(--anthrazit);cursor:pointer;display:flex;align-items:center;justify-content:center;}
+  .day:hover:not(:disabled){background:rgba(200,167,106,0.18);}
+  .day:disabled{color:#c9c6bd;cursor:default;}
+  .day.sel{background:var(--gold);color:var(--ivory);}
+  .day.empty{visibility:hidden;}
+  .cal-note{font-size:11.5px;color:var(--muted);margin-top:12px;}
+
+  .slotgroup{margin-bottom:16px;}
+  .slotlabel{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+  /* Chips */
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chip{padding:10px 18px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:13px;color:var(--anthrazit);cursor:pointer;font-family:'Inter',sans-serif;}
+  .chip:hover{border-color:var(--gold);}
+  .chip.sel{background:var(--gold);border-color:var(--gold);color:var(--ivory);}
+  .chip.knapp{display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2;padding:8px 16px;}
+  .chip .mark{font-size:9px;letter-spacing:0.6px;text-transform:uppercase;color:var(--muted);}
+  .chip.knapp.sel .mark{color:rgba(248,245,238,0.8);}
+
+  /* Felder */
+  .row{display:flex;gap:12px;}
+  .row .field{flex:1;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:11px;letter-spacing:0.5px;color:var(--muted);margin-bottom:5px;}
+  .field input,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#fff;font-family:'Inter',sans-serif;font-size:14px;color:var(--anthrazit);}
+  .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);}
+  .field textarea{resize:vertical;min-height:80px;}
+
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
+  .check{display:flex;gap:10px;align-items:flex-start;margin:6px 0 18px;font-size:12.5px;color:var(--muted);line-height:1.55;cursor:pointer;}
+  .check input{margin-top:2px;width:16px;height:16px;accent-color:var(--gold);flex-shrink:0;}
+  .submit{width:100%;padding:16px;border:none;border-radius:999px;background:var(--gold);color:var(--ivory);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;}
+  .submit:hover{background:#b8975c;}
+  .submit:disabled{opacity:0.55;cursor:default;}
+
+  .summary{border:1px solid var(--gold);border-radius:12px;padding:14px 16px;margin-bottom:20px;font-size:13.5px;background:rgba(200,167,106,0.08);}
+  .summary strong{font-family:'Fraunces',serif;font-weight:500;}
+
+  .msg{border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:#fff;margin-top:20px;}
+  .msg h2{font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin-bottom:8px;}
+  .msg p{font-size:13.5px;color:var(--muted);margin-bottom:12px;}
+  .msg textarea{width:100%;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:rgba(0,0,0,0.03);color:var(--anthrazit);}
+  .mini-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
+  .mini{padding:10px 20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;border-radius:999px;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;text-decoration:none;display:inline-block;font-family:'Inter',sans-serif;}
+  .mini:hover{background:var(--gold);color:var(--ivory);}
+  .mini.filled{background:var(--gold);color:var(--ivory);}
+
+  .err{font-size:12.5px;color:#a0392f;margin-top:10px;}
+  .hidden{display:none;}
+  footer{text-align:center;font-size:11px;color:#9b9382;padding:26px 24px 40px;border-top:1px solid var(--line);}
+  a{color:var(--gold);}
+  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
+  @media (prefers-reduced-motion:no-preference){ .step{transition:opacity .25s ease;} }
+  @media (max-width:520px){ .row{flex-direction:column;gap:0;} }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="mark" href="index.html">VIENERO</a>
+  <a class="back" href="index.html">Zurück</a>
+</nav>
+
+<div class="wrap">
+  <span class="eyebrow">Reservierung</span>
+  <h1>Tisch reservieren.</h1>
+  <p class="lead">Wähl Datum und Uhrzeit, wir melden uns persönlich zurück und bestätigen deinen Tisch.</p>
+  <p class="place">Dr.-Karl-Lueger-Platz 3 · 1010 Wien</p>
+
+  <form id="resform" novalidate>
+
+    <div class="step">
+      <div class="step-label"><span class="n">01</span><span class="t">Datum</span></div>
+      <div class="cal">
+        <div class="cal-head">
+          <div class="cal-month" id="cal-month">Monat</div>
+          <div class="cal-nav">
+            <button type="button" id="prev" aria-label="Voriger Monat">‹</button>
+            <button type="button" id="next" aria-label="Nächster Monat">›</button>
+          </div>
+        </div>
+        <div class="cal-grid" id="cal-dows"></div>
+        <div class="cal-grid" id="cal-days"></div>
+        <p class="cal-note" id="cal-note"></p>
+      </div>
+    </div>
+
+    <div class="step hidden" id="step-time">
+      <div class="step-label"><span class="n">02</span><span class="t">Uhrzeit</span></div>
+      <div id="times"></div>
+    </div>
+
+    <div class="step hidden" id="step-people">
+      <div class="step-label"><span class="n">03</span><span class="t">Personen</span></div>
+      <div class="chips" id="people"></div>
+    </div>
+
+    <div class="step hidden" id="step-contact">
+      <div class="step-label"><span class="n">04</span><span class="t">Kontakt</span></div>
+      <div class="summary" id="summary"></div>
+      <div class="row">
+        <div class="field"><label for="vorname">Vorname*</label><input id="vorname" name="vorname" required></div>
+        <div class="field"><label for="nachname">Nachname*</label><input id="nachname" name="nachname" required></div>
+      </div>
+      <div class="field"><label for="email">E-Mail*</label><input id="email" name="email" type="email" required></div>
+      <div class="field"><label for="telefon">Telefonnummer*</label><input id="telefon" name="telefon" type="tel" required></div>
+      <div class="field"><label for="anmerkungen">Anmerkungen (Allergien, Anlass, Wünsche)</label><textarea id="anmerkungen" name="anmerkungen"></textarea></div>
+
+      <div class="hp" aria-hidden="true">
+        <label for="webseite">Webseite</label>
+        <input id="webseite" name="webseite" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <label class="check">
+        <input type="checkbox" id="dsgvo">
+        <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Reservierung gespeichert und verwendet werden. Mehr dazu in der <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a>.</span>
+      </label>
+
+      <button type="submit" class="submit" id="send">Reservierung anfragen</button>
+      <p class="err hidden" id="err"></p>
+    </div>
+
+  </form>
+
+  <div id="result"></div>
+</div>
+
+<footer>© 2026 VIENERO · Dr.-Karl-Lueger-Platz 3, 1010 Wien · <a href="mailto:Reservierung@vienero.at">Reservierung@vienero.at</a><br><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></footer>
+
+<script>
+/* ============================================================
+   EINSTELLUNGEN
+   Hier stehen alle Werte, die sich ändern können.
+   ============================================================ */
+
+/* Adresse, an die die Reservierung geschickt wird.
+   Leer lassen = der Gast bekommt den Text zum Kopieren und schickt ihn per Mail.
+   Sobald das Google-Skript eingerichtet ist, hier die Web-App-Adresse eintragen. */
+const RESERVIERUNG_ENDPOINT = '';
+
+const RESERVIERUNG_MAIL = 'Reservierung@vienero.at';
+
+/* Ab wann kann reserviert werden. Format: Jahr, Monat (1 = Jänner), Tag */
+const START_DATUM = new Date(2026, 8, 6);
+
+/* Wie weit im Voraus. Zahl in Tagen ab heute. */
+const VORLAUF_TAGE = 120;
+
+/* Ruhetage. 0 = Sonntag, 1 = Montag ... 6 = Samstag. Leer lassen = täglich offen. */
+const RUHETAGE = [];
+
+/* Feste Tischzeiten. Ein Tisch wird pro Abend mehrfach vergeben,
+   deshalb gibt es Startzeiten statt freier Auswahl.
+   knapp: true    = nur wenige Tische, wird im Formular gekennzeichnet
+   hinweis: '...' = erscheint, sobald der Gast diese Zeit wählt */
+const ZEITEN = [
+  { zeit: '11:30', gruppe: 'Mittag' },
+  { zeit: '12:00', gruppe: 'Mittag' },
+  { zeit: '12:30', gruppe: 'Mittag' },
+  { zeit: '13:00', gruppe: 'Mittag' },
+  { zeit: '13:30', gruppe: 'Mittag' },
+  { zeit: '14:00', gruppe: 'Mittag' },
+
+  { zeit: '17:30', gruppe: 'Abend' },
+  { zeit: '18:00', gruppe: 'Abend' },
+  { zeit: '18:30', gruppe: 'Abend' },
+  { zeit: '19:00', gruppe: 'Abend', knapp: true },
+  { zeit: '19:30', gruppe: 'Abend', knapp: true },
+  { zeit: '20:00', gruppe: 'Abend' },
+  { zeit: '20:30', gruppe: 'Abend' },
+  { zeit: '21:00', gruppe: 'Abend', hinweis: 'Unsere Küche schließt um 22:00 Uhr.' }
+];
+
+/* Ab welcher Personenzahl der Hinweis auf eine persönliche Absprache kommt. */
+const GROSSE_GRUPPE_AB = 9;
+
+/* ============================================================ */
+
+const MONATE = ['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const DOWS = ['Mo','Di','Mi','Do','Fr','Sa','So'];
+
+const heute = new Date(); heute.setHours(0,0,0,0);
+const minDatum = START_DATUM > heute ? new Date(START_DATUM) : new Date(heute);
+const maxDatum = new Date(heute.getTime() + VORLAUF_TAGE * 86400000);
+
+let sichtMonat = new Date(minDatum.getFullYear(), minDatum.getMonth(), 1);
+let gewaehlt = { datum: null, zeit: null, personen: null };
+
+function iso(d){
+  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+}
+function lang(d){
+  const wd = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'][d.getDay()];
+  return wd + ', ' + d.getDate() + '. ' + MONATE[d.getMonth()] + ' ' + d.getFullYear();
+}
+function auswaehlbar(d){
+  if (d < minDatum || d > maxDatum) return false;
+  if (RUHETAGE.indexOf(d.getDay()) !== -1) return false;
+  return true;
+}
+
+/* Wochentagsköpfe einmalig */
+document.getElementById('cal-dows').innerHTML =
+  DOWS.map(function(x){ return '<div class="cal-dow">' + x + '</div>'; }).join('');
+
+function zeichneKalender(){
+  document.getElementById('cal-month').textContent =
+    MONATE[sichtMonat.getMonth()] + ' ' + sichtMonat.getFullYear();
+
+  const ersterTag = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth(), 1);
+  const versatz = (ersterTag.getDay() + 6) % 7; /* Woche beginnt am Montag */
+  const tageImMonat = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth()+1, 0).getDate();
+
+  let html = '';
+  for (let i = 0; i < versatz; i++) html += '<span class="day empty"></span>';
+  for (let t = 1; t <= tageImMonat; t++) {
+    const d = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth(), t);
+    const ok = auswaehlbar(d);
+    const sel = gewaehlt.datum && iso(gewaehlt.datum) === iso(d);
+    html += '<button type="button" class="day' + (sel ? ' sel' : '') + '"'
+          + (ok ? '' : ' disabled')
+          + ' data-d="' + iso(d) + '" aria-label="' + lang(d) + '">' + t + '</button>';
+  }
+  document.getElementById('cal-days').innerHTML = html;
+
+  const grenzeMin = new Date(minDatum.getFullYear(), minDatum.getMonth(), 1);
+  const grenzeMax = new Date(maxDatum.getFullYear(), maxDatum.getMonth(), 1);
+  document.getElementById('prev').disabled = sichtMonat <= grenzeMin;
+  document.getElementById('next').disabled = sichtMonat >= grenzeMax;
+
+  document.getElementById('cal-note').textContent =
+    'Reservierungen sind ab ' + lang(minDatum) + ' möglich.';
+
+  Array.prototype.forEach.call(document.querySelectorAll('.day[data-d]:not([disabled])'), function(b){
+    b.addEventListener('click', function(){
+      const p = b.dataset.d.split('-');
+      gewaehlt.datum = new Date(+p[0], +p[1]-1, +p[2]);
+      gewaehlt.zeit = null;
+      zeichneKalender();
+      zeichneZeiten();
+      document.getElementById('step-time').classList.remove('hidden');
+      document.getElementById('step-people').classList.add('hidden');
+      document.getElementById('step-contact').classList.add('hidden');
+      document.getElementById('step-time').scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  });
+}
+
+function zeichneZeiten(){
+  var gruppen = [];
+  ZEITEN.forEach(function(s){ if (gruppen.indexOf(s.gruppe) === -1) gruppen.push(s.gruppe); });
+
+  var html = '';
+  gruppen.forEach(function(g){
+    var slots = ZEITEN.filter(function(s){ return s.gruppe === g; });
+    html += '<div class="slotgroup"><span class="slotlabel">' + g + '</span><div class="chips">';
+    slots.forEach(function(s){
+      html += '<button type="button" class="chip' + (gewaehlt.zeit === s.zeit ? ' sel' : '')
+            + (s.knapp ? ' knapp' : '') + '" data-z="' + s.zeit + '">' + s.zeit
+            + (s.knapp ? '<span class="mark">wenige Tische</span>' : '') + '</button>';
+    });
+    html += '</div></div>';
+  });
+  html += '<p class="cal-note">Das sind unsere Tischzeiten. Passt keine davon, schreib es gern in die Anmerkungen, wir finden meistens eine Lösung.</p>';
+  document.getElementById('times').innerHTML = html;
+  Array.prototype.forEach.call(document.querySelectorAll('.chip[data-z]'), function(b){
+    b.addEventListener('click', function(){
+      gewaehlt.zeit = b.dataset.z;
+      gewaehlt.personen = null;
+      zeichneZeiten();
+      zeichnePersonen();
+      document.getElementById('step-people').classList.remove('hidden');
+      document.getElementById('step-contact').classList.add('hidden');
+      document.getElementById('step-people').scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  });
+}
+
+function zeichnePersonen(){
+  let html = '';
+  for (let n = 1; n <= 8; n++) {
+    html += '<button type="button" class="chip' + (gewaehlt.personen === String(n) ? ' sel' : '') + '" data-p="' + n + '">' + n + '</button>';
+  }
+  html += '<button type="button" class="chip' + (gewaehlt.personen === 'gruppe' ? ' sel' : '') + '" data-p="gruppe">' + GROSSE_GRUPPE_AB + ' oder mehr</button>';
+  document.getElementById('people').innerHTML = html;
+
+  Array.prototype.forEach.call(document.querySelectorAll('.chip[data-p]'), function(b){
+    b.addEventListener('click', function(){
+      gewaehlt.personen = b.dataset.p;
+      zeichnePersonen();
+      zeigeZusammenfassung();
+      document.getElementById('step-contact').classList.remove('hidden');
+      document.getElementById('step-contact').scrollIntoView({behavior:'smooth', block:'nearest'});
+    });
+  });
+}
+
+function personenText(){
+  if (gewaehlt.personen === 'gruppe') return GROSSE_GRUPPE_AB + ' oder mehr Personen';
+  return gewaehlt.personen + (gewaehlt.personen === '1' ? ' Person' : ' Personen');
+}
+
+function slotInfo(zeit){
+  for (let i = 0; i < ZEITEN.length; i++) { if (ZEITEN[i].zeit === zeit) return ZEITEN[i]; }
+  return {};
+}
+
+function zeigeZusammenfassung(){
+  const s = slotInfo(gewaehlt.zeit);
+  let t = '<strong>' + lang(gewaehlt.datum) + '</strong>, ' + gewaehlt.zeit + ' Uhr, ' + personenText();
+  if (s.hinweis) t += '<br>' + s.hinweis;
+  if (s.knapp) t += '<br>Zu dieser Uhrzeit haben wir nur wenige Tische, wir melden uns schnell zurück.';
+  if (gewaehlt.personen === 'gruppe') {
+    t += '<br>Für größere Gruppen sprechen wir den Ablauf gerne persönlich mit dir ab.';
+  }
+  document.getElementById('summary').innerHTML = t;
+}
+
+function sammeln(){
+  const v = function(id){ return document.getElementById(id).value.trim(); };
+  return {
+    datum: lang(gewaehlt.datum),
+    datum_iso: iso(gewaehlt.datum),
+    uhrzeit: gewaehlt.zeit,
+    personen: personenText(),
+    vorname: v('vorname'),
+    nachname: v('nachname'),
+    email: v('email'),
+    telefon: v('telefon'),
+    anmerkungen: v('anmerkungen') || 'keine Angabe',
+    webseite: v('webseite')
+  };
+}
+
+function alsText(d){
+  return ['Reservierungsanfrage VIENERO','',
+    'Datum: ' + d.datum,
+    'Uhrzeit: ' + d.uhrzeit + ' Uhr',
+    'Personen: ' + d.personen,
+    'Vorname: ' + d.vorname,
+    'Nachname: ' + d.nachname,
+    'E-Mail: ' + d.email,
+    'Telefonnummer: ' + d.telefon,
+    'Anmerkungen: ' + d.anmerkungen].join('\n');
+}
+
+function fertig(d){
+  document.getElementById('resform').classList.add('hidden');
+  document.getElementById('result').innerHTML =
+    '<div class="msg"><h2>Anfrage ist angekommen.</h2>'
+    + '<p>Wir haben deine Anfrage für ' + d.datum + ' um ' + d.uhrzeit + ' Uhr notiert. '
+    + 'Eine Eingangsbestätigung ist an ' + d.email + ' unterwegs. Sobald wir den Tisch bestätigt haben, bekommst du eine zweite Nachricht.</p>'
+    + '<div class="mini-row"><a class="mini filled" href="index.html">Zur Startseite</a>'
+    + '<a class="mini" href="https://www.instagram.com/vienero.vienna" target="_blank" rel="noopener">Instagram folgen</a></div></div>';
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+function manuell(text, mailto, hinweis){
+  document.getElementById('result').innerHTML =
+    '<div class="msg"><h2>Fast geschafft.</h2><p>' + hinweis + '</p>'
+    + '<textarea rows="11" readonly id="copysrc"></textarea>'
+    + '<div class="mini-row"><a class="mini filled" href="' + mailto + '">Mailprogramm öffnen</a>'
+    + '<button class="mini" type="button" id="copybtn">Text kopieren</button></div></div>';
+  document.getElementById('copysrc').value = text;
+  document.getElementById('copybtn').addEventListener('click', function(){
+    const el = document.getElementById('copysrc');
+    const btn = this;
+    el.select(); el.setSelectionRange(0, 99999);
+    const ok = function(){ btn.textContent = 'Kopiert'; setTimeout(function(){ btn.textContent = 'Text kopieren'; }, 2200); };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(el.value).then(ok).catch(function(){ try{ document.execCommand('copy'); ok(); }catch(e){} });
+    } else { try{ document.execCommand('copy'); ok(); }catch(e){} }
+  });
+  document.getElementById('result').scrollIntoView({behavior:'smooth', block:'nearest'});
+}
+
+document.getElementById('prev').addEventListener('click', function(){
+  sichtMonat = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth()-1, 1); zeichneKalender();
+});
+document.getElementById('next').addEventListener('click', function(){
+  sichtMonat = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth()+1, 1); zeichneKalender();
+});
+
+document.getElementById('resform').addEventListener('submit', function(e){
+  e.preventDefault();
+  const err = document.getElementById('err');
+  err.classList.add('hidden');
+
+  const d = sammeln();
+  if (!d.vorname || !d.nachname || !d.email || !d.telefon) {
+    err.textContent = 'Bitte füll Vorname, Nachname, E-Mail und Telefonnummer aus.';
+    err.classList.remove('hidden');
+    return;
+  }
+  if (d.email.indexOf('@') < 1) {
+    err.textContent = 'Diese E-Mail-Adresse sieht nicht vollständig aus.';
+    err.classList.remove('hidden');
+    return;
+  }
+  if (!document.getElementById('dsgvo').checked) {
+    err.textContent = 'Bitte bestätige noch die Datenschutzerklärung, dann können wir deine Anfrage bearbeiten.';
+    err.classList.remove('hidden');
+    return;
+  }
+
+  const text = alsText(d);
+  const betreff = encodeURIComponent('Reservierung ' + d.datum_iso + ' ' + d.uhrzeit + ', ' + d.vorname + ' ' + d.nachname);
+  const mailto = 'mailto:' + RESERVIERUNG_MAIL + '?subject=' + betreff + '&body=' + encodeURIComponent(text);
+  const btn = document.getElementById('send');
+
+  if (RESERVIERUNG_ENDPOINT) {
+    btn.disabled = true;
+    btn.textContent = 'Wird gesendet';
+    fetch(RESERVIERUNG_ENDPOINT, {
+      method: 'POST',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(d)
+    }).then(function(r){
+      if (r.ok) { fertig(d); return; }
+      throw new Error('fehlgeschlagen');
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Reservierung anfragen';
+      manuell(text, mailto, 'Die Übertragung hat gerade nicht geklappt. Kopier deine Anfrage und schick sie an ' + RESERVIERUNG_MAIL + ', dann kümmern wir uns sofort darum.');
+    });
+    return;
+  }
+
+  manuell(text, mailto, 'Schick uns deine Anfrage an ' + RESERVIERUNG_MAIL + '. Entweder du öffnest dein Mailprogramm mit fertig ausgefüllter Nachricht oder du kopierst den Text und schickst ihn selbst.');
+});
+
+zeichneKalender();
+</script>
+</body>
+</html>
