@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VIENERO</title>
+<meta name="robots" content="noindex, nofollow">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@400;500&display=swap');
+  :root{ --ivory:#F8F5EE; --gold:#C8A76A; --anthrazit:#2F3133; --line:#E4DFD4; --muted:#6b6d64; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:'Inter',sans-serif;background:var(--ivory);color:var(--anthrazit);
+       display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+  .karte{max-width:520px;width:100%;background:#fff;border:1px solid var(--line);
+         border-radius:16px;padding:34px 32px;text-align:center;}
+  h1{font-family:'Fraunces',serif;font-weight:300;font-size:26px;margin-bottom:12px;}
+  p{font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:10px;}
+  .lade{font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);}
+  iframe{width:100%;border:none;min-height:320px;}
+</style>
+</head>
+<body>
+
+<div class="karte" id="karte">
+  <p class="lade">Einen Moment</p>
+  <h1>Wird verarbeitet.</h1>
+  <p>Wir geben deine Entscheidung gerade an das System weiter.</p>
+</div>
+
+<script>
+/* Adresse der Web-App. Dieselbe wie in reservierung.html. */
+const ENDPOINT = 'https://script.google.com/macros/s/AKfycbxaRz9yjrmdygYJfrvTs-x7xuepRA8dot9LQRT5b6APGZVPpslw0rtfT7Z0pG43Tg4yoA/exec';
+
+function param(name){
+  const treffer = new RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+  return treffer ? decodeURIComponent(treffer[1]) : '';
+}
+
+function zeige(titel, text){
+  document.getElementById('karte').innerHTML =
+    '<h1>' + titel + '</h1><p>' + text + '</p>';
+}
+
+const daten = {
+  typ: 'aktion',
+  k: param('k'),
+  a: param('a'),
+  f: param('f'),
+  z: param('z')
+};
+
+if (!daten.k || !daten.a) {
+  zeige('Unvollständiger Link', 'Diesem Link fehlen Angaben. Öffne bitte den Knopf aus der Mail noch einmal.');
+} else {
+  fetch(ENDPOINT, {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify(daten)
+  }).then(function(r){ return r.json(); }).then(function(a){
+    if (a && a.ok && a.html) {
+      /* Die Antwort des Skripts ist eine fertige Seite. Wir zeigen sie an. */
+      const rahmen = document.createElement('iframe');
+      rahmen.setAttribute('title', 'Ergebnis');
+      document.getElementById('karte').innerHTML = '';
+      document.getElementById('karte').appendChild(rahmen);
+      rahmen.srcdoc = a.html;
+      rahmen.onload = function(){
+        try {
+          rahmen.style.height = rahmen.contentWindow.document.body.scrollHeight + 'px';
+        } catch (e) {}
+      };
+      return;
+    }
+    throw new Error('keine Antwort');
+  }).catch(function(){
+    zeige('Das hat nicht geklappt',
+      'Die Verbindung zum System ist gerade nicht zustande gekommen. ' +
+      'Versuch es in einem Moment noch einmal oder öffne den Knopf aus der Mail erneut.');
+  });
+}
+</script>
+</body>
+</html>
