@@ -213,6 +213,10 @@ const ZEITEN = [
   { zeit: '21:00', gruppe: 'Abend', hinweis: 'Unsere Küche schließt um 22:00 Uhr.' }
 ];
 
+/* Tage, an denen es kein Mittagsgeschäft gibt, sondern nur Abend.
+   Format Jahr-Monat-Tag. Weitere Tage einfach mit Komma ergänzen. */
+const NUR_ABEND = ['2026-09-07'];
+
 /* Ab welcher Personenzahl der Hinweis auf eine persönliche Absprache kommt. */
 const GROSSE_GRUPPE_AB = 9;
 
@@ -289,12 +293,15 @@ function zeichneKalender(){
 }
 
 function zeichneZeiten(){
+  var nurAbend = NUR_ABEND.indexOf(iso(gewaehlt.datum)) !== -1;
+  var auswahl = ZEITEN.filter(function(s){ return !nurAbend || s.gruppe !== 'Mittag'; });
+
   var gruppen = [];
-  ZEITEN.forEach(function(s){ if (gruppen.indexOf(s.gruppe) === -1) gruppen.push(s.gruppe); });
+  auswahl.forEach(function(s){ if (gruppen.indexOf(s.gruppe) === -1) gruppen.push(s.gruppe); });
 
   var html = '';
   gruppen.forEach(function(g){
-    var slots = ZEITEN.filter(function(s){ return s.gruppe === g; });
+    var slots = auswahl.filter(function(s){ return s.gruppe === g; });
     html += '<div class="slotgroup"><span class="slotlabel">' + g + '</span><div class="chips">';
     slots.forEach(function(s){
       html += '<button type="button" class="chip' + (gewaehlt.zeit === s.zeit ? ' sel' : '')
@@ -303,6 +310,9 @@ function zeichneZeiten(){
     });
     html += '</div></div>';
   });
+  if (nurAbend) {
+    html += '<p class="cal-note">An diesem Tag haben wir nur am Abend geöffnet.</p>';
+  }
   html += '<p class="cal-note">Das sind unsere Tischzeiten. Passt keine davon, schreib es gern in die Anmerkungen, wir finden meistens eine Lösung.</p>';
   document.getElementById('times').innerHTML = html;
   Array.prototype.forEach.call(document.querySelectorAll('.chip[data-z]'), function(b){
