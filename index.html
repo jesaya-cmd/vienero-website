@@ -51,6 +51,47 @@
   .social a:hover{color:var(--gold);}
   @media (max-width:600px){ .content{padding:4vh 6vw;} .stage img{object-fit:contain;object-position:center 12vh;background:#1B140E;} .stage{background:#1B140E;} }
 
+
+  .karte{background:var(--anthrazit);padding:74px 6vw 20px;text-align:center;}
+  .karte-head{max-width:620px;margin:0 auto 30px;}
+  .karte-eyebrow{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);}
+  .karte-title{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(28px,5vw,42px);
+    line-height:1.1;color:var(--ivory);margin:14px 0 16px;}
+  .karte-text{font-size:13.5px;line-height:1.85;color:rgba(248,245,238,0.62);}
+  .karte-cover{display:inline-block;padding:0;border:0;background:none;cursor:pointer;
+    border-radius:8px;overflow:hidden;line-height:0;width:min(300px,72vw);
+    box-shadow:0 22px 50px rgba(0,0,0,0.45);}
+  .karte-cover img{width:100%;height:auto;display:block;transition:transform .5s ease;}
+  .karte-cover:hover img{transform:scale(1.06);}
+  .karte-cover:focus-visible{outline:1px solid var(--gold);outline-offset:6px;}
+  .karte-actions{margin-top:30px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+  .karte-btn{font-family:inherit;background:transparent;cursor:pointer;}
+  .karte-note{margin-top:22px;font-size:10.5px;line-height:1.9;letter-spacing:1px;
+    text-transform:uppercase;color:rgba(248,245,238,0.42);max-width:560px;margin-left:auto;margin-right:auto;}
+
+  .karte-box{position:fixed;inset:0;z-index:9999;background:rgba(14,12,10,0.95);display:none;
+    align-items:center;justify-content:center;padding:16px;}
+  .karte-box[data-open="1"]{display:flex;}
+  .karte-stage{max-width:min(900px,100%);display:flex;flex-direction:column;gap:12px;align-items:center;}
+  .karte-stage img{max-width:100%;max-height:calc(100vh - 108px);width:auto;display:block;
+    border-radius:6px;box-shadow:0 24px 60px rgba(0,0,0,0.6);background:#F8F5EE;}
+  .karte-cap{font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:rgba(248,245,238,0.55);text-align:center;}
+  .karte-nav,.karte-x{position:absolute;border:1px solid rgba(248,245,238,0.28);background:rgba(20,16,14,0.5);
+    color:var(--ivory);border-radius:999px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:background .3s ease,color .3s ease,border-color .3s ease;font-family:inherit;}
+  .karte-nav{top:50%;transform:translateY(-50%);width:50px;height:50px;font-size:22px;}
+  .karte-x{top:16px;right:16px;width:42px;height:42px;font-size:16px;}
+  .karte-nav:hover,.karte-x:hover{background:var(--gold);color:var(--anthrazit);border-color:var(--gold);}
+  .karte-prev{left:16px;} .karte-next{right:16px;}
+  @media (max-width:700px){ .karte{padding:54px 6vw 16px;}
+    .karte-nav{width:42px;height:42px;} .karte-prev{left:6px;} .karte-next{right:6px;} }
+  .karte-note a{color:var(--gold);text-decoration:none;border-bottom:1px solid rgba(200,167,106,0.45);}
+  .karte-lang{position:absolute;top:18px;left:16px;display:flex;gap:6px;z-index:2;}
+  .karte-lang button{font-family:inherit;font-size:9.5px;letter-spacing:2px;text-transform:uppercase;
+    padding:8px 14px;border-radius:999px;cursor:pointer;background:rgba(20,16,14,0.5);
+    border:1px solid rgba(248,245,238,0.28);color:rgba(248,245,238,0.7);transition:all .3s ease;}
+  .karte-lang button[aria-pressed="true"]{background:var(--gold);border-color:var(--gold);color:var(--anthrazit);}
+  @media (max-width:700px){ .karte-lang{top:14px;left:10px;} .karte-x{top:12px;right:10px;} }
 </style>
 </head>
 <body>
@@ -78,7 +119,81 @@
   </div>
 </div>
 
-<div class="teaser">
+  <!-- ===== VIENERO Speisekarte ===== -->
+  <div class="karte">
+    <div class="karte-head">
+      <span class="karte-eyebrow">Ein erster Blick</span>
+      <h2 class="karte-title">Die Karte</h2>
+      <p class="karte-text">Wiener Klassiker treffen das Mittelmeer. Weinbergschnecken in hausgemachter Kräuterbutter, Trüffelpasta mit frisch gehobeltem schwarzem Trüffel, Wolfsbarsch Levante im Ganzen gegrillt und das Wiener Soufflé, ein zartes Kalbsschnitzel in luftig soufflierter Panade.</p>
+    </div>
+    <button class="karte-cover" type="button" data-karte-open="1" aria-label="Speisekarte durchblättern">
+      <img src="VIENERO-Speisekarte-Cover.jpg" width="900" height="1273" loading="lazy" decoding="async" alt="Titelseite der VIENERO Speisekarte">
+    </button>
+    <div class="karte-actions">
+      <button class="btn karte-btn" type="button" data-karte-open="1">Karte durchblättern</button>
+      <a class="btn" href="VIENERO-Speisekarte.pdf" download="VIENERO-Speisekarte.pdf">Als PDF laden</a>
+    </div>
+    <p class="karte-note">Drei Seiten &middot; Gedeck 3,50 &euro; pro Person &middot; <a href="VIENERO-Menu-English.pdf" download="VIENERO-Menu-English.pdf">English menu</a><br>Angaben zu Zutaten, die Allergien oder Unverträglichkeiten auslösen können, erhalten Sie bei unserem Serviceteam.</p>
+  </div>
+
+  <div class="karte-box" id="karteBox" role="dialog" aria-modal="true" aria-label="Speisekarte" data-open="0">
+    <div class="karte-lang">
+      <button type="button" data-karte-lang="de" aria-pressed="true">Deutsch</button>
+      <button type="button" data-karte-lang="en" aria-pressed="false">English</button>
+    </div>
+    <button class="karte-x" type="button" data-karte-close aria-label="Schließen">&#10005;</button>
+    <button class="karte-nav karte-prev" type="button" data-karte-step="-1" aria-label="Vorherige Seite">&#8249;</button>
+    <button class="karte-nav karte-next" type="button" data-karte-step="1" aria-label="Nächste Seite">&#8250;</button>
+    <div class="karte-stage">
+      <img id="karteImg" src="" alt="">
+      <p class="karte-cap" id="karteCap"></p>
+    </div>
+  </div>
+
+  <script>
+  (function(){
+    var karten={
+      de:[{src:'VIENERO-Speisekarte-Cover.jpg',cap:'Titel'},
+          {src:'VIENERO-Speisekarte-1.jpg',cap:'Suppen & Vorspeisen'},
+          {src:'VIENERO-Speisekarte-2.jpg',cap:'Pasta & Aus dem Meer'},
+          {src:'VIENERO-Speisekarte-3.jpg',cap:'Vom Grill, Beilagen & Süßes'}],
+      en:[{src:'VIENERO-Speisekarte-Cover.jpg',cap:'Cover'},
+          {src:'VIENERO-Menu-1.jpg',cap:'Soups & Starters'},
+          {src:'VIENERO-Menu-2.jpg',cap:'Pasta & From the Sea'},
+          {src:'VIENERO-Menu-3.jpg',cap:'From the Grill, Sides & Sweets'}]
+    };
+    var box=document.getElementById('karteBox'),bild=document.getElementById('karteImg'),
+        cap=document.getElementById('karteCap'),spr='de',i=0;
+    function liste(){return karten[spr];}
+    function zeige(n){var l=liste();i=(n+l.length)%l.length;bild.src=l[i].src;
+      bild.alt='Speisekarte, '+l[i].cap;cap.textContent=l[i].cap+' · '+(i+1)+' / '+l.length;
+      var v=new Image();v.src=l[(i+1)%l.length].src;}
+    function auf(n){zeige(n);box.setAttribute('data-open','1');document.body.style.overflow='hidden';
+      box.querySelector('[data-karte-close]').focus();}
+    function zu(){box.setAttribute('data-open','0');document.body.style.overflow='';}
+    document.querySelectorAll('[data-karte-open]').forEach(function(el){
+      el.addEventListener('click',function(){auf(parseInt(el.getAttribute('data-karte-open'),10)||0);});});
+    box.querySelectorAll('[data-karte-step]').forEach(function(el){
+      el.addEventListener('click',function(e){e.stopPropagation();zeige(i+parseInt(el.getAttribute('data-karte-step'),10));});});
+    box.querySelectorAll('[data-karte-lang]').forEach(function(el){
+      el.addEventListener('click',function(e){e.stopPropagation();spr=el.getAttribute('data-karte-lang');
+        box.querySelectorAll('[data-karte-lang]').forEach(function(b){
+          b.setAttribute('aria-pressed', b===el ? 'true':'false');});
+        zeige(i);});});
+    box.querySelector('[data-karte-close]').addEventListener('click',zu);
+    box.addEventListener('click',function(e){if(e.target===box||e.target.classList.contains('karte-stage'))zu();});
+    document.addEventListener('keydown',function(e){
+      if(box.getAttribute('data-open')!=='1')return;
+      if(e.key==='Escape')zu(); if(e.key==='ArrowRight')zeige(i+1); if(e.key==='ArrowLeft')zeige(i-1);});
+    var x0=null;
+    box.addEventListener('touchstart',function(e){x0=e.changedTouches[0].clientX;},{passive:true});
+    box.addEventListener('touchend',function(e){if(x0===null)return;
+      var dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>50)zeige(i+(dx<0?1:-1)); x0=null;},{passive:true});
+  })();
+  </script>
+  <!-- ===== Ende Speisekarte ===== -->
+
+  <div class="teaser">
   <div class="teaser-head">
     <span class="teaser-eyebrow">Man wird darüber sprechen.</span>
   </div>
