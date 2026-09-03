@@ -94,14 +94,13 @@
   @media (max-width:700px){ .karte-lang{top:14px;left:10px;} .karte-x{top:12px;right:10px;} }
 
   html{scroll-behavior:smooth;}
-  .karte-hint{margin-top:18px;}
-  .karte-hint a{display:inline-flex;align-items:center;gap:9px;color:rgba(248,245,238,0.72);
-    font-size:10.5px;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:color .3s ease;}
-  .karte-hint a:hover{color:var(--gold);}
-  .karte-hint span{display:inline-block;font-size:13px;line-height:1;animation:karteWink 2.4s ease-in-out infinite;}
-  @keyframes karteWink{0%,100%{transform:translateY(0);opacity:.65} 50%{transform:translateY(5px);opacity:1}}
+  .cta-row{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;}
+  .karte-hint{display:inline-flex;align-items:center;gap:10px;background:var(--gold);border-color:var(--gold);color:var(--anthrazit);}
+  .karte-hint:hover{background:transparent;color:var(--gold);}
+  .karte-hint span{display:inline-block;font-size:15px;line-height:1;animation:karteWink 1.9s ease-in-out infinite;}
+  @keyframes karteWink{0%,100%{transform:translateY(-2px)} 50%{transform:translateY(3px)}}
   @media (prefers-reduced-motion:reduce){ .karte-hint span{animation:none;} }
-  @media (max-width:600px){ .karte-hint{margin-top:14px;} .karte-hint a{font-size:9.5px;letter-spacing:1.6px;} }
+  @media (max-width:600px){ .cta-row{gap:10px;} .karte-hint,.cta-row .btn{padding:13px 26px;} }
 </style>
 </head>
 <body>
@@ -112,8 +111,10 @@
     <div class="countdown" id="countdown">
       <div class="cd-item"><div class="cd-num" style="font-size:clamp(22px,4vw,34px);">September 2026</div><div class="cd-label">Genaues Datum folgt in Kürze</div></div>
     </div>
-    <a class="btn" href="reservierung.html">Tisch reservieren</a>
-    <div class="karte-hint"><a href="#speisekarte">Die Karte ansehen <span>&#8595;</span></a></div>
+    <div class="cta-row">
+      <a class="btn" href="reservierung.html">Tisch reservieren</a>
+      <a class="btn karte-hint" href="#speisekarte">Die Karte ansehen <span>&#8595;</span></a>
+    </div>
     <div class="social">
       <a href="https://www.instagram.com/vienero.vienna" target="_blank" rel="noopener">Instagram</a>·<a href="https://www.tiktok.com/@vienero.vienna" target="_blank" rel="noopener">TikTok</a>
     </div>
