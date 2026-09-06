@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /service.html
+Disallow: /preopening.html
+Disallow: /aktion.html
+
+Sitemap: https://vienero.at/sitemap.xml

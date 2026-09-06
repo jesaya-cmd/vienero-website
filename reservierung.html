@@ -145,7 +145,7 @@
         <div class="field"><label for="nachname">Nachname*</label><input id="nachname" name="nachname" required></div>
       </div>
       <div class="field"><label for="email">E-Mail*</label><input id="email" name="email" type="email" required></div>
-      <div class="field"><label for="telefon">Telefonnummer*</label><input id="telefon" name="telefon" type="tel" required></div>
+      <div class="field"><label for="telefon">Telefonnummer*</label><input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="+43 664 1234567" required></div>
       <div class="field"><label for="anmerkungen">Anmerkungen (Allergien, Anlass, Wünsche)</label><textarea id="anmerkungen" name="anmerkungen"></textarea></div>
 
       <div class="hp" aria-hidden="true">
@@ -183,7 +183,7 @@ const RESERVIERUNG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx4_5Qh1d
 const RESERVIERUNG_MAIL = 'Reservierung@vienero.at';
 
 /* Ab wann kann reserviert werden. Format: Jahr, Monat (1 = Jänner), Tag */
-const START_DATUM = new Date(2026, 8, 6);
+const START_DATUM = new Date(2026, 8, 7);
 
 /* Wie weit im Voraus. Zahl in Tagen ab heute. */
 const VORLAUF_TAGE = 120;
@@ -202,6 +202,7 @@ const ZEITEN = [
   { zeit: '13:30', gruppe: 'Mittag' },
   { zeit: '14:00', gruppe: 'Mittag' },
 
+  { zeit: '17:00', gruppe: 'Abend', nurFruehstart: true },
   { zeit: '17:30', gruppe: 'Abend' },
   { zeit: '18:00', gruppe: 'Abend' },
   { zeit: '18:30', gruppe: 'Abend' },
@@ -214,7 +215,11 @@ const ZEITEN = [
 
 /* Tage, an denen es kein Mittagsgeschäft gibt, sondern nur Abend.
    Format Jahr-Monat-Tag. Weitere Tage einfach mit Komma ergänzen. */
-const NUR_ABEND = ['2026-09-06'];
+const NUR_ABEND = [];
+
+/* Wochentage ohne Mittagsgeschaeft, an denen der Abend frueher beginnt.
+   0 = Sonntag, 1 = Montag ... 6 = Samstag. Sonntag oeffnet ab 17:00. */
+const FRUEHSTART_WOCHENTAGE = [0];
 
 /* Ab welcher Personenzahl der Hinweis auf eine persönliche Absprache kommt. */
 const GROSSE_GRUPPE_AB = 9;
@@ -292,8 +297,14 @@ function zeichneKalender(){
 }
 
 function zeichneZeiten(){
-  var nurAbend = NUR_ABEND.indexOf(iso(gewaehlt.datum)) !== -1;
-  var auswahl = ZEITEN.filter(function(s){ return !nurAbend || s.gruppe !== 'Mittag'; });
+  var wt = gewaehlt.datum.getDay();
+  var fruehstart = FRUEHSTART_WOCHENTAGE.indexOf(wt) !== -1;
+  var nurAbend = fruehstart || NUR_ABEND.indexOf(iso(gewaehlt.datum)) !== -1;
+  var auswahl = ZEITEN.filter(function(s){
+    if (nurAbend && s.gruppe === 'Mittag') return false;
+    if (s.nurFruehstart && !fruehstart) return false;
+    return true;
+  });
 
   var gruppen = [];
   auswahl.forEach(function(s){ if (gruppen.indexOf(s.gruppe) === -1) gruppen.push(s.gruppe); });
@@ -377,11 +388,35 @@ function sammeln(){
     vorname: v('vorname'),
     nachname: v('nachname'),
     email: v('email'),
-    telefon: v('telefon'),
+    telefon: telSauber(v('telefon')),
     anmerkungen: v('anmerkungen') || 'keine Angabe',
     webseite: v('webseite')
   };
 }
+
+/* Telefonnummern einheitlich speichern, damit derselbe Gast
+   auch beim naechsten Mal wiedererkannt wird. */
+function telSauber(wert){
+  var t = String(wert || '').replace(/[^0-9+]/g, '');
+  if (!t) return '';
+  if (t.indexOf('00') === 0) { t = '+' + t.substring(2); }
+  else if (t.charAt(0) === '0') { t = '+43' + t.substring(1); }
+  else if (t.charAt(0) !== '+') {
+    if (t.indexOf('43') === 0 && t.length >= 11) { t = '+' + t; }
+    else { t = '+43' + t; }
+  }
+  return t;
+}
+(function(){
+  var feld = document.getElementById('telefon');
+  if (!feld) return;
+  var pruefen = function(){
+    var sauber = telSauber(feld.value);
+    feld.setCustomValidity(sauber.length >= 10 ? '' : 'Bitte eine vollstaendige Telefonnummer angeben, zum Beispiel +43 664 1234567');
+  };
+  feld.addEventListener('input', pruefen);
+  feld.addEventListener('blur', function(){ var s = telSauber(feld.value); if (s.length >= 10) { feld.value = s; } pruefen(); });
+})();
 
 function alsText(d){
   return ['Reservierungsanfrage VIENERO','',
