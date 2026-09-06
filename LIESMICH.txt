@@ -1,67 +1,47 @@
 VIENERO — Dateien fuer GitHub
 Stand 06.09.2026
 
-WICHTIG: Diese ZIP-Datei NICHT auf GitHub hochladen.
-Erst hier auf dem Rechner entpacken, dann die neun Dateien
-daraus auf github.com/jesaya-cmd/vienero-website/upload
-ziehen und unten auf Commit changes klicken.
-
-WAS DRIN IST
+Diese ZIP nicht auf GitHub hochladen. Erst entpacken,
+dann die neun Dateien einzeln auf
+github.com/jesaya-cmd/vienero-website/upload ziehen
+und unten auf Commit changes klicken.
 
   index.html            Startseite fuer den offenen Betrieb.
-                        Statuszeile oben, die sich selbst berechnet
-                        ("Jetzt geoeffnet", "Heute ab 12:00 Uhr").
-                        Abschnitt mit Oeffnungszeiten, Telefon und
-                        Anfahrt. Strukturdaten fuer Google.
-                        Die Presseseite ist nicht mehr verlinkt,
-                        der Weg fuehrt jetzt auf Reservieren.
-  reservierung.html     Sonntag ab 17:00 statt Mittagsbetrieb.
-                        Keine Reservierung vor dem 7. September.
-                        Telefonfeld prueft und vereinheitlicht die
-                        Nummer, damit Stammgaeste erkannt werden.
-  service.html          Serviceseite fuers Handy. Nirgends verlinkt,
-                        fuer Suchmaschinen gesperrt, Zugang ueber
-                        den Code aus dem Apps-Script.
+                        Statuszeile oben, die sich selbst berechnet.
+                        Oeffnungszeiten, Telefon, Anfahrt,
+                        Strukturdaten fuer Google.
+                        Presse kommt darin nicht mehr vor.
+  reservierung.html     Sonntag ab 17:00, keine Reservierung vor
+                        dem 7. September, geprueftes Telefonfeld.
+  service.html          Serviceseite fuers Handy, nirgends verlinkt.
   favicon.ico           Zeichen im Browser-Tab
-  apple-touch-icon.png  Zeichen fuer den Home-Bildschirm am iPhone
-  VIENERO-Teilen.jpg    Vorschaubild beim Teilen in WhatsApp,
-                        Instagram und Co.
+  apple-touch-icon.png  Zeichen fuer den iPhone-Home-Bildschirm
+  VIENERO-Teilen.jpg    Vorschaubild beim Teilen
   404.html              Seite fuer vertippte Adressen
-  robots.txt            Sperrt service.html, preopening.html und
+  robots.txt            Sperrt service.html, preopening.html,
                         aktion.html fuer Suchmaschinen
-  sitemap.xml           Seitenverzeichnis fuer Google,
-                        ohne Presseseite
+  sitemap.xml           Seitenverzeichnis, ohne Presseseite
 
-ZUR PRESSESEITE
+PRESSESEITE
+  presse.html ist nirgends mehr verlinkt und nicht in der
+  Sitemap. Die Datei liegt weiter im Repo, damit bereits
+  verschickte Links nicht ins Leere laufen. Loeschen geht
+  auf GitHub ueber das Papierkorbsymbol in der Datei.
 
-  presse.html ist von der Startseite und aus der Sitemap
-  entfernt. Die Datei selbst bleibt im Repo liegen, damit
-  bereits verschickte Links nicht ins Leere laufen.
-  Wer sie wirklich loeschen will: auf GitHub die Datei
-  oeffnen, oben rechts das Papierkorbsymbol, dann Commit.
-  Achtung, damit brechen alle Links, die schon an
-  Journalisten gegangen sind.
-
-OEFFNUNGSZEITEN, die hinterlegt sind
-
+OEFFNUNGSZEITEN
   Montag bis Samstag  12:00 bis 22:00
   Sonntag             17:00 bis 22:00
   Durchgehend warme Kueche, kein Ruhetag
-
-  Aendern in index.html an zwei Stellen: unten im Skript in der
-  Tabelle ZEITEN, und im Abschnitt "Oeffnungszeiten" weiter oben.
-  In reservierung.html steuert FRUEHSTART_WOCHENTAGE, an welchen
-  Wochentagen es kein Mittagsgeschaeft gibt.
+  Aendern in index.html: unten im Skript in der Tabelle ZEITEN
+  und im Abschnitt "Oeffnungszeiten".
 
 TELEFON auf der Seite: 01 913 70 05
 
-NOCH ZU TUN, nicht in diesem Paket
-
-  1. Im Apps-Script den SERVICE_CODE aendern, er steht noch auf
-     der Vorgabe. Danach neu bereitstellen:
-     Bereitstellen, Bereitstellungen verwalten, Stift,
-     Version auf "Neue Version", Bereitstellen.
-  2. Im Google-Unternehmensprofil den Reservierungslink
-     https://vienero.at/reservierung.html eintragen, dazu
-     Oeffnungszeiten, Telefonnummer und Fotos.
-  3. Telefonnummer im Impressum ergaenzen, dort fehlt sie.
+NOCH ZU TUN
+  1. Im Apps-Script SERVICE_CODE aendern, danach neu
+     bereitstellen: Bereitstellen, Bereitstellungen verwalten,
+     Stift, Version auf "Neue Version", Bereitstellen.
+  2. Google-Unternehmensprofil: Reservierungslink
+     https://vienero.at/reservierung.html, Oeffnungszeiten,
+     Telefon, Fotos.
+  3. Telefonnummer im Impressum ergaenzen.
