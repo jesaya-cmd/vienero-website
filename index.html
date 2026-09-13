@@ -43,9 +43,9 @@
   "openingHoursSpecification": [
     { "@type": "OpeningHoursSpecification",
       "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
-      "opens": "12:00", "closes": "22:00" },
+      "opens": "12:00", "closes": "24:00" },
     { "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday", "opens": "17:00", "closes": "22:00" }
+      "dayOfWeek": "Sunday", "opens": "17:00", "closes": "24:00" }
   ],
   "sameAs": [
     "https://www.instagram.com/vienero.vienna",
@@ -149,7 +149,29 @@
   html{scroll-behavior:smooth;}
   .cta-row{display:flex;justify-content:center;align-items:center;gap:14px;flex-wrap:wrap;}
   .cta-row .btn{display:inline-flex;align-items:center;justify-content:center;min-width:250px;text-align:center;}
+  .lunch{background:var(--ivory);color:var(--anthrazit);padding:70px 6vw 66px;}
+  .lunch-innen{max-width:760px;margin:0 auto;}
+  .lunch-eyebrow{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:#8E7134;text-align:center;display:block;}
+  .lunch-titel{font-family:'Fraunces',Georgia,serif;font-weight:300;font-size:clamp(28px,5vw,42px);margin:10px 0 0;text-align:center;letter-spacing:0.5px;}
+  .lunch-zeit{text-align:center;font-size:12px;letter-spacing:2.4px;text-transform:uppercase;color:rgba(47,49,51,0.62);margin:12px 0 0;}
+  .lunch-preis{margin:26px auto 0;max-width:430px;border:1px solid rgba(142,113,52,0.4);border-radius:12px;padding:18px 22px;text-align:center;}
+  .lunch-preis b{display:block;font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:30px;letter-spacing:1px;}
+  .lunch-preis span{display:block;margin-top:4px;font-size:11.5px;letter-spacing:1.6px;text-transform:uppercase;color:rgba(47,49,51,0.6);}
+  .lunch-liste{margin:30px 0 0;padding:0;list-style:none;}
+  .lunch-liste li{padding:16px 0;border-top:1px solid rgba(47,49,51,0.13);}
+  .lunch-liste li:last-child{border-bottom:1px solid rgba(47,49,51,0.13);}
+  .lunch-kopf{display:flex;align-items:baseline;gap:10px;}
+  .lunch-nr{font-size:11px;letter-spacing:2px;color:#8E7134;min-width:22px;}
+  .lunch-name{font-size:14.5px;letter-spacing:1.6px;text-transform:uppercase;font-weight:600;flex:1;}
+  .lunch-eur{font-size:12.5px;color:rgba(47,49,51,0.62);white-space:nowrap;}
+  .lunch-text{margin:5px 0 0 32px;font-size:13px;line-height:1.65;color:rgba(47,49,51,0.66);}
+  .lunch-fuss{margin:22px 0 0;font-size:11.5px;line-height:1.8;color:rgba(47,49,51,0.55);text-align:center;}
+  .lunch-aktionen{margin-top:26px;text-align:center;}
+  .lunch-btn{display:inline-block;padding:14px 30px;border-radius:999px;background:var(--anthrazit);color:var(--ivory);text-decoration:none;font-size:11.5px;letter-spacing:2px;text-transform:uppercase;}
+  .lunch-btn:hover{background:#8E7134;}
+  @media (max-width:600px){ .lunch{padding:52px 6vw 50px;} .lunch-name{font-size:13px;} .lunch-text{margin-left:0;} }
   .info{background:var(--anthrazit);padding:20px 6vw 74px;}
+  .lunch + script + .info, .lunch ~ .info{padding-top:64px;}
   .info-gitter{max-width:1000px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
   .info-feld{border:1px solid rgba(248,245,238,0.14);border-radius:12px;padding:22px 20px;}
   .info-feld h3{font-size:10.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);font-weight:400;margin-bottom:14px;}
@@ -190,10 +212,10 @@
     </div>
     <div class="facts">
       <p class="f-strong">VIENERO · Der mediterrane Wiener</p>
-      <p>Wiener-mediterranes Restaurant &amp; Bar</p>
+      <p>Restaurant &amp; Bar · Pasta · Steak · Fisch · Cocktails</p>
       <p class="f-gap">Dr.-Karl-Lueger-Platz 3, 1010 Wien · <a href="tel:+4319137005">01 913 70 05</a></p>
       <p>Direkt am Stadtpark, zwischen erstem und drittem Bezirk.</p>
-      <p>Montag bis Samstag 12:00 bis 22:00 Uhr · Sonntag 17:00 bis 22:00 Uhr</p>
+      <p>Montag bis Samstag 12:00 bis 24:00 Uhr · Sonntag 17:00 bis 24:00 Uhr</p>
       <p class="f-gap"><a href="reservierung.html">Tisch reservieren →</a></p>
       <p class="f-gap"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
     </div>
@@ -274,15 +296,80 @@
   </script>
   <!-- ===== Ende Speisekarte ===== -->
 
+  <!-- ===== Business Lunch ===== -->
+  <div class="lunch" id="businesslunch">
+    <div class="lunch-innen">
+      <span class="lunch-eyebrow">Mittags am Stadtpark</span>
+      <h2 class="lunch-titel">Business Lunch</h2>
+      <p class="lunch-zeit" id="lunchZeit">Montag bis Freitag &middot; 12 bis 15 Uhr</p>
+
+      <div class="lunch-preis">
+        <b id="lunchPreis">15,90 &euro;</b>
+        <span id="lunchWas">Saisonsuppe und Hauptspeise nach Wahl</span>
+      </div>
+
+      <ul class="lunch-liste" id="lunchListe">
+      <li>
+        <div class="lunch-kopf"><span class="lunch-nr">01</span><span class="lunch-name">Hühnercurry Oriental</span><span class="lunch-eur">12,90 &euro;</span></div>
+        <p class="lunch-text">Cremiges Curry-Kokos-Huhn mit Kartoffeln</p>
+      </li>
+      <li>
+        <div class="lunch-kopf"><span class="lunch-nr">02</span><span class="lunch-name">Mediterrane Gemüselasagne</span><span class="lunch-eur">9,90 &euro;</span></div>
+        <p class="lunch-text">Tomatensauce, Käse und Basilikumpesto</p>
+      </li>
+      <li>
+        <div class="lunch-kopf"><span class="lunch-nr">03</span><span class="lunch-name">Kürbis-Risotto</span><span class="lunch-eur">10,90 &euro;</span></div>
+        <p class="lunch-text">Kürbis, Parmesan und frische Kräuter</p>
+      </li>
+      <li>
+        <div class="lunch-kopf"><span class="lunch-nr">04</span><span class="lunch-name">Linguine mit Lachs</span><span class="lunch-eur">13,90 &euro;</span></div>
+        <p class="lunch-text">Cremige Zitronensauce und Kräuter</p>
+      </li>
+      </ul>
+
+      <p class="lunch-fuss">Die Hauptspeise gibt es auch einzeln zum angegebenen Preis.<br>Das Angebot wechselt w&ouml;chentlich.</p>
+
+      <div class="lunch-aktionen">
+        <a class="lunch-btn" href="reservierung.html">Tisch reservieren</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  /* Holt das Mittagsangebot aus der Google-Tabelle, wenn das Skript es liefert.
+     Antwortet das Skript nicht, bleibt der Text stehen, der oben in der Seite steht. */
+  (function(){
+    var URL = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec?typ=lunch';
+    var liste = document.getElementById('lunchListe');
+    if(!liste || !window.fetch) return;
+    function sicher(t){ var d = document.createElement('div'); d.textContent = t == null ? '' : String(t); return d.innerHTML; }
+    fetch(URL).then(function(a){ return a.json(); }).then(function(a){
+      if(!a || !a.ok || !a.gerichte || !a.gerichte.length) return;
+      liste.innerHTML = a.gerichte.map(function(g, i){
+        var nr = g.nr || ('0' + (i+1));
+        var eur = g.preis ? '<span class="lunch-eur">' + sicher(g.preis) + ' &euro;</span>' : '';
+        var txt = g.text ? '<p class="lunch-text">' + sicher(g.text) + '</p>' : '';
+        return '<li><div class="lunch-kopf"><span class="lunch-nr">' + sicher(nr) + '</span>' +
+               '<span class="lunch-name">' + sicher(g.name) + '</span>' + eur + '</div>' + txt + '</li>';
+      }).join('');
+      if(a.zeit) document.getElementById('lunchZeit').textContent = a.zeit;
+      if(a.preis) document.getElementById('lunchPreis').innerHTML = sicher(a.preis) + ' &euro;';
+      if(a.was) document.getElementById('lunchWas').textContent = a.was;
+    })['catch'](function(){});
+  })();
+  </script>
+  <!-- ===== Ende Business Lunch ===== -->
+
   <!-- ===== Öffnungszeiten und Kontakt ===== -->
   <div class="info" id="besuch">
     <div class="info-gitter">
 
       <div class="info-feld">
         <h3>Öffnungszeiten</h3>
-        <div class="info-zeile"><span>Montag bis Samstag</span><b>12:00 bis 22:00</b></div>
-        <div class="info-zeile"><span>Sonntag</span><b>17:00 bis 22:00</b></div>
-        <p class="info-klein">Durchgehend warme Küche. Kein Ruhetag.</p>
+        <div class="info-zeile"><span>Montag bis Samstag</span><b>12:00 bis 24:00</b></div>
+        <div class="info-zeile"><span>Sonntag</span><b>17:00 bis 24:00</b></div>
+        <div class="info-zeile"><span>Business Lunch</span><b>Mo bis Fr, 12 bis 15</b></div>
+        <p class="info-klein">Küche bis 22:00 Uhr, Bar bis 24:00 Uhr. Kein Ruhetag.</p>
       </div>
 
       <div class="info-feld">
@@ -387,9 +474,9 @@
    0 = Sonntag, 1 = Montag ... 6 = Samstag. null = Ruhetag. */
 (function(){
   var ZEITEN = {
-    0: ['17:00','22:00'],
-    1: ['12:00','22:00'], 2: ['12:00','22:00'], 3: ['12:00','22:00'],
-    4: ['12:00','22:00'], 5: ['12:00','22:00'], 6: ['12:00','22:00']
+    0: ['17:00','24:00'],
+    1: ['12:00','24:00'], 2: ['12:00','24:00'], 3: ['12:00','24:00'],
+    4: ['12:00','24:00'], 5: ['12:00','24:00'], 6: ['12:00','24:00']
   };
   var EROEFFNUNG = '2026-09-07';
   var TAGE = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
@@ -421,12 +508,12 @@
 
     if (heuteZeit && jetzt >= minuten(heuteZeit[0]) && jetzt < minuten(heuteZeit[1])) {
       gross.textContent = 'Jetzt geöffnet';
-      klein.textContent = 'Heute bis ' + heuteZeit[1] + ' Uhr';
+      klein.textContent = 'Pasta · Steak · Fisch · Cocktails';
       return;
     }
     if (heuteZeit && jetzt < minuten(heuteZeit[0])) {
       gross.textContent = 'Heute ab ' + heuteZeit[0] + ' Uhr';
-      klein.textContent = 'Wir freuen uns auf Sie';
+      klein.textContent = 'Pasta · Steak · Fisch · Cocktails';
       return;
     }
     for (var i = 1; i <= 7; i++) {
