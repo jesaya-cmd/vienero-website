@@ -4,8 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Tisch reservieren: VIENERO</title>
-<meta name="description" content="Tisch reservieren im VIENERO, Dr.-Karl-Lueger-Platz 3, 1010 Wien. Datum und Uhrzeit wählen, wir bestätigen persönlich.">
+<meta name="description" content="Tisch reservieren im VIENERO, Dr.-Karl-Lueger-Platz 3, 1010 Wien. Datum, Uhrzeit und Personenzahl wählen, die Bestätigung kommt sofort.">
 <meta name="robots" content="index, follow">
+<link rel="icon" href="favicon.ico">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta property="og:title" content="Tisch reservieren: VIENERO">
+<meta property="og:description" content="Wiener-mediterranes Restaurant und Bar am Dr.-Karl-Lueger-Platz 3 in 1010 Wien.">
+<meta property="og:image" content="https://vienero.at/VIENERO-Teilen.jpg">
+<meta property="og:url" content="https://vienero.at/reservierung.html">
+<meta property="og:type" content="website">
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500&family=Inter:wght@400;500;600&display=swap');
   :root{
@@ -20,504 +27,88 @@
   nav .back{font-size:11px;letter-spacing:1.6px;text-transform:uppercase;text-decoration:none;color:var(--muted);}
   nav .back:hover{color:var(--gold);}
 
-  .wrap{max-width:660px;margin:0 auto;padding:44px 24px 80px;}
+  .wrap{max-width:660px;margin:0 auto;padding:44px 24px 70px;}
   .eyebrow{display:block;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--gold);margin-bottom:14px;}
   h1{font-family:'Fraunces',serif;font-weight:300;font-size:clamp(30px,6vw,44px);line-height:1.15;margin-bottom:10px;}
   .lead{font-size:15px;color:var(--muted);margin-bottom:8px;}
-  .place{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-bottom:34px;}
+  .place{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:var(--muted);margin-bottom:30px;}
 
-  .step{margin-bottom:34px;}
-  .step-label{display:flex;align-items:baseline;gap:10px;margin-bottom:14px;}
-  .step-label .n{font-family:'Fraunces',serif;font-size:13px;color:var(--gold);letter-spacing:1px;}
-  .step-label .t{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+  .rahmen{border:1px solid var(--line);border-radius:16px;background:#fff;overflow:hidden;}
+  .rahmen iframe{display:block;width:100%;height:760px;border:0;}
+  @media (max-width:600px){ .rahmen iframe{height:720px;} .wrap{padding:34px 16px 60px;} }
 
-  /* Kalender */
-  .cal{border:1px solid var(--line);border-radius:14px;background:#fff;padding:18px 16px 20px;}
-  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
-  .cal-month{font-family:'Fraunces',serif;font-weight:500;font-size:19px;}
-  .cal-nav{display:flex;gap:6px;}
-  .cal-nav button{width:34px;height:34px;border:1px solid var(--line);border-radius:50%;background:transparent;color:var(--anthrazit);cursor:pointer;font-size:15px;line-height:1;}
-  .cal-nav button:hover:not(:disabled){border-color:var(--gold);color:var(--gold);}
-  .cal-nav button:disabled{opacity:0.3;cursor:default;}
-  .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;}
-  .cal-dow{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:8px;}
-  .day{aspect-ratio:1/1;border:none;background:transparent;border-radius:50%;font-family:'Fraunces',serif;font-size:15px;color:var(--anthrazit);cursor:pointer;display:flex;align-items:center;justify-content:center;}
-  .day:hover:not(:disabled){background:rgba(200,167,106,0.18);}
-  .day:disabled{color:#c9c6bd;cursor:default;}
-  .day.sel{background:var(--gold);color:var(--ivory);}
-  .day.empty{visibility:hidden;}
-  .cal-note{font-size:11.5px;color:var(--muted);margin-top:12px;}
+  .ersatz{padding:26px 22px;text-align:center;}
+  .ersatz p{font-size:14px;color:var(--muted);margin-bottom:16px;}
+  .knopf{display:inline-block;padding:15px 30px;border-radius:999px;background:var(--gold);color:var(--ivory);text-decoration:none;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;}
+  .knopf:hover{background:#b8975c;}
 
-  .slotgroup{margin-bottom:16px;}
-  .slotlabel{display:block;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
-  /* Chips */
-  .chips{display:flex;flex-wrap:wrap;gap:8px;}
-  .chip{padding:10px 18px;border:1px solid var(--line);border-radius:999px;background:#fff;font-size:13px;color:var(--anthrazit);cursor:pointer;font-family:'Inter',sans-serif;}
-  .chip:hover{border-color:var(--gold);}
-  .chip.sel{background:var(--gold);border-color:var(--gold);color:var(--ivory);}
-  .chip.knapp{display:flex;flex-direction:column;align-items:center;gap:2px;line-height:1.2;padding:8px 16px;}
-  .chip .tag{font-size:9px;letter-spacing:0.6px;text-transform:uppercase;color:var(--muted);}
-  .chip.knapp.sel .tag{color:rgba(248,245,238,0.8);}
+  .hinweise{margin-top:30px;display:grid;gap:12px;}
+  .karte{border:1px solid var(--line);border-radius:12px;background:#fff;padding:16px 18px;}
+  .karte h2{font-family:'Fraunces',serif;font-weight:500;font-size:15px;margin-bottom:6px;}
+  .karte p{font-size:13.5px;color:var(--muted);}
+  .karte a{color:var(--anthrazit);text-decoration:none;border-bottom:1px solid var(--gold);}
+  .karte a:hover{color:var(--gold);}
+  .tel{font-family:'Fraunces',serif;font-size:22px;color:var(--anthrazit);text-decoration:none;display:inline-block;margin-top:2px;}
 
-  /* Felder */
-  .row{display:flex;gap:12px;}
-  .row .field{flex:1;}
-  .field{margin-bottom:14px;}
-  .field label{display:block;font-size:11px;letter-spacing:0.5px;color:var(--muted);margin-bottom:5px;}
-  .field input,.field textarea{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:8px;background:#fff;font-family:'Inter',sans-serif;font-size:14px;color:var(--anthrazit);}
-  .field input:focus,.field textarea:focus{outline:none;border-color:var(--gold);}
-  .field textarea{resize:vertical;min-height:80px;}
-
-  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;}
-  .check{display:flex;gap:10px;align-items:flex-start;margin:6px 0 18px;font-size:12.5px;color:var(--muted);line-height:1.55;cursor:pointer;}
-  .check input{margin-top:2px;width:16px;height:16px;accent-color:var(--gold);flex-shrink:0;}
-  .submit{width:100%;padding:16px;border:none;border-radius:999px;background:var(--gold);color:var(--ivory);font-family:'Inter',sans-serif;font-size:12px;letter-spacing:2.5px;text-transform:uppercase;cursor:pointer;}
-  .submit:hover{background:#b8975c;}
-  .submit:disabled{opacity:0.55;cursor:default;}
-
-  .summary{border:1px solid var(--gold);border-radius:12px;padding:14px 16px;margin-bottom:20px;font-size:13.5px;background:rgba(200,167,106,0.08);}
-  .summary strong{font-family:'Fraunces',serif;font-weight:500;}
-
-  .msg{border:1px solid var(--line);border-radius:12px;padding:20px 22px;background:#fff;margin-top:20px;}
-  .msg h2{font-family:'Fraunces',serif;font-weight:500;font-size:21px;margin-bottom:8px;}
-  .msg p{font-size:13.5px;color:var(--muted);margin-bottom:12px;}
-  .msg textarea{width:100%;font-family:'Inter',sans-serif;font-size:12px;line-height:1.55;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:rgba(0,0,0,0.03);color:var(--anthrazit);}
-  .mini-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;}
-  .mini{padding:10px 20px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;border-radius:999px;border:1px solid var(--gold);background:transparent;color:var(--gold);cursor:pointer;text-decoration:none;display:inline-block;font-family:'Inter',sans-serif;}
-  .mini:hover{background:var(--gold);color:var(--ivory);}
-  .mini.filled{background:var(--gold);color:var(--ivory);}
-
-  .err{font-size:12.5px;color:#a0392f;margin-top:10px;}
-  .hidden{display:none;}
   footer{text-align:center;font-size:11px;color:#9b9382;padding:26px 24px 40px;border-top:1px solid var(--line);}
-  a{color:var(--gold);}
-  :focus-visible{outline:2px solid var(--gold);outline-offset:2px;}
-  @media (prefers-reduced-motion:no-preference){ .step{transition:opacity .25s ease;} }
-  @media (max-width:520px){ .row{flex-direction:column;gap:0;} }
+  footer a{color:#9b9382;}
 </style>
 </head>
 <body>
 
 <nav>
   <a href="index.html"><img class="mark-logo" src="data:image/png;base64,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" alt="VIENERO"></a>
-  <a class="back" href="index.html">Zurück</a>
+  <a class="back" href="index.html">&larr; Zurück</a>
 </nav>
 
 <div class="wrap">
   <span class="eyebrow">Reservierung</span>
   <h1>Tisch reservieren.</h1>
-  <p class="lead">Wähl Datum und Uhrzeit, wir melden uns persönlich zurück und bestätigen deinen Tisch.</p>
-  <p class="place">Dr.-Karl-Lueger-Platz 3 · 1010 Wien</p>
+  <p class="lead">Wähl Datum, Uhrzeit und Personenzahl. Die Bestätigung kommt sofort.</p>
+  <p class="place">Dr.-Karl-Lueger-Platz 3 &middot; 1010 Wien</p>
 
-  <form id="resform" novalidate>
-
-    <div class="step">
-      <div class="step-label"><span class="n">01</span><span class="t">Datum</span></div>
-      <div class="cal">
-        <div class="cal-head">
-          <div class="cal-month" id="cal-month">Monat</div>
-          <div class="cal-nav">
-            <button type="button" id="prev" aria-label="Voriger Monat">‹</button>
-            <button type="button" id="next" aria-label="Nächster Monat">›</button>
-          </div>
-        </div>
-        <div class="cal-grid" id="cal-dows"></div>
-        <div class="cal-grid" id="cal-days"></div>
-        <p class="cal-note" id="cal-note"></p>
-      </div>
+  <div class="rahmen">
+    <iframe id="tfRahmen" src="https://widget.thefork.com/6e88e8a8-0065-4b84-8680-2a07b443a63c" title="Tisch reservieren im VIENERO" loading="eager"></iframe>
+    <div class="ersatz" id="tfErsatz" hidden>
+      <p>Die Reservierung lädt gerade nicht. Du kannst sie in einem eigenen Fenster öffnen.</p>
+      <a class="knopf" href="https://widget.thefork.com/6e88e8a8-0065-4b84-8680-2a07b443a63c" target="_blank" rel="noopener">Reservierung öffnen</a>
     </div>
+  </div>
 
-    <div class="step hidden" id="step-time">
-      <div class="step-label"><span class="n">02</span><span class="t">Uhrzeit</span></div>
-      <div id="times"></div>
+  <div class="hinweise">
+    <div class="karte">
+      <h2>Größere Runden</h2>
+      <p>Ab neun Personen ruf uns bitte kurz an, dann stellen wir die Tische passend zusammen.<br>
+      <a class="tel" href="tel:+4319137005">01 913 70 05</a></p>
     </div>
-
-    <div class="step hidden" id="step-people">
-      <div class="step-label"><span class="n">03</span><span class="t">Personen</span></div>
-      <div class="chips" id="people"></div>
+    <div class="karte">
+      <h2>Öffnungszeiten</h2>
+      <p>Montag bis Samstag 12:00 bis 24:00 Uhr, Sonntag 17:00 bis 24:00 Uhr.<br>
+      Küche bis 22:00 Uhr, Bar bis 24:00 Uhr. Kein Ruhetag.</p>
     </div>
-
-    <div class="step hidden" id="step-contact">
-      <div class="step-label"><span class="n">04</span><span class="t">Kontakt</span></div>
-      <div class="summary" id="summary"></div>
-      <div class="row">
-        <div class="field"><label for="vorname">Vorname*</label><input id="vorname" name="vorname" required></div>
-        <div class="field"><label for="nachname">Nachname*</label><input id="nachname" name="nachname" required></div>
-      </div>
-      <div class="field"><label for="email">E-Mail*</label><input id="email" name="email" type="email" required></div>
-      <div class="field"><label for="telefon">Telefonnummer*</label><input id="telefon" name="telefon" type="tel" inputmode="tel" autocomplete="tel" placeholder="+43 664 1234567" required></div>
-      <div class="field"><label for="anmerkungen">Anmerkungen (Allergien, Anlass, Wünsche)</label><textarea id="anmerkungen" name="anmerkungen"></textarea></div>
-
-      <div class="hp" aria-hidden="true">
-        <label for="webseite">Webseite</label>
-        <input id="webseite" name="webseite" type="text" tabindex="-1" autocomplete="off">
-      </div>
-
-      <label class="check">
-        <input type="checkbox" id="dsgvo">
-        <span>Ich bin einverstanden, dass meine Angaben zur Bearbeitung der Reservierung gespeichert und verwendet werden. Mehr dazu in der <a href="datenschutz.html" target="_blank">Datenschutzerklärung</a>.</span>
-      </label>
-
-      <button type="submit" class="submit" id="send">Reservierung anfragen</button>
-      <p class="err hidden" id="err"></p>
+    <div class="karte">
+      <h2>Business Lunch</h2>
+      <p>Montag bis Freitag von 12 bis 15 Uhr, Saisonsuppe und Hauptspeise für 15,90 Euro.
+      <a href="index.html#businesslunch">Zum Mittagsangebot</a></p>
     </div>
-
-  </form>
-
-  <div id="result"></div>
+  </div>
 </div>
 
-<footer>© 2026 VIENERO · Dr.-Karl-Lueger-Platz 3, 1010 Wien · <a href="mailto:Reservierung@vienero.at">Reservierung@vienero.at</a><br><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></footer>
+<footer>&copy; 2026 VIENERO &middot; Dr.-Karl-Lueger-Platz 3, 1010 Wien &middot; <a href="mailto:Reservierung@vienero.at">Reservierung@vienero.at</a><br><a href="impressum.html">Impressum</a> &middot; <a href="datenschutz.html">Datenschutz</a></footer>
 
 <script>
-/* ============================================================
-   EINSTELLUNGEN
-   Hier stehen alle Werte, die sich ändern können.
-   ============================================================ */
-
-/* Adresse, an die die Reservierung geschickt wird.
-   Leer lassen = der Gast bekommt den Text zum Kopieren und schickt ihn per Mail.
-   Sobald das Google-Skript eingerichtet ist, hier die Web-App-Adresse eintragen. */
-const RESERVIERUNG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec';
-
-const RESERVIERUNG_MAIL = 'Reservierung@vienero.at';
-
-/* Ab wann kann reserviert werden. Format: Jahr, Monat (1 = Jänner), Tag */
-const START_DATUM = new Date(2026, 8, 7);
-
-/* Wie weit im Voraus. Zahl in Tagen ab heute. */
-const VORLAUF_TAGE = 120;
-
-/* Ruhetage. 0 = Sonntag, 1 = Montag ... 6 = Samstag. Leer lassen = täglich offen. */
-const RUHETAGE = [];
-
-/* Feste Tischzeiten. Ein Tisch wird pro Abend mehrfach vergeben,
-   deshalb gibt es Startzeiten statt freier Auswahl.
-   knapp: true    = nur wenige Tische, wird im Formular gekennzeichnet
-   hinweis: '...' = erscheint, sobald der Gast diese Zeit wählt */
-const ZEITEN = [
-  { zeit: '12:00', gruppe: 'Mittag' },
-  { zeit: '12:30', gruppe: 'Mittag' },
-  { zeit: '13:00', gruppe: 'Mittag' },
-  { zeit: '13:30', gruppe: 'Mittag' },
-  { zeit: '14:00', gruppe: 'Mittag' },
-
-  { zeit: '17:00', gruppe: 'Abend', nurFruehstart: true },
-  { zeit: '17:30', gruppe: 'Abend' },
-  { zeit: '18:00', gruppe: 'Abend' },
-  { zeit: '18:30', gruppe: 'Abend' },
-  { zeit: '19:00', gruppe: 'Abend', knapp: true },
-  { zeit: '19:30', gruppe: 'Abend', knapp: true },
-  { zeit: '20:00', gruppe: 'Abend' },
-  { zeit: '20:30', gruppe: 'Abend' },
-  { zeit: '21:00', gruppe: 'Abend' },
-  { zeit: '21:30', gruppe: 'Abend' },
-  { zeit: '22:00', gruppe: 'Abend', hinweis: 'Letzte Bestellung. Die Bar hat bis 24:00 Uhr geöffnet.' }
-];
-
-/* Tage, an denen es kein Mittagsgeschäft gibt, sondern nur Abend.
-   Format Jahr-Monat-Tag. Weitere Tage einfach mit Komma ergänzen. */
-const NUR_ABEND = [];
-
-/* Wochentage ohne Mittagsgeschaeft, an denen der Abend frueher beginnt.
-   0 = Sonntag, 1 = Montag ... 6 = Samstag. Sonntag oeffnet ab 17:00. */
-const FRUEHSTART_WOCHENTAGE = [0];
-
-/* Ab welcher Personenzahl der Hinweis auf eine persönliche Absprache kommt. */
-const GROSSE_GRUPPE_AB = 9;
-
-/* ============================================================ */
-
-const MONATE = ['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
-const DOWS = ['Mo','Di','Mi','Do','Fr','Sa','So'];
-
-const heute = new Date(); heute.setHours(0,0,0,0);
-const minDatum = START_DATUM > heute ? new Date(START_DATUM) : new Date(heute);
-const maxDatum = new Date(heute.getTime() + VORLAUF_TAGE * 86400000);
-
-let sichtMonat = new Date(minDatum.getFullYear(), minDatum.getMonth(), 1);
-let gewaehlt = { datum: null, zeit: null, personen: null };
-
-function iso(d){
-  return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
-}
-function lang(d){
-  const wd = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'][d.getDay()];
-  return wd + ', ' + d.getDate() + '. ' + MONATE[d.getMonth()] + ' ' + d.getFullYear();
-}
-function auswaehlbar(d){
-  if (d < minDatum || d > maxDatum) return false;
-  if (RUHETAGE.indexOf(d.getDay()) !== -1) return false;
-  return true;
-}
-
-/* Wochentagsköpfe einmalig */
-document.getElementById('cal-dows').innerHTML =
-  DOWS.map(function(x){ return '<div class="cal-dow">' + x + '</div>'; }).join('');
-
-function zeichneKalender(){
-  document.getElementById('cal-month').textContent =
-    MONATE[sichtMonat.getMonth()] + ' ' + sichtMonat.getFullYear();
-
-  const ersterTag = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth(), 1);
-  const versatz = (ersterTag.getDay() + 6) % 7; /* Woche beginnt am Montag */
-  const tageImMonat = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth()+1, 0).getDate();
-
-  let html = '';
-  for (let i = 0; i < versatz; i++) html += '<span class="day empty"></span>';
-  for (let t = 1; t <= tageImMonat; t++) {
-    const d = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth(), t);
-    const ok = auswaehlbar(d);
-    const sel = gewaehlt.datum && iso(gewaehlt.datum) === iso(d);
-    html += '<button type="button" class="day' + (sel ? ' sel' : '') + '"'
-          + (ok ? '' : ' disabled')
-          + ' data-d="' + iso(d) + '" aria-label="' + lang(d) + '">' + t + '</button>';
-  }
-  document.getElementById('cal-days').innerHTML = html;
-
-  const grenzeMin = new Date(minDatum.getFullYear(), minDatum.getMonth(), 1);
-  const grenzeMax = new Date(maxDatum.getFullYear(), maxDatum.getMonth(), 1);
-  document.getElementById('prev').disabled = sichtMonat <= grenzeMin;
-  document.getElementById('next').disabled = sichtMonat >= grenzeMax;
-
-  document.getElementById('cal-note').textContent =
-    'Reservierungen sind ab ' + lang(minDatum) + ' möglich.';
-
-  Array.prototype.forEach.call(document.querySelectorAll('.day[data-d]:not([disabled])'), function(b){
-    b.addEventListener('click', function(){
-      const p = b.dataset.d.split('-');
-      gewaehlt.datum = new Date(+p[0], +p[1]-1, +p[2]);
-      gewaehlt.zeit = null;
-      zeichneKalender();
-      zeichneZeiten();
-      document.getElementById('step-time').classList.remove('hidden');
-      document.getElementById('step-people').classList.add('hidden');
-      document.getElementById('step-contact').classList.add('hidden');
-      document.getElementById('step-time').scrollIntoView({behavior:'smooth', block:'nearest'});
-    });
-  });
-}
-
-function zeichneZeiten(){
-  var wt = gewaehlt.datum.getDay();
-  var fruehstart = FRUEHSTART_WOCHENTAGE.indexOf(wt) !== -1;
-  var nurAbend = fruehstart || NUR_ABEND.indexOf(iso(gewaehlt.datum)) !== -1;
-  var auswahl = ZEITEN.filter(function(s){
-    if (nurAbend && s.gruppe === 'Mittag') return false;
-    if (s.nurFruehstart && !fruehstart) return false;
-    return true;
-  });
-
-  var gruppen = [];
-  auswahl.forEach(function(s){ if (gruppen.indexOf(s.gruppe) === -1) gruppen.push(s.gruppe); });
-
-  var html = '';
-  gruppen.forEach(function(g){
-    var slots = auswahl.filter(function(s){ return s.gruppe === g; });
-    html += '<div class="slotgroup"><span class="slotlabel">' + g + '</span><div class="chips">';
-    slots.forEach(function(s){
-      html += '<button type="button" class="chip' + (gewaehlt.zeit === s.zeit ? ' sel' : '')
-            + (s.knapp ? ' knapp' : '') + '" data-z="' + s.zeit + '">' + s.zeit
-            + (s.knapp ? '<span class="tag">wenige Tische</span>' : '') + '</button>';
-    });
-    html += '</div></div>';
-  });
-  if (nurAbend) {
-    html += '<p class="cal-note">An diesem Tag haben wir nur am Abend geöffnet.</p>';
-  }
-  html += '<p class="cal-note">Das sind unsere Tischzeiten. Passt keine davon, schreib es gern in die Anmerkungen, wir finden meistens eine Lösung.</p>';
-  document.getElementById('times').innerHTML = html;
-  Array.prototype.forEach.call(document.querySelectorAll('.chip[data-z]'), function(b){
-    b.addEventListener('click', function(){
-      gewaehlt.zeit = b.dataset.z;
-      gewaehlt.personen = null;
-      zeichneZeiten();
-      zeichnePersonen();
-      document.getElementById('step-people').classList.remove('hidden');
-      document.getElementById('step-contact').classList.add('hidden');
-      document.getElementById('step-people').scrollIntoView({behavior:'smooth', block:'nearest'});
-    });
-  });
-}
-
-function zeichnePersonen(){
-  let html = '';
-  for (let n = 1; n <= 8; n++) {
-    html += '<button type="button" class="chip' + (gewaehlt.personen === String(n) ? ' sel' : '') + '" data-p="' + n + '">' + n + '</button>';
-  }
-  html += '<button type="button" class="chip' + (gewaehlt.personen === 'gruppe' ? ' sel' : '') + '" data-p="gruppe">' + GROSSE_GRUPPE_AB + ' oder mehr</button>';
-  document.getElementById('people').innerHTML = html;
-
-  Array.prototype.forEach.call(document.querySelectorAll('.chip[data-p]'), function(b){
-    b.addEventListener('click', function(){
-      gewaehlt.personen = b.dataset.p;
-      zeichnePersonen();
-      zeigeZusammenfassung();
-      document.getElementById('step-contact').classList.remove('hidden');
-      document.getElementById('step-contact').scrollIntoView({behavior:'smooth', block:'nearest'});
-    });
-  });
-}
-
-function personenText(){
-  if (gewaehlt.personen === 'gruppe') return GROSSE_GRUPPE_AB + ' oder mehr Personen';
-  return gewaehlt.personen + (gewaehlt.personen === '1' ? ' Person' : ' Personen');
-}
-
-function slotInfo(zeit){
-  for (let i = 0; i < ZEITEN.length; i++) { if (ZEITEN[i].zeit === zeit) return ZEITEN[i]; }
-  return {};
-}
-
-function zeigeZusammenfassung(){
-  const s = slotInfo(gewaehlt.zeit);
-  let t = '<strong>' + lang(gewaehlt.datum) + '</strong>, ' + gewaehlt.zeit + ' Uhr, ' + personenText();
-  if (s.hinweis) t += '<br>' + s.hinweis;
-  if (s.knapp) t += '<br>Zu dieser Uhrzeit haben wir nur wenige Tische, wir melden uns schnell zurück.';
-  if (gewaehlt.personen === 'gruppe') {
-    t += '<br>Für größere Gruppen sprechen wir den Ablauf gerne persönlich mit dir ab.';
-  }
-  document.getElementById('summary').innerHTML = t;
-}
-
-function sammeln(){
-  const v = function(id){ return document.getElementById(id).value.trim(); };
-  return {
-    datum: lang(gewaehlt.datum),
-    datum_iso: iso(gewaehlt.datum),
-    uhrzeit: gewaehlt.zeit,
-    personen: personenText(),
-    vorname: v('vorname'),
-    nachname: v('nachname'),
-    email: v('email'),
-    telefon: telSauber(v('telefon')),
-    anmerkungen: v('anmerkungen') || 'keine Angabe',
-    webseite: v('webseite')
-  };
-}
-
-/* Telefonnummern einheitlich speichern, damit derselbe Gast
-   auch beim naechsten Mal wiedererkannt wird. */
-function telSauber(wert){
-  var t = String(wert || '').replace(/[^0-9+]/g, '');
-  if (!t) return '';
-  if (t.indexOf('00') === 0) { t = '+' + t.substring(2); }
-  else if (t.charAt(0) === '0') { t = '+43' + t.substring(1); }
-  else if (t.charAt(0) !== '+') {
-    if (t.indexOf('43') === 0 && t.length >= 11) { t = '+' + t; }
-    else { t = '+43' + t; }
-  }
-  return t;
-}
+/* Falls der Reservierungsrahmen nicht laedt, zeigen wir den Knopf zum Oeffnen. */
 (function(){
-  var feld = document.getElementById('telefon');
-  if (!feld) return;
-  var pruefen = function(){
-    var sauber = telSauber(feld.value);
-    feld.setCustomValidity(sauber.length >= 10 ? '' : 'Bitte eine vollstaendige Telefonnummer angeben, zum Beispiel +43 664 1234567');
-  };
-  feld.addEventListener('input', pruefen);
-  feld.addEventListener('blur', function(){ var s = telSauber(feld.value); if (s.length >= 10) { feld.value = s; } pruefen(); });
+  var rahmen = document.getElementById('tfRahmen');
+  var ersatz = document.getElementById('tfErsatz');
+  if(!rahmen || !ersatz) return;
+  var ok = false;
+  rahmen.addEventListener('load', function(){ ok = true; });
+  rahmen.addEventListener('error', function(){ zeigeErsatz(); });
+  function zeigeErsatz(){ rahmen.style.display = 'none'; ersatz.hidden = false; }
+  setTimeout(function(){ if(!ok) zeigeErsatz(); }, 9000);
 })();
-
-function alsText(d){
-  return ['Reservierungsanfrage VIENERO','',
-    'Datum: ' + d.datum,
-    'Uhrzeit: ' + d.uhrzeit + ' Uhr',
-    'Personen: ' + d.personen,
-    'Vorname: ' + d.vorname,
-    'Nachname: ' + d.nachname,
-    'E-Mail: ' + d.email,
-    'Telefonnummer: ' + d.telefon,
-    'Anmerkungen: ' + d.anmerkungen].join('\n');
-}
-
-function fertig(d){
-  document.getElementById('resform').classList.add('hidden');
-  document.getElementById('result').innerHTML =
-    '<div class="msg"><h2>Anfrage ist angekommen.</h2>'
-    + '<p>Wir haben deine Anfrage für ' + d.datum + ' um ' + d.uhrzeit + ' Uhr notiert. '
-    + 'Eine Eingangsbestätigung ist an ' + d.email + ' unterwegs. Sobald wir den Tisch bestätigt haben, bekommst du eine zweite Nachricht.</p>'
-    + '<div class="mini-row"><a class="mini filled" href="index.html">Zur Startseite</a>'
-    + '<a class="mini" href="https://www.instagram.com/vienero.vienna" target="_blank" rel="noopener">Instagram folgen</a></div></div>';
-  window.scrollTo({top:0, behavior:'smooth'});
-}
-
-function manuell(text, mailto, hinweis){
-  document.getElementById('result').innerHTML =
-    '<div class="msg"><h2>Fast geschafft.</h2><p>' + hinweis + '</p>'
-    + '<textarea rows="11" readonly id="copysrc"></textarea>'
-    + '<div class="mini-row"><a class="mini filled" href="' + mailto + '">Mailprogramm öffnen</a>'
-    + '<button class="mini" type="button" id="copybtn">Text kopieren</button></div></div>';
-  document.getElementById('copysrc').value = text;
-  document.getElementById('copybtn').addEventListener('click', function(){
-    const el = document.getElementById('copysrc');
-    const btn = this;
-    el.select(); el.setSelectionRange(0, 99999);
-    const ok = function(){ btn.textContent = 'Kopiert'; setTimeout(function(){ btn.textContent = 'Text kopieren'; }, 2200); };
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(el.value).then(ok).catch(function(){ try{ document.execCommand('copy'); ok(); }catch(e){} });
-    } else { try{ document.execCommand('copy'); ok(); }catch(e){} }
-  });
-  document.getElementById('result').scrollIntoView({behavior:'smooth', block:'nearest'});
-}
-
-document.getElementById('prev').addEventListener('click', function(){
-  sichtMonat = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth()-1, 1); zeichneKalender();
-});
-document.getElementById('next').addEventListener('click', function(){
-  sichtMonat = new Date(sichtMonat.getFullYear(), sichtMonat.getMonth()+1, 1); zeichneKalender();
-});
-
-document.getElementById('resform').addEventListener('submit', function(e){
-  e.preventDefault();
-  const err = document.getElementById('err');
-  err.classList.add('hidden');
-
-  const d = sammeln();
-  if (!d.vorname || !d.nachname || !d.email || !d.telefon) {
-    err.textContent = 'Bitte füll Vorname, Nachname, E-Mail und Telefonnummer aus.';
-    err.classList.remove('hidden');
-    return;
-  }
-  if (d.email.indexOf('@') < 1) {
-    err.textContent = 'Diese E-Mail-Adresse sieht nicht vollständig aus.';
-    err.classList.remove('hidden');
-    return;
-  }
-  if (!document.getElementById('dsgvo').checked) {
-    err.textContent = 'Bitte bestätige noch die Datenschutzerklärung, dann können wir deine Anfrage bearbeiten.';
-    err.classList.remove('hidden');
-    return;
-  }
-
-  const text = alsText(d);
-  const betreff = encodeURIComponent('Reservierung ' + d.datum_iso + ' ' + d.uhrzeit + ', ' + d.vorname + ' ' + d.nachname);
-  const mailto = 'mailto:' + RESERVIERUNG_MAIL + '?subject=' + betreff + '&body=' + encodeURIComponent(text);
-  const btn = document.getElementById('send');
-
-  if (RESERVIERUNG_ENDPOINT) {
-    btn.disabled = true;
-    btn.textContent = 'Wird gesendet';
-    fetch(RESERVIERUNG_ENDPOINT, {
-      method: 'POST',
-      headers: {'Content-Type': 'text/plain;charset=utf-8'},
-      body: JSON.stringify(d)
-    }).then(function(r){
-      if (r.ok) { fertig(d); return; }
-      throw new Error('fehlgeschlagen');
-    }).catch(function(){
-      btn.disabled = false;
-      btn.textContent = 'Reservierung anfragen';
-      manuell(text, mailto, 'Die Übertragung hat gerade nicht geklappt. Kopier deine Anfrage und schick sie an ' + RESERVIERUNG_MAIL + ', dann kümmern wir uns sofort darum.');
-    });
-    return;
-  }
-
-  manuell(text, mailto, 'Schick uns deine Anfrage an ' + RESERVIERUNG_MAIL + '. Entweder du öffnest dein Mailprogramm mit fertig ausgefüllter Nachricht oder du kopierst den Text und schickst ihn selbst.');
-});
-
-zeichneKalender();
 </script>
+
 </body>
 </html>
