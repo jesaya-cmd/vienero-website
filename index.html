@@ -117,7 +117,8 @@
     border-radius:8px;overflow:hidden;line-height:0;width:100%;
     box-shadow:0 22px 50px rgba(0,0,0,0.45);}
   .karte-covers{display:flex;justify-content:center;gap:clamp(14px,4vw,34px);flex-wrap:wrap;}
-  .karte-eins{width:min(260px,40vw);}
+  .karte-eins{width:min(215px,27vw);}
+  @media (max-width:640px){ .karte-eins{width:min(150px,40vw);} .karte-covers{gap:12px;} }
   .karte-unter{display:block;margin-top:12px;font-size:10.5px;letter-spacing:2.4px;
     text-transform:uppercase;color:rgba(248,245,238,0.55);line-height:1.4;}
   .karte-lang[hidden]{display:none;}
@@ -252,14 +253,22 @@
         </button>
         <span class="karte-unter">Drinks</span>
       </div>
+      <div class="karte-eins">
+        <button class="karte-cover" type="button" data-karte-open="1" data-karte-satz="wein" aria-label="Weinkarte durchblättern">
+          <img src="VIENERO-Wein-Cover.jpg" width="1100" height="1560" loading="lazy" decoding="async" alt="Titelseite der VIENERO Weinkarte">
+        </button>
+        <span class="karte-unter">Wein</span>
+      </div>
     </div>
     <div class="karte-actions">
       <button class="btn karte-btn" type="button" data-karte-open="1" data-karte-satz="speisen">Speisen ansehen</button>
       <button class="btn karte-btn" type="button" data-karte-open="1" data-karte-satz="drinks">Drinks ansehen</button>
+      <button class="btn karte-btn" type="button" data-karte-open="1" data-karte-satz="wein">Wein ansehen</button>
     </div>
     <p class="karte-note">Als PDF laden:
       <a href="VIENERO-Speisekarte.pdf" download="VIENERO-Speisekarte.pdf">Speisekarte</a> &middot;
       <a href="VIENERO-Drinks.pdf" download="VIENERO-Drinks.pdf">Drinks</a> &middot;
+      <a href="VIENERO-Weinkarte.pdf" download="VIENERO-Weinkarte.pdf">Weinkarte</a> &middot;
       <a href="VIENERO-Menu-English.pdf" download="VIENERO-Menu-English.pdf">English menu</a><br>
       Gedeck 3,50 &euro; pro Person &middot; Angaben zu Zutaten, die Allergien oder Unverträglichkeiten auslösen können, erhalten Sie bei unserem Serviceteam.</p>
   </div>
@@ -296,14 +305,21 @@
           {src:'VIENERO-Drinks-4.jpg',cap:'Bier, Shots & Edelbrände'},
           {src:'VIENERO-Drinks-5.jpg',cap:'Alkoholfreie Getränke'},
           {src:'VIENERO-Drinks-6.jpg',cap:'Kaffee & Tee'},
-          {src:'VIENERO-Drinks-7.jpg',cap:'Bar Snacks'}]
+          {src:'VIENERO-Drinks-7.jpg',cap:'Bar Snacks'}],
+      wein:[{src:'VIENERO-Wein-Cover.jpg',cap:'Titel'},
+          {src:'VIENERO-Wein-1.jpg',cap:'Offene Weine'},
+          {src:'VIENERO-Wein-2.jpg',cap:'Sprudel'},
+          {src:'VIENERO-Wein-3.jpg',cap:'Österreich'},
+          {src:'VIENERO-Wein-4.jpg',cap:'Österreich'},
+          {src:'VIENERO-Wein-5.jpg',cap:'Frankreich'},
+          {src:'VIENERO-Wein-6.jpg',cap:'Italien & USA'}]
     };
     var box=document.getElementById('karteBox'),bild=document.getElementById('karteImg'),
         cap=document.getElementById('karteCap'),lang=document.getElementById('karteLang'),
         spr='de',satz='speisen',i=0;
-    function liste(){return satz==='drinks'?karten.drinks:karten[spr];}
+    function liste(){return (satz==='drinks'||satz==='wein')?karten[satz]:karten[spr];}
     function zeige(n){var l=liste();i=(n+l.length)%l.length;bild.src=l[i].src;
-      bild.alt=(satz==='drinks'?'Getränkekarte, ':'Speisekarte, ')+l[i].cap;
+      bild.alt=(satz==='drinks'?'Getränkekarte, ':satz==='wein'?'Weinkarte, ':'Speisekarte, ')+l[i].cap;
       cap.textContent=l[i].cap+' · '+(i+1)+' / '+l.length;
       var v=new Image();v.src=l[(i+1)%l.length].src;}
     function auf(n){zeige(n);box.setAttribute('data-open','1');document.body.style.overflow='hidden';
@@ -312,8 +328,8 @@
     document.querySelectorAll('[data-karte-open]').forEach(function(el){
       el.addEventListener('click',function(){
         satz=el.getAttribute('data-karte-satz')||'speisen';
-        if(lang) lang.hidden = (satz==='drinks');
-        box.setAttribute('aria-label', satz==='drinks'?'Getränkekarte':'Speisekarte');
+        if(lang) lang.hidden = (satz!=='speisen');
+        box.setAttribute('aria-label', satz==='drinks'?'Getränkekarte':satz==='wein'?'Weinkarte':'Speisekarte');
         auf(parseInt(el.getAttribute('data-karte-open'),10)||0);});});
     box.querySelectorAll('[data-karte-step]').forEach(function(el){
       el.addEventListener('click',function(e){e.stopPropagation();zeige(i+parseInt(el.getAttribute('data-karte-step'),10));});});
