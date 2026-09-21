@@ -118,16 +118,15 @@
   .karte-cover{display:inline-block;padding:0;border:0;background:none;cursor:pointer;
     border-radius:8px;overflow:hidden;line-height:0;width:100%;
     box-shadow:0 22px 50px rgba(0,0,0,0.45);}
-  .karte-covers{display:flex;justify-content:center;gap:clamp(14px,4vw,34px);flex-wrap:wrap;}
-  .karte-eins{width:min(215px,27vw);}
-  @media (max-width:640px){ .karte-eins{width:min(150px,40vw);} .karte-covers{gap:12px;} }
-  .karte-unter{display:block;margin-top:12px;font-size:10.5px;letter-spacing:2.4px;
-    text-transform:uppercase;color:rgba(248,245,238,0.55);line-height:1.4;}
+  .karte-covers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:clamp(12px,3vw,26px);max-width:740px;margin:0 auto;align-items:start;}
+  .karte-eins{display:flex;flex-direction:column;}
   .karte-lang[hidden]{display:none;}
-  .karte-cover img{width:100%;height:auto;display:block;transition:transform .5s ease;}
+  .karte-cover img{width:100%;height:auto;aspect-ratio:1100/1560;object-fit:cover;display:block;transition:transform .5s ease;}
   .karte-cover:hover img{transform:scale(1.06);}
   .karte-cover:focus-visible{outline:1px solid var(--gold);outline-offset:6px;}
-  .karte-actions{margin-top:30px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;}
+  .karte-knopf{width:100%;margin-top:14px;padding:12px 4px;font-size:11px;letter-spacing:1.8px;text-align:center;}
+  @media (max-width:640px){ .karte-knopf{margin-top:10px;padding:10px 2px;font-size:9.5px;letter-spacing:1px;} }
   .karte-btn{font-family:inherit;background:transparent;cursor:pointer;}
   .karte-note{margin-top:22px;font-size:10.5px;line-height:1.9;letter-spacing:1px;
     text-transform:uppercase;color:rgba(248,245,238,0.42);max-width:560px;margin-left:auto;margin-right:auto;}
@@ -247,25 +246,20 @@
         <button class="karte-cover" type="button" data-karte-open="1" data-karte-satz="speisen" aria-label="Speisekarte durchblättern">
           <img src="VIENERO-Speisekarte-Cover.jpg" width="900" height="1273" loading="lazy" decoding="async" alt="Titelseite der VIENERO Speisekarte">
         </button>
-        <span class="karte-unter">Speisen</span>
+        <button class="btn karte-btn karte-knopf" type="button" data-karte-open="1" data-karte-satz="speisen">Speisen</button>
       </div>
       <div class="karte-eins">
         <button class="karte-cover" type="button" data-karte-open="1" data-karte-satz="drinks" aria-label="Getränkekarte durchblättern">
           <img src="VIENERO-Drinks-Cover.jpg" width="1100" height="1563" loading="lazy" decoding="async" alt="Titelseite der VIENERO Getränkekarte">
         </button>
-        <span class="karte-unter">Drinks</span>
+        <button class="btn karte-btn karte-knopf" type="button" data-karte-open="1" data-karte-satz="drinks">Drinks</button>
       </div>
       <div class="karte-eins">
         <button class="karte-cover" type="button" data-karte-open="1" data-karte-satz="wein" aria-label="Weinkarte durchblättern">
           <img src="VIENERO-Wein-Cover.jpg" width="1100" height="1560" loading="lazy" decoding="async" alt="Titelseite der VIENERO Weinkarte">
         </button>
-        <span class="karte-unter">Wein</span>
+        <button class="btn karte-btn karte-knopf" type="button" data-karte-open="1" data-karte-satz="wein">Wein</button>
       </div>
-    </div>
-    <div class="karte-actions">
-      <button class="btn karte-btn" type="button" data-karte-open="1" data-karte-satz="speisen">Speisen ansehen</button>
-      <button class="btn karte-btn" type="button" data-karte-open="1" data-karte-satz="drinks">Drinks ansehen</button>
-      <button class="btn karte-btn" type="button" data-karte-open="1" data-karte-satz="wein">Wein ansehen</button>
     </div>
     <p class="karte-note">Als PDF laden:
       <a href="VIENERO-Speisekarte.pdf" download="VIENERO-Speisekarte.pdf">Speisekarte</a> &middot;
@@ -367,20 +361,20 @@
 
       <ul class="lunch-liste" id="lunchListe">
       <li>
-        <div class="lunch-kopf"><span class="lunch-nr">01</span><span class="lunch-name">Hühnercurry Oriental</span><span class="lunch-eur">12,90 &euro;</span></div>
-        <p class="lunch-text">Cremiges Curry-Kokos-Huhn mit Kartoffeln</p>
+        <div class="lunch-kopf"><span class="lunch-nr">01</span><span class="lunch-name">Lasagne Pomodoro</span><span class="lunch-eur">12,90 &euro;</span></div>
+        <p class="lunch-text">Hausgemachte Lasagne mit Tomatensauce und Büffelmozzarella</p>
       </li>
       <li>
-        <div class="lunch-kopf"><span class="lunch-nr">02</span><span class="lunch-name">Mediterrane Gemüselasagne</span><span class="lunch-eur">9,90 &euro;</span></div>
-        <p class="lunch-text">Tomatensauce, Käse und Basilikumpesto</p>
+        <div class="lunch-kopf"><span class="lunch-nr">02</span><span class="lunch-name">Gebratene Aubergine</span><span class="lunch-eur">10,90 &euro;</span></div>
+        <p class="lunch-text">Mit Tomatensauce und Kräutern</p>
       </li>
       <li>
-        <div class="lunch-kopf"><span class="lunch-nr">03</span><span class="lunch-name">Kürbis-Risotto</span><span class="lunch-eur">10,90 &euro;</span></div>
-        <p class="lunch-text">Kürbis, Parmesan und frische Kräuter</p>
+        <div class="lunch-kopf"><span class="lunch-nr">03</span><span class="lunch-name">Linguine alle Vongole</span><span class="lunch-eur">14,90 &euro;</span></div>
+        <p class="lunch-text">Mit Venusmuscheln, Knoblauch, Weißwein und Petersilie</p>
       </li>
       <li>
-        <div class="lunch-kopf"><span class="lunch-nr">04</span><span class="lunch-name">Linguine mit Lachs</span><span class="lunch-eur">13,90 &euro;</span></div>
-        <p class="lunch-text">Cremige Zitronensauce und Kräuter</p>
+        <div class="lunch-kopf"><span class="lunch-nr">04</span><span class="lunch-name">Faschierte Laibchen</span><span class="lunch-eur">13,90 &euro;</span></div>
+        <p class="lunch-text">Mit Petersilienkartoffeln</p>
       </li>
       </ul>
 
