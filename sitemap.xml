@@ -7,7 +7,18 @@
     <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/en.html"/></url>
   <url><loc>https://vienero.at/menu.html</loc><lastmod>2026-10-10</lastmod><priority>0.9</priority></url>
-  <url><loc>https://vienero.at/reservierung.html</loc><priority>0.8</priority></url>
-  <url><loc>https://vienero.at/impressum.html</loc><priority>0.2</priority></url>
-  <url><loc>https://vienero.at/datenschutz.html</loc><priority>0.2</priority></url>
+  <url><loc>https://vienero.at/weihnachtsfeier.html</loc><lastmod>2026-10-10</lastmod><priority>0.9</priority></url>
+  <url><loc>https://vienero.at/wiener-schnitzel.html</loc><lastmod>2026-10-10</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/wiener-schnitzel.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/schnitzel-vienna.html"/></url>
+  <url><loc>https://vienero.at/schnitzel-vienna.html</loc><lastmod>2026-10-10</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/wiener-schnitzel.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/schnitzel-vienna.html"/></url>
+  <url><loc>https://vienero.at/restaurant-near-st-stephens.html</loc><lastmod>2026-10-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://vienero.at/business-lunch.html</loc><lastmod>2026-10-10</lastmod><priority>0.7</priority></url>
+  <url><loc>https://vienero.at/cocktailbar.html</loc><lastmod>2026-10-10</lastmod><priority>0.7</priority></url>
+  <url><loc>https://vienero.at/faq.html</loc><lastmod>2026-10-10</lastmod><priority>0.6</priority></url>
+  <url><loc>https://vienero.at/reservierung.html</loc><lastmod>2026-10-10</lastmod><priority>0.8</priority></url>
+  <url><loc>https://vienero.at/impressum.html</loc><lastmod>2026-10-10</lastmod><priority>0.2</priority></url>
+  <url><loc>https://vienero.at/datenschutz.html</loc><lastmod>2026-10-10</lastmod><priority>0.2</priority></url>
 </urlset>
