@@ -16,9 +16,44 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/schnitzel-vienna.html"/></url>
   <url><loc>https://vienero.at/restaurant-near-st-stephens.html</loc><lastmod>2026-10-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://vienero.at/business-lunch.html</loc><lastmod>2026-10-10</lastmod><priority>0.7</priority></url>
-  <url><loc>https://vienero.at/cocktailbar.html</loc><lastmod>2026-10-10</lastmod><priority>0.7</priority></url>
+  <url><loc>https://vienero.at/cocktailbar.html</loc><lastmod>2026-10-10</lastmod><priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/cocktailbar.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/cocktail-bar-vienna.html"/></url>
   <url><loc>https://vienero.at/faq.html</loc><lastmod>2026-10-10</lastmod><priority>0.6</priority></url>
   <url><loc>https://vienero.at/reservierung.html</loc><lastmod>2026-10-10</lastmod><priority>0.8</priority></url>
   <url><loc>https://vienero.at/impressum.html</loc><lastmod>2026-10-10</lastmod><priority>0.2</priority></url>
   <url><loc>https://vienero.at/datenschutz.html</loc><lastmod>2026-10-10</lastmod><priority>0.2</priority></url>
+  <url><loc>https://vienero.at/pasta-wien.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/pasta-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/pasta-vienna.html"/></url>
+  <url><loc>https://vienero.at/pasta-vienna.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/pasta-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/pasta-vienna.html"/></url>
+  <url><loc>https://vienero.at/steak-wien.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/steak-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/steak-vienna.html"/></url>
+  <url><loc>https://vienero.at/steak-vienna.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/steak-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/steak-vienna.html"/></url>
+  <url><loc>https://vienero.at/fisch-wien.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/fisch-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/seafood-vienna.html"/></url>
+  <url><loc>https://vienero.at/seafood-vienna.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/fisch-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/seafood-vienna.html"/></url>
+  <url><loc>https://vienero.at/vegetarisch-wien.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/vegetarisch-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/vegetarian-vienna.html"/></url>
+  <url><loc>https://vienero.at/vegetarian-vienna.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/vegetarisch-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/vegetarian-vienna.html"/></url>
+  <url><loc>https://vienero.at/wein-wien.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/wein-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/wine-vienna.html"/></url>
+  <url><loc>https://vienero.at/wine-vienna.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/wein-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/wine-vienna.html"/></url>
+  <url><loc>https://vienero.at/cocktail-bar-vienna.html</loc><lastmod>2026-10-11</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/cocktailbar.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/cocktail-bar-vienna.html"/></url>
 </urlset>
