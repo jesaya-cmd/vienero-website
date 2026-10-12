@@ -80,9 +80,9 @@
     if (/reservierung|impressum|datenschutz|presse|service|aktion|preopening/.test(p)) return;
     if (document.getElementById('vnLeiste')) return;
     var L = en ? {
-      res: 'Book a table', tel: 'Call', info: '★ 4.4 on Google · Prosecco on us when you book online'
+      res: 'Book a table', tel: 'Call', info: '★ 4.4 on Google · more than 1,500 reviews'
     } : {
-      res: 'Tisch reservieren', tel: 'Anrufen', info: '★ 4,4 auf Google · Prosecco bei Online-Reservierung'
+      res: 'Tisch reservieren', tel: 'Anrufen', info: '★ 4,4 auf Google · über 1.500 Bewertungen'
     };
     var css = document.createElement('style');
     css.textContent =
