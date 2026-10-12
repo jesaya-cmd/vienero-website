@@ -73,4 +73,53 @@
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', banner);
     else banner();
   }
+
+  /* ===== Reservieren-Leiste: am Handy unten fix, am Computer als Knopf rechts unten ===== */
+  function leiste() {
+    var p = location.pathname;
+    if (/reservierung|impressum|datenschutz|presse|service|aktion|preopening/.test(p)) return;
+    if (document.getElementById('vnLeiste')) return;
+    var L = en ? {
+      res: 'Book a table', tel: 'Call', info: '★ 4.4 on Google · Prosecco on us when you book online'
+    } : {
+      res: 'Tisch reservieren', tel: 'Anrufen', info: '★ 4,4 auf Google · Prosecco bei Online-Reservierung'
+    };
+    var css = document.createElement('style');
+    css.textContent =
+      '#vnLeiste{position:fixed;left:0;right:0;bottom:0;z-index:9000;background:rgba(47,49,51,.97);color:#F8F5EE;' +
+      'padding:8px 12px calc(10px + env(safe-area-inset-bottom));box-shadow:0 -6px 24px rgba(0,0,0,.18);' +
+      'font:12px/1.4 Inter,system-ui,sans-serif;transform:translateY(110%);transition:transform .35s ease}' +
+      '#vnLeiste.zeigen{transform:none}' +
+      '#vnLeiste .i{text-align:center;color:#C8A76A;font-size:11.5px;letter-spacing:.3px;margin-bottom:7px}' +
+      '#vnLeiste .r{display:flex;gap:8px;max-width:520px;margin:0 auto}' +
+      '#vnLeiste a{flex:1;display:block;text-align:center;text-decoration:none;border-radius:999px;padding:12px 10px;' +
+      'font:600 13px Inter,system-ui,sans-serif;letter-spacing:.4px}' +
+      '#vnLeiste .y{background:#C8A76A;color:#2F3133;flex:1.6}' +
+      '#vnLeiste .n{border:1px solid #AEB2A0;color:#F8F5EE}' +
+      'body.vnPlatz{padding-bottom:96px}' +
+      '@media (min-width:761px){#vnLeiste{left:auto;right:22px;bottom:22px;border-radius:18px;padding:12px 14px;max-width:340px}' +
+      '#vnLeiste .r{gap:8px}body.vnPlatz{padding-bottom:0}}';
+    document.head.appendChild(css);
+    var anker = document.getElementById('reservieren') || document.getElementById('reserve');
+    var ziel = anker ? '#' + anker.id : 'reservierung.html';
+    var d = document.createElement('div');
+    d.id = 'vnLeiste';
+    d.innerHTML = '<div class="i">' + L.info + '</div><div class="r">' +
+      '<a class="y" href="' + ziel + '">' + L.res + '</a>' +
+      '<a class="n" href="tel:+4319137005">' + L.tel + '</a></div>';
+    document.body.appendChild(d);
+    document.body.classList.add('vnPlatz');
+    var start = (p === '/' || /index\.html$|\/en\.html$/.test(p)) ? window.innerHeight * 0.7 : 160;
+    function pruefen() {
+      var bannerOffen = !!document.getElementById('vnConsent');
+      var y = Math.max(window.scrollY || 0, document.body.scrollTop || 0, document.documentElement.scrollTop || 0);
+      if (y > start && !bannerOffen) d.classList.add('zeigen');
+      else d.classList.remove('zeigen');
+    }
+    document.addEventListener('scroll', pruefen, { passive: true, capture: true });
+    document.addEventListener('click', function () { setTimeout(pruefen, 50); });
+    pruefen();
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', leiste);
+  else leiste();
 })();
