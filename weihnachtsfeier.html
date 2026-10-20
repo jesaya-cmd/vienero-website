@@ -23,6 +23,7 @@
 <meta property="og:locale" content="de_AT">
 <style>
 :root{--ivory:#F8F5EE;--sage:#AEB2A0;--gold:#C8A76A;--anthrazit:#2F3133;--braun:#8E7134;}
+html{scroll-behavior:smooth;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'Inter',sans-serif;background:var(--ivory);color:var(--anthrazit);line-height:1.6;}
 a{color:var(--braun);}
@@ -80,6 +81,7 @@ footer a{color:var(--gold);text-decoration:none;}
 .mehr a{border:1px solid rgba(142,113,52,.4);border-radius:999px;padding:8px 14px;font-size:12px;text-decoration:none;}
 @media (max-width:700px){.zahlen{gap:8px;}.zahl{min-height:88px;padding:14px 4px;}.zahl b{font-size:18px;}.zahl span{font-size:9px;letter-spacing:1.2px;}}
 </style>
+<script src="vienero-anfrage.js" defer></script>
 <script type="application/ld+json">
 {
  "@context": "https://schema.org",
@@ -188,7 +190,7 @@ footer a{color:var(--gold);text-decoration:none;}
     <div class="zahl"><b>Exklusiv</b><span>ganz oder teilweise</span></div>
     <div class="zahl"><b>U3</b><span>Stubentor</span></div>
   </div>
-  <div class="aktion"><a class="btn gold" href="mailto:Reservierung@vienero.at?subject=Anfrage%20Weihnachtsfeier%20im%20VIENERO&body=Datum%3A%20%0AAnzahl%20G%C3%A4ste%3A%20%0AGanzes%20Lokal%20oder%20Teilbereich%3A%20%0AW%C3%BCnsche%20(Men%C3%BC%2C%20Musik%2C%20DJ%2C%20K%C3%BCnstler)%3A%20%0AFirma%20und%20Telefon%3A%20%0A">Feier anfragen</a><a class="btn" href="tel:+4319137005">01 913 70 05</a></div>
+  <div class="aktion"><a class="btn gold" href="#anfrage">Feier anfragen</a><a class="btn" href="tel:+4319137005">01 913 70 05</a></div>
 
   <section class="blk">
     <h2>Ihre Feier, wie Sie sie wollen</h2>
@@ -222,7 +224,11 @@ footer a{color:var(--gold);text-decoration:none;}
     <h2>Häufige Fragen zur Weihnachtsfeier</h2>
     <div class="faq"><details><summary>Für wie viele Personen ist eine Weihnachtsfeier im VIENERO möglich?</summary><p>Wir richten Feiern für bis zu 70 Gäste aus, im ganzen Lokal oder in einem abgetrennten Teil.</p></details><details><summary>Kann man das ganze Lokal exklusiv mieten?</summary><p>Ja. Je nach Gruppengröße stellen wir das ganze Restaurant oder einen Teilbereich exklusiv für Ihre Feier zur Verfügung.</p></details><details><summary>Gibt es ein Weihnachtsmenü?</summary><p>Ja. Wir haben Weihnachtsmenüs und stellen sie gerne individuell nach Ihren Wünschen zusammen, auch mit vegetarischen Gängen.</p></details><details><summary>Organisiert ihr Musik und Unterhaltung?</summary><p>Ja. Auf Wunsch organisieren wir Sänger, Künstler, einen DJ und mehr, damit Sie sich um nichts kümmern müssen.</p></details><details><summary>Wie frage ich an?</summary><p>Schreiben Sie an Reservierung@vienero.at mit Datum, Gästeanzahl und Ihren Wünschen oder rufen Sie uns an unter 01 913 70 05.</p></details></div>
   </section>
-  <div class="aktion"><a class="btn gold" href="mailto:Reservierung@vienero.at?subject=Anfrage%20Weihnachtsfeier%20im%20VIENERO&body=Datum%3A%20%0AAnzahl%20G%C3%A4ste%3A%20%0AGanzes%20Lokal%20oder%20Teilbereich%3A%20%0AW%C3%BCnsche%20(Men%C3%BC%2C%20Musik%2C%20DJ%2C%20K%C3%BCnstler)%3A%20%0AFirma%20und%20Telefon%3A%20%0A">Jetzt Feier anfragen</a></div>
+  <section class="blk" id="anfrage">
+    <h2>Jetzt Feier anfragen</h2>
+    <div id="vnAnfrage" data-anlass="Weihnachtsfeier"></div>
+    <p class="hinweis">Lieber persönlich? Rufen Sie uns an unter <a href="tel:+4319137005">01 913 70 05</a> oder schreiben Sie an <a href="mailto:Reservierung@vienero.at">Reservierung@vienero.at</a>.</p>
+  </section>
   <section class="blk">
     <h2>Besuch</h2>
     <div class="gitter">
@@ -231,8 +237,8 @@ footer a{color:var(--gold);text-decoration:none;}
       <div class="feld"><h3>Reservierung</h3><p><a href="tel:+4319137005">01 913 70 05</a><br><a href="mailto:Reservierung@vienero.at">Reservierung@vienero.at</a><br><a href="reservierung.html">Online reservieren</a></p></div>
     </div>
   </section>
-  <div class="mehr"><a href="weihnachten-restaurant-wien.html">Weihnachten</a><a href="silvester-wien.html">Silvester</a><a href="wiener-schnitzel.html">Wiener Schnitzel</a><a href="business-lunch.html">Business Lunch</a><a href="cocktailbar.html">Cocktailbar</a><a href="menu.html">Menu</a><a href="faq.html">Fragen und Antworten</a></div>
+  <div class="mehr"><a href="veranstaltungen.html">Feiern und Events</a><a href="weihnachten-restaurant-wien.html">Weihnachten</a><a href="silvester-wien.html">Silvester</a><a href="wiener-schnitzel.html">Wiener Schnitzel</a><a href="business-lunch.html">Business Lunch</a><a href="cocktailbar.html">Cocktailbar</a><a href="menu.html">Menu</a><a href="faq.html">Fragen und Antworten</a></div>
 </main>
-<footer>VIENERO · Der mediterrane Wiener · Dr.-Karl-Lueger-Platz 3, 1010 Wien · <a href="tel:+4319137005">01 913 70 05</a><br><a href="./">Startseite</a> · <a href="menu.html">Menu</a> · <a href="weihnachtsfeier.html">Weihnachtsfeier</a> · <a href="wiener-schnitzel.html">Wiener Schnitzel</a> · <a href="business-lunch.html">Business Lunch</a> · <a href="cocktailbar.html">Cocktailbar</a> · <a href="faq.html">Fragen</a> · <a href="reservierung.html">Reservieren</a> · <a href="en.html">English</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></footer>
+<footer>VIENERO · Der mediterrane Wiener · Dr.-Karl-Lueger-Platz 3, 1010 Wien · <a href="tel:+4319137005">01 913 70 05</a><br><a href="./">Startseite</a> · <a href="menu.html">Menu</a> · <a href="weihnachtsfeier.html">Weihnachtsfeier</a> · <a href="veranstaltungen.html">Feiern und Events</a> · <a href="wiener-schnitzel.html">Wiener Schnitzel</a> · <a href="business-lunch.html">Business Lunch</a> · <a href="cocktailbar.html">Cocktailbar</a> · <a href="faq.html">Fragen</a> · <a href="reservierung.html">Reservieren</a> · <a href="en.html">English</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></footer>
 </body>
 </html>

@@ -263,11 +263,21 @@
   .ueber p{font-size:13.5px;line-height:1.85;color:rgba(248,245,238,0.66);margin-top:14px;}
   .ueber a{color:var(--gold);text-decoration:none;}
   .ueber .ueber-links{font-size:12px;letter-spacing:.5px;line-height:2.1;}
+  .cta-row a.btn.btn-haupt{background:var(--gold);border-color:var(--gold);color:var(--anthrazit);font-weight:600;}
+  .cta-row a.btn.btn-haupt:hover{background:#d6b87c;}
+  .cta-row a.btn.karte-hint{background:rgba(16,13,11,0.42);border-color:var(--gold);color:var(--gold);}
+  .cta-row a.btn.karte-hint:hover{background:var(--gold);color:var(--anthrazit);}
+  .saison{position:absolute;top:0;left:0;right:0;z-index:5;display:block;padding:10px 44px 10px 16px;text-align:center;background:rgba(20,16,14,.72);backdrop-filter:blur(3px);color:var(--ivory);text-decoration:none;font-size:12.5px;letter-spacing:.6px;line-height:1.45;}
+  .saison b{color:var(--gold);font-weight:600;}
+  .saison span{color:var(--gold);white-space:nowrap;}
+  .saison[hidden]{display:none;}
+  @media (max-width:600px){ .saison{font-size:12px;padding:9px 14px;} }
 </style>
 <script src="vienero-consent.js" defer></script>
 </head>
 <body>
 <div class="stage">
+  <a class="saison" id="saison" href="veranstaltungen.html#anfrage" hidden></a>
   <picture>
     <source media="(max-width:700px)" srcset="VIENERO-Start-Hoch.jpg">
     <img src="VIENERO-Start.jpg" fetchpriority="high" decoding="async" alt="VIENERO. Der mediterrane Wiener. Restaurant und Bar am Dr.-Karl-Lueger-Platz 3 in 1010 Wien.">
@@ -281,7 +291,7 @@
       </div>
     </div>
     <div class="cta-row">
-      <a class="btn" href="reservierung.html">Tisch reservieren</a>
+      <a class="btn btn-haupt" href="reservierung.html">Tisch reservieren</a>
       <a class="btn karte-hint" href="#speisekarte">Menu ansehen <span>&#8595;</span></a>
     </div>
     <p class="vn-hero-v" style="margin-top:16px;font-size:13px;line-height:1.7;color:rgba(248,245,238,.92);text-shadow:0 1px 8px rgba(0,0,0,.45);">★ 4,4 auf Google · über 1.500 Bewertungen</p>
@@ -294,7 +304,7 @@
       <p class="f-gap">Dr.-Karl-Lueger-Platz 3, 1010 Wien · <a href="tel:+4319137005">01 913 70 05</a></p>
       <p>Direkt am Stadtpark, zwischen erstem und drittem Bezirk.</p>
       <p>Montag bis Samstag 12:00 bis 24:00 Uhr · Sonntag 17:00 bis 24:00 Uhr</p>
-      <p class="f-gap"><a href="reservierung.html">Tisch reservieren →</a> · <a href="weihnachtsfeier.html">Weihnachtsfeier anfragen →</a></p>
+      <p class="f-gap"><a href="reservierung.html">Tisch reservieren →</a> · <a href="veranstaltungen.html">Feier anfragen →</a></p>
       <p class="f-gap"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
     </div>
   </div>
@@ -499,7 +509,7 @@
       <p>Das VIENERO liegt in der Wiener Innenstadt am <span style="white-space:nowrap">Dr.-Karl-Lueger-Platz</span>, dort wo die Wollzeile auf den Stubenring trifft. Der Stadtpark ist gleich ums Eck, der Stephansdom zehn Minuten zu Fuß, die U3 Stubentor hält direkt vor der Tür. Wer uns noch als Le&nbsp;Pic kennt: gleiche Adresse, gleiche Gastgeber, neuer Name.</p>
       <p>Auf den Teller kommt, was Wien und das Mittelmeer gemeinsam haben: unser Wiener Schnitzel in luftig soufflierter Panade, Pasta al Tartufo mit schwarzem Trüffel, Ribeye und Filetsteak, Wolfsbarsch im Ganzen vom Grill, Vitello Tonnato und Burrata. Mittags lockt der Business Lunch, abends der Gastgarten, und an der Bar gibt es Signature Cocktails und Weine aus Österreich, Frankreich und Italien bis Mitternacht.</p>
       <p>Ob Mittagessen im ersten Bezirk, Abendessen vor dem Konzert oder ein Drink nach der Arbeit: Wir freuen uns auf Sie. <a href="reservierung.html">Tisch reservieren</a> oder anrufen unter <a href="tel:+4319137005">01 913 70 05</a>.</p>
-      <p class="ueber-links"><a href="weihnachtsfeier.html">Weihnachtsfeier bis 70 Gäste</a> · <a href="weihnachten-restaurant-wien.html">Weihnachten 24. und 25.12.</a> · <a href="silvester-wien.html">Silvester mit DJ</a> · <a href="pasta-wien.html">Pasta</a> · <a href="steak-wien.html">Steak</a> · <a href="fisch-wien.html">Fisch</a> · <a href="vegetarisch-wien.html">Vegetarisch</a> · <a href="wiener-schnitzel.html">Wiener Schnitzel</a> · <a href="wein-wien.html">Wein</a> · <a href="business-lunch.html">Business Lunch</a> · <a href="cocktailbar.html">Cocktailbar</a> · <a href="faq.html">Fragen und Antworten</a> · <a href="blog.html">Blog</a></p>
+      <p class="ueber-links"><a href="weihnachtsfeier.html">Weihnachtsfeier bis 70 Gäste</a> · <a href="veranstaltungen.html">Feiern und Events</a> · <a href="weihnachten-restaurant-wien.html">Weihnachten 24. und 25.12.</a> · <a href="silvester-wien.html">Silvester mit DJ</a> · <a href="pasta-wien.html">Pasta</a> · <a href="steak-wien.html">Steak</a> · <a href="fisch-wien.html">Fisch</a> · <a href="vegetarisch-wien.html">Vegetarisch</a> · <a href="wiener-schnitzel.html">Wiener Schnitzel</a> · <a href="wein-wien.html">Wein</a> · <a href="business-lunch.html">Business Lunch</a> · <a href="cocktailbar.html">Cocktailbar</a> · <a href="faq.html">Fragen und Antworten</a> · <a href="blog.html">Blog</a></p>
     </div>
   </div>
 
@@ -635,6 +645,19 @@
 
   zeige();
   setInterval(zeige, 60000);
+})();
+</script>
+<script>
+/* Saisonstreifen oben: wechselt von selbst nach Datum, danach verschwindet er. */
+(function(){
+  var e=document.getElementById('saison'); if(!e) return;
+  var d=new Date(), t=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
+  var s=null;
+  if(t>=20261021&&t<20261106) s=['<b>Weihnachtsfeiern</b> für bis zu 70 Gäste. Die Dezemberabende gehen schnell weg. <span>Jetzt anfragen →</span>','weihnachtsfeier.html#anfrage'];
+  else if(t>=20261106&&t<=20261130) s=['<b>Martinigansl ist da</b>, mittags und abends bis 30. November. <span>Tisch reservieren →</span>','reservierung.html'];
+  else if(t>=20261201&&t<=20261223) s=['<b>Christmas Menu</b> am 24. und 25.12. · <b>Silvester</b> mit DJ bis 2 Uhr <span>Mehr erfahren →</span>','weihnachten-restaurant-wien.html'];
+  if(!s) return;
+  e.innerHTML=s[0]; e.href=s[1]; e.hidden=false;
 })();
 </script>
 </body>
