@@ -66,7 +66,12 @@
   <url><loc>https://vienero.at/blog-neu-auf-der-karte.html</loc><lastmod>2026-10-18</lastmod><priority>0.5</priority></url>
   <url><loc>https://vienero.at/blog-abend-am-stadtpark.html</loc><lastmod>2026-10-18</lastmod><priority>0.5</priority></url>
   <url><loc>https://vienero.at/blog-wiener-schnitzel-vienna-guide.html</loc><lastmod>2026-10-18</lastmod><priority>0.6</priority></url>
-  <url><loc>https://vienero.at/weihnachten-restaurant-wien.html</loc><lastmod>2026-10-18</lastmod><priority>0.8</priority></url>
+  <url><loc>https://vienero.at/weihnachten-restaurant-wien.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/weihnachten-restaurant-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/christmas-dinner-vienna.html"/></url>
+  <url><loc>https://vienero.at/christmas-dinner-vienna.html</loc><lastmod>2026-10-22</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/weihnachten-restaurant-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/christmas-dinner-vienna.html"/></url>
   <url><loc>https://vienero.at/silvester-wien.html</loc><lastmod>2026-10-18</lastmod><priority>0.8</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/silvester-wien.html"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/new-years-eve-vienna.html"/></url>
