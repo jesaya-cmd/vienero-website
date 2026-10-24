@@ -1,4 +1,4 @@
-/* VIENERO: Einwilligung fuer Google Ads Messung. Ohne Zustimmung wird nichts von Google Ads geladen. */
+/* VIENERO: Einwilligung fuer Google Ads Messung mit Consent Mode v2. Ohne Zustimmung keine Cookies. */
 (function () {
   var AW = 'AW-18506650716';
   var CONV = 'AW-18506650716/FYBXCNr-g5kdENyo1PhE';
@@ -12,22 +12,23 @@
   function gtag() { window.dataLayer.push(arguments); }
   window.gtag = window.gtag || gtag;
 
-  var loaded = false;
-  function loadAds() {
-    if (loaded) return; loaded = true;
-    gtag('consent', 'default', { ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'denied', analytics_storage: 'denied' });
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = 'https://www.googletagmanager.com/gtag/js?id=' + AW;
-    document.head.appendChild(s);
-    gtag('js', new Date());
-    gtag('config', AW);
-    if (location.pathname.indexOf('/reservierung') !== -1) gtag('event', 'conversion', { send_to: CONV });
-  }
+  /* Einwilligungsmodus von Google (Consent Mode v2): Standard ist "abgelehnt".
+     Ohne Zustimmung setzt Google keine Cookies und bekommt nur einfache Signale ohne Kennungen. */
+  gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
+  gtag('set', 'ads_data_redaction', true);
+  function erlauben() { gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted' }); }
+  if (get() === 'yes') erlauben();
 
-  /* Reservierungsseite und Klicks auf die Telefonnummer zaehlen, nur wenn zugestimmt */
+  var s = document.createElement('script');
+  s.async = true;
+  s.src = 'https://www.googletagmanager.com/gtag/js?id=' + AW;
+  document.head.appendChild(s);
+  gtag('js', new Date());
+  gtag('config', AW);
+  if (location.pathname.indexOf('/reservierung') !== -1) gtag('event', 'conversion', { send_to: CONV });
+
+  /* Klicks auf die Telefonnummer zaehlen */
   document.addEventListener('click', function (ev) {
-    if (!loaded) return;
     var a = ev.target.closest ? ev.target.closest('a') : null;
     if (!a) return;
     var h = a.getAttribute('href') || '';
@@ -35,10 +36,10 @@
   }, true);
 
   var T = en ? {
-    text: 'We use Google Ads cookies to see which of our ads bring guests to VIENERO. You can say no, the website works the same.',
+    text: 'We use Google Ads to see which of our ads bring guests to VIENERO. With your consent we set cookies for this. Without it, Google only receives simple signals without cookies. The website works the same either way.',
     yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'
   } : {
-    text: 'Wir nutzen Cookies von Google Ads, um zu sehen, welche unserer Anzeigen Gäste ins VIENERO bringen. Du kannst ablehnen, die Seite funktioniert genauso.',
+    text: 'Wir nutzen Google Ads, um zu sehen, welche unserer Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt Google nur einfache Signale ohne Cookies. Die Seite funktioniert in beiden Fällen genauso.',
     yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'
   };
 
@@ -59,7 +60,7 @@
     d.setAttribute('role', 'dialog');
     d.innerHTML = '<p>' + T.text + ' <a href="' + T.href + '">' + T.more + '</a></p>' +
       '<div class="r"><button class="n" type="button">' + T.no + '</button><button class="y" type="button">' + T.yes + '</button></div>';
-    d.querySelector('.y').onclick = function () { set('yes'); d.remove(); loadAds(); };
+    d.querySelector('.y').onclick = function () { set('yes'); d.remove(); erlauben(); };
     d.querySelector('.n').onclick = function () { set('no'); d.remove(); };
     document.body.appendChild(d);
   }
@@ -68,8 +69,7 @@
   window.vieneroConsentReset = function () { try { localStorage.removeItem(KEY); } catch (e) {} location.reload(); };
 
   var c = get();
-  if (c === 'yes') loadAds();
-  else if (c !== 'no') {
+  if (c !== 'yes' && c !== 'no') {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', banner);
     else banner();
   }
