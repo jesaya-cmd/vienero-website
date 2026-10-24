@@ -22,7 +22,7 @@
     document.head.appendChild(s);
     gtag('js', new Date());
     gtag('config', AW);
-    if (location.pathname.indexOf('reservierung') !== -1) gtag('event', 'conversion', { send_to: CONV });
+    if (location.pathname.indexOf('/reservierung') !== -1) gtag('event', 'conversion', { send_to: CONV });
   }
 
   /* Reservierungsseite und Klicks auf die Telefonnummer zaehlen, nur wenn zugestimmt */
