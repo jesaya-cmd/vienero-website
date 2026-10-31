@@ -1,7 +1,8 @@
 /* VIENERO: Einwilligung fuer Google Ads Messung mit Consent Mode v2. Ohne Zustimmung keine Cookies. */
 (function () {
   var AW = 'AW-18506650716';
-  var CONV = 'AW-18506650716/FYBXCNr-g5kdENyo1PhE';
+  var CONV = 'AW-18506650716/FYBXCNr-g5kdENyo1PhE'; /* Seitenaufruf Reservierung (sekundaer) */
+  var CONV_TEL = 'AW-18506650716/SwAgCLLTyK8dENyo1PhE'; /* Klick auf Telefonnummer (Website), Wert 15 */
   var KEY = 'vienero_consent_v1';
   var en = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
 
@@ -32,7 +33,7 @@
     var a = ev.target.closest ? ev.target.closest('a') : null;
     if (!a) return;
     var h = a.getAttribute('href') || '';
-    if (h.indexOf('tel:') === 0) gtag('event', 'conversion', { send_to: CONV });
+    if (h.indexOf('tel:') === 0) gtag('event', 'conversion', { send_to: CONV_TEL });
   }, true);
 
   var T = en ? {

@@ -6,7 +6,7 @@
    eingegebenen Angaben an, damit keine Anfrage verloren geht. */
 (function () {
   var ZIEL = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec';
-  var CONV = 'AW-18506650716/FYBXCNr-g5kdENyo1PhE';
+  var CONV = 'AW-18506650716/KYqYCLXTyK8dENyo1PhE'; /* Anfrage Feier und Gruppe (Formular), Wert 50 */
   var ANLAESSE = ['Weihnachtsfeier', 'Firmenfeier', 'Geburtstag', 'Hochzeit oder Taufe',
                   'Jubiläum', 'Kundenabend', 'Familienfeier', 'Sonstiges'];
 
