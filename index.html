@@ -300,6 +300,7 @@
       <a class="btn karte-hint" href="#speisekarte">Menu ansehen <span>&#8595;</span></a>
     </div>
     <nav class="fest-row" aria-label="Feiern und Festtage">
+      <a href="gansl-wild-wien.html">Gansl und Wild<span class="fest-zus">&nbsp;ab 1.11.</span></a>
       <a href="weihnachtsfeier.html">Weihnachtsfeier</a>
       <a href="veranstaltungen.html">Feiern und Events</a>
       <a href="weihnachten-restaurant-wien.html">Weihnachtsmenu<span class="fest-zus">&nbsp;24. und 25.12.</span></a>
@@ -520,7 +521,7 @@
       <p>Das VIENERO liegt in der Wiener Innenstadt am <span style="white-space:nowrap">Dr.-Karl-Lueger-Platz</span>, dort wo die Wollzeile auf den Stubenring trifft. Der Stadtpark ist gleich ums Eck, der Stephansdom zehn Minuten zu Fuß, die U3 Stubentor hält direkt vor der Tür. Wer uns noch als Le&nbsp;Pic kennt: gleiche Adresse, gleiche Gastgeber, neuer Name.</p>
       <p>Auf den Teller kommt, was Wien und das Mittelmeer gemeinsam haben: unser Wiener Schnitzel in luftig soufflierter Panade, Pasta al Tartufo mit schwarzem Trüffel, Ribeye und Filetsteak, Wolfsbarsch im Ganzen vom Grill, Vitello Tonnato und Burrata. Mittags lockt der Business Lunch, abends der Gastgarten, und an der Bar gibt es Signature Cocktails und Weine aus Österreich, Frankreich und Italien bis Mitternacht.</p>
       <p>Ob Mittagessen im ersten Bezirk, Abendessen vor dem Konzert oder ein Drink nach der Arbeit: Wir freuen uns auf Sie. <a href="reservierung.html">Tisch reservieren</a> oder anrufen unter <a href="tel:+4319137005">01 913 70 05</a>.</p>
-      <p class="ueber-links"><a href="weihnachtsfeier.html">Weihnachtsfeier bis 70 Gäste</a> · <a href="veranstaltungen.html">Feiern und Events</a> · <a href="weihnachten-restaurant-wien.html">Weihnachten 24. und 25.12.</a> · <a href="silvester-wien.html">Silvester mit DJ</a> · <a href="pasta-wien.html">Pasta</a> · <a href="steak-wien.html">Steak</a> · <a href="fisch-wien.html">Fisch</a> · <a href="vegetarisch-wien.html">Vegetarisch</a> · <a href="wiener-schnitzel.html">Wiener Schnitzel</a> · <a href="wein-wien.html">Wein</a> · <a href="business-lunch.html">Business Lunch</a> · <a href="cocktailbar.html">Cocktailbar</a> · <a href="faq.html">Fragen und Antworten</a> · <a href="blog.html">Blog</a></p>
+      <p class="ueber-links"><a href="gansl-wild-wien.html">Gansl und Wild</a> · <a href="weihnachtsfeier.html">Weihnachtsfeier bis 70 Gäste</a> · <a href="veranstaltungen.html">Feiern und Events</a> · <a href="weihnachten-restaurant-wien.html">Weihnachten 24. und 25.12.</a> · <a href="silvester-wien.html">Silvester mit DJ</a> · <a href="pasta-wien.html">Pasta</a> · <a href="steak-wien.html">Steak</a> · <a href="fisch-wien.html">Fisch</a> · <a href="vegetarisch-wien.html">Vegetarisch</a> · <a href="wiener-schnitzel.html">Wiener Schnitzel</a> · <a href="wein-wien.html">Wein</a> · <a href="business-lunch.html">Business Lunch</a> · <a href="cocktailbar.html">Cocktailbar</a> · <a href="faq.html">Fragen und Antworten</a> · <a href="blog.html">Blog</a></p>
     </div>
   </div>
 
@@ -606,6 +607,8 @@
     1: ['12:00','24:00'], 2: ['12:00','24:00'], 3: ['12:00','24:00'],
     4: ['12:00','24:00'], 5: ['12:00','24:00'], 6: ['12:00','24:00']
   };
+  /* Sondertage: Datum -> [oeffnet, schliesst] oder null fuer geschlossen */
+  var SONDER = { '2027-01-01': ['17:00','24:00'] };
   var EROEFFNUNG = '2026-09-07';
   var TAGE = ['Sonntag','Montag','Dienstag','Mittwoch','Donnerstag','Freitag','Samstag'];
 
@@ -632,7 +635,7 @@
 
     var wt = j.getDay();
     var jetzt = j.getHours() * 60 + j.getMinutes();
-    var heuteZeit = ZEITEN[wt];
+    var heuteZeit = SONDER.hasOwnProperty(heute) ? SONDER[heute] : ZEITEN[wt];
 
     if (heuteZeit && jetzt >= minuten(heuteZeit[0]) && jetzt < minuten(heuteZeit[1])) {
       gross.textContent = 'Jetzt geöffnet';
@@ -664,8 +667,8 @@
   var e=document.getElementById('saison'); if(!e) return;
   var d=new Date(), t=d.getFullYear()*10000+(d.getMonth()+1)*100+d.getDate();
   var s=null;
-  if(t>=20261021&&t<20261106) s=['<b>Weihnachtsfeiern</b> für bis zu 70 Gäste. Die Dezemberabende gehen schnell weg. <span>Jetzt anfragen →</span>','weihnachtsfeier.html#anfrage'];
-  else if(t>=20261106&&t<=20261130) s=['<b>Martinigansl ist da</b>, mittags und abends bis 30. November. <span>Tisch reservieren →</span>','reservierung.html'];
+  if(t>=20261021&&t<20261101) s=['<b>Weihnachtsfeiern</b> für bis zu 70 Gäste. Die Dezemberabende gehen schnell weg. <span>Jetzt anfragen →</span>','weihnachtsfeier.html#anfrage'];
+  else if(t>=20261101&&t<=20261130) s=['<b>Gansl und Wild</b> ist da: knusprige Ganslkeule, Rehragout und Oktopus vom Grill. <span>Zum Menu →</span>','gansl-wild-wien.html'];
   else if(t>=20261201&&t<=20261223) s=['<b>Christmas Menu</b> am 24. und 25.12. · <b>Silvester</b> mit DJ bis 2 Uhr <span>Mehr erfahren →</span>','weihnachten-restaurant-wien.html'];
   if(!s) return;
   e.innerHTML=s[0]; e.href=s[1]; e.hidden=false;
