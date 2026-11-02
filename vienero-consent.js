@@ -28,6 +28,18 @@
   gtag('config', AW);
   if (location.pathname.indexOf('/reservierung') !== -1) gtag('event', 'conversion', { send_to: CONV });
 
+  /* Datumsabhaengige Texte (z. B. neue Sonntagszeiten ab 3.1.2027) automatisch umstellen */
+  function datumTexte() {
+    var h;
+    try { h = new Date(new Date().toLocaleString('en-US', { timeZone: 'Europe/Vienna' })); } catch (e) { h = new Date(); }
+    var heute = h.getFullYear() + '-' + ('0' + (h.getMonth() + 1)).slice(-2) + '-' + ('0' + h.getDate()).slice(-2);
+    var a = document.querySelectorAll('[data-ab]');
+    for (var i = 0; i < a.length; i++) if (heute >= a[i].getAttribute('data-ab')) a[i].innerHTML = a[i].getAttribute('data-neu');
+    var b = document.querySelectorAll('[data-bis]');
+    for (var j = 0; j < b.length; j++) if (heute >= b[j].getAttribute('data-bis')) b[j].style.display = 'none';
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', datumTexte); else datumTexte();
+
   /* Klicks auf die Telefonnummer zaehlen */
   document.addEventListener('click', function (ev) {
     var a = ev.target.closest ? ev.target.closest('a') : null;
