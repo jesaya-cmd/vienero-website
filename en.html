@@ -112,34 +112,9 @@ footer a{color:var(--gold);text-decoration:none;}
  },
  "areaServed": "Wien",
  "openingHoursSpecification": [
-  {
-   "@type": "OpeningHoursSpecification",
-   "dayOfWeek": [
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-   ],
-   "opens": "12:00",
-   "closes": "24:00"
-  },
-  {
-   "@type": "OpeningHoursSpecification",
-   "dayOfWeek": "Sunday",
-   "opens": "17:00",
-   "closes": "24:00",
-   "validThrough": "2027-01-02"
-  },
-  {
-   "@type": "OpeningHoursSpecification",
-   "dayOfWeek": "Sunday",
-   "opens": "12:00",
-   "closes": "23:00",
-   "validFrom": "2027-01-03"
-  }
- ],
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "12:00", "closes": "24:00", "validThrough": "2027-01-31"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "16:00", "closes": "24:00", "validFrom": "2027-02-01"}
+  ],
  "amenityFeature": [
   {
    "@type": "LocationFeatureSpecification",
@@ -598,7 +573,7 @@ footer a{color:var(--gold);text-decoration:none;}
 <main>
   <h1>Restaurant and cocktail bar in the heart of Vienna</h1>
   <p class="intro">VIENERO sits right by Stadtpark in Vienna's first district, on Dr.-Karl-Lueger-Platz at the end of the Ringstrasse. Viennese classics meet the flavours of the Mediterranean: our Wiener Schnitzel in a light souffléed crust, fresh pasta with shaved black truffle, steaks and whole sea bass from the grill. Formerly Le Pic: same address, same hosts, new name.</p>
-  <p class="intro">Open every day. Lunch from noon (<span data-ab="2027-01-03" data-neu="Sundays noon to 11 pm">Sundays from 5 pm, from 3 January also from noon</span>), dinner until 10 pm and signature cocktails at the bar until midnight. St. Stephen's Cathedral is about a ten minute walk away, and the U3 Stubentor station is right outside our door.</p>
+  <p class="intro">Open every day. <span data-ab="2027-02-01" data-neu="From 4 pm every day, dinner until 11 pm and">Lunch from noon every day, dinner until 10 pm (from 1 February 2027 daily from 4 pm, kitchen until 11 pm) and</span> signature cocktails at the bar until midnight. St. Stephen's Cathedral is about a ten minute walk away, and the U3 Stubentor station is right outside our door.</p>
   <div class="aktion"><a class="btn gold" href="reservierung.html">Book a table</a><a class="btn" href="tel:+4319137005">Call +43 1 913 70 05</a></div>
   <p class="intro" style="margin-top:14px">★ 4.4 on Google from more than 1,500 reviews.</p>
 
@@ -675,7 +650,7 @@ footer a{color:var(--gold);text-decoration:none;}
   <section class="blk" id="visit">
     <h2>Plan your visit</h2>
     <div class="gitter">
-      <div class="feld"><h3>Opening hours</h3><p>Mon to Sat 12 pm to midnight<br>Sun 5 pm to midnight<br>Kitchen until 10 pm</p></div>
+      <div class="feld"><h3>Opening hours</h3><p data-ab="2027-02-01" data-neu="Daily 4 pm to midnight<br>Kitchen until 11 pm">Daily 12 noon to midnight<br>Kitchen until 10 pm<br>From 1 February 2027 daily 4 pm to midnight, kitchen until 11 pm</p></div>
       <div class="feld"><h3>Location</h3><p>Dr.-Karl-Lueger-Platz 3<br>1010 Vienna, Austria<br>U3 Stubentor, by Stadtpark<br><a href="https://maps.google.com/?q=VIENERO,+Dr.-Karl-Lueger-Platz+3,+1010+Wien" rel="noopener">Open in Google Maps</a></p></div>
       <div class="feld"><h3>Reservations</h3><p><a href="tel:+4319137005">+43 1 913 70 05</a><br><a href="mailto:Reservierung@vienero.at">Reservierung@vienero.at</a><br><a href="reservierung.html">Book online</a><br>Groups of nine or more, please call.</p></div>
     </div>

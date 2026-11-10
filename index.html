@@ -78,33 +78,8 @@
   },
   "areaServed": "Wien",
   "openingHoursSpecification": [
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday"
-      ],
-      "opens": "12:00",
-      "closes": "24:00"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "17:00",
-      "closes": "24:00",
-      "validThrough": "2027-01-02"
-    },
-    {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": "Sunday",
-      "opens": "12:00",
-      "closes": "23:00",
-      "validFrom": "2027-01-03"
-    }
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "12:00", "closes": "24:00", "validThrough": "2027-01-31"},
+    {"@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"], "opens": "16:00", "closes": "24:00", "validFrom": "2027-02-01"}
   ],
   "amenityFeature": [
     {
@@ -342,7 +317,7 @@
       <p>Restaurant &amp; Bar · Pasta · Steak · Fisch · Cocktails</p>
       <p class="f-gap">Dr.-Karl-Lueger-Platz 3, 1010 Wien · <a href="tel:+4319137005">01 913 70 05</a></p>
       <p>Direkt am Stadtpark, zwischen erstem und drittem Bezirk.</p>
-      <p>Montag bis Samstag 12:00 bis 24:00 Uhr · <span data-ab="2027-01-03" data-neu="Sonntag 12:00 bis 23:00 Uhr">Sonntag 17:00 bis 24:00 Uhr, ab 3. Jänner sonntags schon ab 12:00</span></p>
+      <p data-ab="2027-02-01" data-neu="Montag bis Sonntag 16:00 bis 24:00 Uhr · Küche bis 23:00 Uhr">Montag bis Sonntag 12:00 bis 24:00 Uhr · ab 1. Februar 2027 täglich 16:00 bis 24:00 Uhr, Küche bis 23:00 Uhr</p>
       <p class="f-gap"><a href="reservierung.html">Tisch reservieren →</a> · <a href="veranstaltungen.html">Feier anfragen →</a></p>
       <p class="f-gap"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
     </div>
@@ -484,11 +459,10 @@
 
       <div class="info-feld">
         <h3>Öffnungszeiten</h3>
-        <div class="info-zeile"><span>Montag bis Samstag</span><b>12:00 bis 24:00</b></div>
-        <div class="info-zeile"><span>Sonntag</span><b><span data-ab="2027-01-03" data-neu="12:00 bis 23:00">17:00 bis 24:00</span></b></div>
-        <div class="info-zeile" data-bis="2027-01-03"><span>Sonntag ab 3. Jänner</span><b>12:00 bis 23:00</b></div>
+        <div class="info-zeile"><span>Montag bis Sonntag</span><b><span data-ab="2027-02-01" data-neu="16:00 bis 24:00">12:00 bis 24:00</span></b></div>
+        <div class="info-zeile" data-bis="2027-02-01"><span>Ab 1. Februar 2027</span><b>16:00 bis 24:00</b></div>
         <div class="info-zeile"><span>Business Lunch</span><b>wieder ab Jänner</b></div>
-        <p class="info-klein">Küche bis 22:00 Uhr, Bar bis 24:00 Uhr. Kein Ruhetag.</p>
+        <p class="info-klein">Küche bis <span data-ab="2027-02-01" data-neu="23:00 Uhr">22:00 Uhr (ab Februar bis 23:00 Uhr)</span>, Bar bis 24:00 Uhr. Kein Ruhetag.</p>
       </div>
 
       <div class="info-feld">
@@ -605,7 +579,7 @@
    0 = Sonntag, 1 = Montag ... 6 = Samstag. null = Ruhetag. */
 (function(){
   var ZEITEN = {
-    0: ['17:00','24:00'],
+    0: ['12:00','24:00'],
     1: ['12:00','24:00'], 2: ['12:00','24:00'], 3: ['12:00','24:00'],
     4: ['12:00','24:00'], 5: ['12:00','24:00'], 6: ['12:00','24:00']
   };
@@ -637,7 +611,7 @@
 
     var wt = j.getDay();
     var jetzt = j.getHours() * 60 + j.getMinutes();
-    if (heute >= '2027-01-03') ZEITEN[0] = ['12:00','23:00'];
+    if (heute >= '2027-02-01') for (var t = 0; t < 7; t++) ZEITEN[t] = ['16:00','24:00'];
     var heuteZeit = SONDER.hasOwnProperty(heute) ? SONDER[heute] : ZEITEN[wt];
 
     if (heuteZeit && jetzt >= minuten(heuteZeit[0]) && jetzt < minuten(heuteZeit[1])) {
