@@ -71,7 +71,7 @@ try { if (window.top !== window.self && window.top.location.hostname === locatio
     </div>
     <div class="karte">
       <h2 data-t="fest_h">Schon an die Feiertage gedacht?</h2>
-      <p data-t="fest_p">Weihnachtsfeier mit dem Team, Weihnachtsmenu am 24. und 25. Dezember oder Silvester mit DJ: die Plätze für Dezember sind gefragt.</p>
+      <p data-t="fest_p">Weihnachtsfeier mit dem Team oder Silvester mit DJ: die Plätze für Dezember sind gefragt.</p>
       <div class="knoepfe">
         <a class="knopf leer" href="veranstaltungen.html" data-t="feier">Feier anfragen</a>
         <a class="knopf leer" href="silvester-wien.html" data-t="silv">Silvester</a>
@@ -102,8 +102,8 @@ try { if (window.top !== window.self && window.top.location.hostname === locatio
     aend_h: 'Need to change something?',
     aend_p: 'Use the link in your confirmation to change the time or party size. Or simply give us a call.',
     fest_h: 'Celebrating in December?',
-    fest_p: 'Christmas dinner on 24 and 25 December or New Year\'s Eve with a DJ: December evenings fill up fast.',
-    feier: 'Christmas dinner', silv: 'New Year\'s Eve',
+    fest_p: 'New Year\'s Eve with a DJ: December evenings fill up fast.',
+    feier: 'Private events', silv: 'New Year\'s Eve',
     freu_h: 'VIENERO Friends',
     freu_p: 'New dishes, DJ nights and little surprises from kitchen and bar, a few times a year by email. <a href="freunde.html">Sign up here</a>'
   };
@@ -114,7 +114,6 @@ try { if (window.top !== window.self && window.top.location.hostname === locatio
     var k = els[i].getAttribute('data-t');
     if (EN[k]) els[i].innerHTML = EN[k];
   }
-  var f = document.querySelector('[data-t="feier"]'); if (f) f.href = 'christmas-dinner-vienna.html';
   var s = document.querySelector('[data-t="silv"]'); if (s) s.href = 'new-years-eve-vienna.html';
   var m = document.querySelector('[data-t="menu"]'); if (m) m.href = 'en.html#menu';
 })();
