@@ -5,6 +5,7 @@
   var CONV_TEL = 'AW-18506650716/SwAgCLLTyK8dENyo1PhE'; /* Klick auf Telefonnummer (Website), Wert 15 */
   var KEY = 'vienero_consent_v1';
   var en = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
+  var lg = (document.documentElement.lang || 'de').toLowerCase().slice(0,2);
 
   function get() { try { return localStorage.getItem(KEY); } catch (e) { return null; } }
   function set(v) { try { localStorage.setItem(KEY, v); } catch (e) {} }
@@ -48,13 +49,13 @@
     if (h.indexOf('tel:') === 0) gtag('event', 'conversion', { send_to: CONV_TEL });
   }, true);
 
-  var T = en ? {
-    text: 'We use Google Ads to see which of our ads bring guests to VIENERO. With your consent we set cookies for this. Without it, Google only receives simple signals without cookies. The website works the same either way.',
-    yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'
-  } : {
-    text: 'Wir nutzen Google Ads, um zu sehen, welche unserer Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt Google nur einfache Signale ohne Cookies. Die Seite funktioniert in beiden Fällen genauso.',
-    yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'
+  var TT = {
+    en: {text: 'We use Google Ads to see which of our ads bring guests to VIENERO. With your consent we set cookies for this. Without it, Google only receives simple signals without cookies. The website works the same either way.', yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'},
+    fr: {text: "Nous utilisons Google Ads pour savoir quelles annonces amènent nos clients chez VIENERO. Avec votre accord, nous déposons des cookies à cet effet. Sans accord, Google ne reçoit que des signaux simples, sans cookies. Le site fonctionne de la même façon dans les deux cas.", yes: 'Accepter', no: 'Refuser', more: 'Confidentialité', href: 'datenschutz.html'},
+    it: {text: 'Usiamo Google Ads per capire quali annunci portano ospiti da VIENERO. Con il tuo consenso impostiamo dei cookie a questo scopo, senza consenso Google riceve solo semplici segnali senza cookie. Il sito funziona allo stesso modo in entrambi i casi.', yes: 'Accetta', no: 'Rifiuta', more: 'Privacy', href: 'datenschutz.html'},
+    de: {text: 'Wir nutzen Google Ads, um zu sehen, welche unserer Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt Google nur einfache Signale ohne Cookies. Die Seite funktioniert in beiden Fällen genauso.', yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'}
   };
+  var T = TT[lg] || TT.de;
 
   function banner() {
     if (document.getElementById('vnConsent')) return;
@@ -92,11 +93,13 @@
     var p = location.pathname;
     if (/reservierung|impressum|datenschutz|presse|service|aktion|preopening/.test(p)) return;
     if (document.getElementById('vnLeiste')) return;
-    var L = en ? {
-      res: 'Book a table', tel: 'Call', info: '★ 4.4 on Google · more than 1,500 reviews'
-    } : {
-      res: 'Tisch reservieren', tel: 'Anrufen', info: '★ 4,4 auf Google · über 1.500 Bewertungen'
+    var LL = {
+      en: {res: 'Book a table', tel: 'Call', info: '★ 4.4 on Google · more than 1,500 reviews'},
+      fr: {res: 'Réserver', tel: 'Appeler', info: '★ 4,4 sur Google · plus de 1 500 avis'},
+      it: {res: 'Prenota', tel: 'Chiama', info: '★ 4,4 su Google · oltre 1.500 recensioni'},
+      de: {res: 'Tisch reservieren', tel: 'Anrufen', info: '★ 4,4 auf Google · über 1.500 Bewertungen'}
     };
+    var L = LL[lg] || LL.de;
     var css = document.createElement('style');
     css.textContent =
       '#vnLeiste{position:fixed;left:0;right:0;bottom:0;z-index:9000;background:rgba(47,49,51,.97);color:#F8F5EE;' +
