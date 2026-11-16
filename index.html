@@ -282,16 +282,78 @@
   @media (max-width:700px){ .fest-zus{display:none;} .fest-row{grid-template-columns:1fr 1fr;max-width:min(520px,92vw);gap:8px;} .fest-row a{font-size:11px;padding:9px 8px;letter-spacing:.6px;} }
 </style>
 <script src="vienero-consent.js" defer></script>
+
+<style>
+  .stage img.hero-logo{position:absolute;inset:auto;z-index:2;height:auto;object-fit:contain;filter:drop-shadow(0 2px 14px rgba(0,0,0,.5));}
+  .hero-satz{max-width:520px;margin:0 auto 22px;font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(19px,2.1vw,25px);line-height:1.4;color:var(--ivory);}
+  @media (min-width:901px){
+    .stage{background:#15110d;}
+    .stage picture{left:40%;}
+    .stage .overlay{background:linear-gradient(90deg,#15110d 40%,rgba(21,17,13,.55) 47%,rgba(21,17,13,0) 60%),linear-gradient(0deg,rgba(21,17,13,.55) 0%,rgba(21,17,13,0) 30%);}
+    .stage img.hero-logo{top:max(70px,11vh);left:22%;transform:translateX(-50%);width:min(300px,26vw);}
+    .stage .content{right:auto;width:44%;top:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3vw 4vh;}
+    .stage .content .cta-row .btn{min-width:0;padding:14px 26px;}
+  }
+  @media (max-width:900px){
+    .stage{height:auto;min-height:100dvh;background:#15110d;display:flex;flex-direction:column;}
+    .stage picture{position:relative;inset:auto;height:52vh;height:52dvh;flex:none;}
+    .stage .overlay{inset:0 0 auto 0;height:52vh;height:52dvh;background:linear-gradient(180deg,rgba(21,17,13,.35) 0%,rgba(21,17,13,0) 22%,rgba(21,17,13,0) 55%,rgba(21,17,13,.85) 86%,#15110d 100%);}
+    .stage img.hero-logo{top:calc(52dvh - 64px);left:50%;transform:translateX(-50%);width:min(230px,56vw);}
+    .stage .content{position:relative;inset:auto;padding:18px 16px 30px;}
+    .stage picture img{object-position:center 30%;}
+  }
+  .gerichte{background:var(--ivory);color:var(--anthrazit);padding:72px 16px 64px;}
+  .g-kopf{max-width:640px;margin:0 auto 34px;text-align:center;}
+  .g-titel{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(28px,4.6vw,44px);line-height:1.15;overflow-wrap:break-word;}
+  .g-intro{margin-top:12px;font-size:16px;line-height:1.7;color:rgba(47,49,51,.75);}
+  .g-star{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);max-height:520px;max-width:1120px;margin:0 auto 18px;background:#fff;border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 18px 40px -24px rgba(47,49,51,.35);}
+  .g-star img{width:100%;height:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
+  .g-star-text{display:flex;flex-direction:column;justify-content:center;padding:clamp(22px,4vw,54px);gap:12px;}
+  .g-star .g-name{font-family:'Fraunces',Georgia,serif;font-size:clamp(26px,3.4vw,40px);line-height:1.15;}
+  .g-star .g-preis{margin-top:4px;font-size:18px;}
+  .g-star .g-zeile{font-size:16px;line-height:1.7;color:rgba(47,49,51,.78);}
+  .g-gitter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;max-width:1120px;margin:0 auto;}
+  .gericht{display:flex;flex-direction:column;background:#fff;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 14px 30px -22px rgba(47,49,51,.4);transition:transform .25s ease,box-shadow .25s ease;}
+  .gericht:hover,.g-star:hover{transform:translateY(-3px);box-shadow:0 22px 40px -22px rgba(47,49,51,.45);}
+  .g-star{transition:transform .25s ease,box-shadow .25s ease;}
+  .gericht img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;transition:transform .5s ease;}
+  .gericht:hover img{transform:scale(1.04);}
+  .g-text{display:flex;flex-direction:column;gap:5px;padding:14px 16px 18px;flex:1;}
+  .gericht .g-name{font-family:'Fraunces',Georgia,serif;font-size:19px;line-height:1.25;}
+  .gericht .g-zeile{font-size:14px;line-height:1.55;color:rgba(47,49,51,.72);}
+  .g-preis{margin-top:auto;padding-top:6px;font-weight:600;color:var(--braun);font-size:15px;}
+  .gericht:focus-visible,.g-star:focus-visible,.g-aktion .btn:focus-visible{outline:2px solid var(--braun);outline-offset:3px;}
+  .g-aktion{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:38px auto 0;}
+  .g-aktion .btn.btn-haupt{background:var(--gold);border-color:var(--gold);color:var(--anthrazit);font-weight:600;}
+  .g-aktion .btn.g-menu{color:var(--braun);border-color:var(--braun);}
+  .g-aktion .btn.g-menu:hover{background:var(--braun);color:var(--ivory);}
+  .g-fest{margin-top:26px;}
+  .g-fest a{background:#fff;color:var(--anthrazit);border-color:rgba(142,113,52,.45);backdrop-filter:none;}
+  .g-fest a:hover{background:var(--gold);}
+  @media (max-width:900px){ .g-gitter{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;} }
+  @media (max-width:700px){
+    .gerichte{padding:52px 16px 48px;}
+    .g-star{grid-template-columns:minmax(0,1fr);}
+    .g-star img{height:auto;}
+    .g-text{padding:11px 12px 14px;}
+    .gericht .g-name{font-size:16.5px;}
+    .gericht .g-zeile{font-size:13px;}
+    .g-preis{font-size:14px;}
+    .hero-satz{font-size:19px;margin-bottom:14px;}
+  }
+  @media (prefers-reduced-motion:reduce){ .gericht,.gericht img,.g-star{transition:none;} .gericht:hover,.g-star:hover{transform:none;} .gericht:hover img{transform:none;} }
+</style>
 </head>
 <body>
 <div class="stage">
   <a class="saison" id="saison" href="veranstaltungen.html#anfrage" hidden></a>
   <picture>
-    <source media="(max-width:700px)" srcset="VIENERO-Start-Hoch.webp">
-    <img src="VIENERO-Start.webp" fetchpriority="high" decoding="async" alt="VIENERO. Der mediterrane Wiener. Restaurant und Bar am Dr.-Karl-Lueger-Platz 3 in 1010 Wien.">
+    <img src="VIENERO-Start-Schnitzel.webp" fetchpriority="high" decoding="async" alt="Wiener Schnitzel vom Kalb mit Zitrone im VIENERO am Dr.-Karl-Lueger-Platz 3 in 1010 Wien.">
   </picture>
+  <img class="hero-logo" src="VIENERO-Logo-Weiss.png" width="811" height="219" alt="VIENERO">
   <div class="overlay"></div>
   <div class="content">
+    <p class="hero-satz">Wiener Schnitzel vom Kalb, Pasta mit schwarzem Trüffel und ganzer Fisch vom Grill. Direkt am Stadtpark.</p>
     <div class="countdown" id="countdown">
       <div class="cd-item">
         <div class="cd-num" id="statusGross" style="font-size:clamp(22px,4vw,34px);">Willkommen</div>
@@ -302,13 +364,6 @@
       <a class="btn btn-haupt" href="reservierung.html">Tisch reservieren</a>
       <a class="btn karte-hint" href="#speisekarte">Menu ansehen <span>&#8595;</span></a>
     </div>
-    <nav class="fest-row" aria-label="Feiern und Festtage">
-      <a href="gansl-wild-wien.html">Gansl und Wild<span class="fest-zus">&nbsp;ab 1.11.</span></a>
-      <a href="weihnachtsfeier.html">Weihnachtsfeier</a>
-      <a href="veranstaltungen.html">Feiern und Events</a>
-      <a href="gruppen-restaurant-wien.html">Gruppen und Hochzeiten</a>
-      <a href="silvester-wien.html">Silvester mit DJ</a>
-    </nav>
     <p class="vn-hero-v" style="margin-top:16px;font-size:13px;line-height:1.7;color:rgba(248,245,238,.92);text-shadow:0 1px 8px rgba(0,0,0,.45);">★ 4,4 auf Google · über 1.500 Bewertungen</p>
     <div class="social">
       <a href="https://www.instagram.com/vienero.vienna" target="_blank" rel="noopener">Instagram</a>·<a href="https://www.tiktok.com/@vienero.vienna" target="_blank" rel="noopener">TikTok</a>·<a href="https://www.facebook.com/vienero.vienna" target="_blank" rel="noopener">Facebook</a>·<a href="https://www.youtube.com/@vienero.vienna" target="_blank" rel="noopener">YouTube</a>·<a href="en.html" hreflang="en" lang="en">English</a>·<a href="ristorante-vienna.html" hreflang="it" lang="it">Italiano</a>·<a href="restaurant-vienne.html" hreflang="fr" lang="fr">Français</a>
@@ -324,6 +379,26 @@
     </div>
   </div>
 </div>
+
+  <section class="gerichte" id="gerichte" aria-labelledby="gerichte-titel">
+    <div class="g-kopf">
+      <h2 id="gerichte-titel" class="g-titel">Was bei uns auf den Teller kommt</h2>
+      <p class="g-intro">Wiener Klassiker und das Beste vom Mittelmeer, jeden Tag frisch gekocht. Mittags und abends.</p>
+    </div>
+    <a class="g-star" href="wiener-schnitzel.html">
+      <img src="VIENERO-Foto-Schnitzel.webp" width="900" height="900" loading="lazy" decoding="async" alt="Wiener Schnitzel vom Kalb im VIENERO Wien">
+      <span class="g-star-text"><span class="g-name">Wiener Schnitzel vom Kalb</span><span class="g-zeile">Zartes Kalb in luftig soufflierter Panade, mit Petersilienkartoffeln und auf Wunsch Preiselbeeren.</span><span class="g-preis">29,90 €</span></span>
+    </a>
+    <div class="g-gitter"><a class="gericht" href="trueffelpasta-wien.html"><img src="VIENERO-Foto-Tartufo.webp" width="900" height="900" loading="lazy" decoding="async" alt="Pasta al Tartufo im VIENERO Wien"><span class="g-text"><span class="g-name">Pasta al Tartufo</span><span class="g-zeile">Trüffelbutter, Parmesan und frisch gehobelter schwarzer Trüffel.</span><span class="g-preis">29,90 €</span></span></a><a class="gericht" href="fisch-wien.html"><img src="VIENERO-Foto-Wolfsbarsch.webp" width="900" height="900" loading="lazy" decoding="async" alt="Wolfsbarsch vom Grill im VIENERO Wien"><span class="g-text"><span class="g-name">Wolfsbarsch vom Grill</span><span class="g-zeile">Im Ganzen gegrillt, mit frischen Kräutern und Zitrone.</span><span class="g-preis">33,90 €</span></span></a><a class="gericht" href="steak-wien.html"><img src="VIENERO-Foto-Ribeye.webp" width="900" height="900" loading="lazy" decoding="async" alt="Ribeye Steak 300 g im VIENERO Wien"><span class="g-text"><span class="g-name">Ribeye Steak 300 g</span><span class="g-zeile">Vom Grill, auf Wunsch als Surf and Turf mit Garnelen.</span><span class="g-preis">43,90 €</span></span></a><a class="gericht" href="pasta-wien.html"><img src="VIENERO-Foto-Pistazie.webp" width="900" height="900" loading="lazy" decoding="async" alt="Pasta Zucchine e Pistacchio im VIENERO Wien"><span class="g-text"><span class="g-name">Pasta Zucchine e Pistacchio</span><span class="g-zeile">Geröstete Pistazien, zarte Zucchini und eine ganze Burrata.</span><span class="g-preis">27,90 €</span></span></a><a class="gericht" href="fisch-wien.html"><img src="VIENERO-Foto-Bouillabaisse.webp" width="900" height="900" loading="lazy" decoding="async" alt="Bouillabaisse im VIENERO Wien"><span class="g-text"><span class="g-name">Bouillabaisse</span><span class="g-zeile">Fischfilet, Muscheln, Calamari und Garnelen in Safransud.</span><span class="g-preis">32,90 €</span></span></a><a class="gericht" href="vegetarisch-wien.html"><img src="VIENERO-Foto-Burrata.webp" width="900" height="900" loading="lazy" decoding="async" alt="Burrata und Ofentomaten im VIENERO Wien"><span class="g-text"><span class="g-name">Burrata und Ofentomaten</span><span class="g-zeile">Cremige Burrata, Balsamico Honig Senf und Pinienkerne.</span><span class="g-preis">18,90 €</span></span></a><a class="gericht" href="menu.html"><img src="VIENERO-Foto-Zwiebelsuppe.webp" width="900" height="900" loading="lazy" decoding="async" alt="Zwiebelsuppe im VIENERO Wien"><span class="g-text"><span class="g-name">Zwiebelsuppe</span><span class="g-zeile">Samtig, mit Weißwein und knusprigen Mozzarella Croûtons.</span><span class="g-preis">13,00 €</span></span></a><a class="gericht" href="menu.html"><img src="VIENERO-Foto-Souffle2.webp" width="900" height="900" loading="lazy" decoding="async" alt="Schoko Soufflé im VIENERO Wien"><span class="g-text"><span class="g-name">Schoko Soufflé</span><span class="g-zeile">Mit einer Kugel Bourbon Vanilleeis.</span><span class="g-preis">11,90 €</span></span></a></div>
+    <div class="g-aktion"><a class="btn btn-haupt" href="reservierung.html">Tisch reservieren</a><a class="btn g-menu" href="menu.html">Ganzes Menu mit Preisen</a></div>
+    <nav class="fest-row g-fest" aria-label="Feiern und Festtage">
+      <a href="gansl-wild-wien.html">Gansl und Wild<span class="fest-zus">&nbsp;ab 1.11.</span></a>
+      <a href="weihnachtsfeier.html">Weihnachtsfeier</a>
+      <a href="veranstaltungen.html">Feiern und Events</a>
+      <a href="gruppen-restaurant-wien.html">Gruppen und Hochzeiten</a>
+      <a href="silvester-wien.html">Silvester mit DJ</a>
+    </nav>
+  </section>
 
   <!-- ===== VIENERO Speisekarte ===== -->
   <div class="karte" id="speisekarte">
