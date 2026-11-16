@@ -139,3 +139,28 @@
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', leiste);
   else leiste();
 })();
+
+/* VIENERO Besucherzaehler: zaehlt Seitenaufrufe anonym in der eigenen Google Tabelle.
+   Keine Cookies, kein Speicher im Browser, keine IP, keine Kennung. Gespeichert werden nur
+   Seite, Herkunft (z. B. google.com), Geraetetyp und Browsersprache. */
+(function () {
+  try {
+    var ua = navigator.userAgent || '';
+    if (navigator.webdriver || /bot|crawl|spider|slurp|lighthouse|headless|preview/i.test(ua)) return;
+    var host = location.hostname;
+    if (host !== 'vienero.at' && host !== 'www.vienero.at') return;
+    var ref = '', neu = 1;
+    try { if (document.referrer) ref = new URL(document.referrer).hostname.replace(/^www\./, ''); } catch (e) {}
+    if (ref === 'vienero.at') { neu = 0; ref = ''; }
+    var q = new URLSearchParams(location.search);
+    var herkunft = q.get('gclid') || q.get('gbraid') || q.get('wbraid') ? 'Google Anzeige'
+                 : (q.get('utm_source') || ref || 'direkt');
+    if (!neu) herkunft = '';
+    var geraet = /iPad|Tablet/i.test(ua) ? 'Tablet' : (/Mobi|Android|iPhone/i.test(ua) ? 'Handy' : 'Computer');
+    var body = JSON.stringify({ typ: 'besuch', seite: location.pathname, herkunft: herkunft,
+      geraet: geraet, sprache: (navigator.language || '').slice(0, 2), neu: neu });
+    var ziel = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec';
+    if (navigator.sendBeacon) navigator.sendBeacon(ziel, new Blob([body], { type: 'text/plain;charset=utf-8' }));
+    else fetch(ziel, { method: 'POST', body: body, keepalive: true, mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+  } catch (e) {}
+})();
