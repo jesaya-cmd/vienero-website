@@ -282,171 +282,16 @@
   @media (max-width:700px){ .fest-zus{display:none;} .fest-row{grid-template-columns:1fr 1fr;max-width:min(520px,92vw);gap:8px;} .fest-row a{font-size:11px;padding:9px 8px;letter-spacing:.6px;} }
 </style>
 <script src="vienero-consent.js" defer></script>
-
-<style>
-  .stage img.hero-logo{position:absolute;inset:auto;z-index:2;height:auto;object-fit:contain;filter:drop-shadow(0 2px 14px rgba(0,0,0,.5));}
-  .hero-satz{max-width:520px;margin:0 auto 22px;font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(19px,2.1vw,25px);line-height:1.4;color:var(--ivory);}
-  @media (min-width:901px){
-    .stage{background:#15110d;}
-    .stage picture{left:40%;}
-    .stage .overlay{background:linear-gradient(90deg,#15110d 40%,rgba(21,17,13,.55) 47%,rgba(21,17,13,0) 60%),linear-gradient(0deg,rgba(21,17,13,.55) 0%,rgba(21,17,13,0) 30%);}
-    .stage img.hero-logo{top:max(70px,11vh);left:22%;transform:translateX(-50%);width:min(300px,26vw);}
-    .stage .content{right:auto;width:44%;top:0;display:flex;flex-direction:column;justify-content:flex-end;padding:0 3vw 4vh;}
-    .stage .content .cta-row .btn{min-width:0;padding:14px 26px;}
-  }
-  @media (max-width:900px){
-    .stage{height:auto;min-height:100dvh;background:#15110d;display:flex;flex-direction:column;}
-    .stage picture{position:relative;inset:auto;height:52vh;height:52dvh;flex:none;}
-    .stage .overlay{inset:0 0 auto 0;height:52vh;height:52dvh;background:linear-gradient(180deg,rgba(21,17,13,.35) 0%,rgba(21,17,13,0) 22%,rgba(21,17,13,0) 55%,rgba(21,17,13,.85) 86%,#15110d 100%);}
-    .stage img.hero-logo{top:calc(52dvh - 64px);left:50%;transform:translateX(-50%);width:min(230px,56vw);}
-    .stage .content{position:relative;inset:auto;padding:18px 16px 30px;}
-    .stage picture img{object-position:center 30%;}
-  }
-  .gerichte{background:var(--ivory);color:var(--anthrazit);padding:72px 16px 64px;}
-  .g-kopf{max-width:640px;margin:0 auto 34px;text-align:center;}
-  .g-titel{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(28px,4.6vw,44px);line-height:1.15;overflow-wrap:break-word;}
-  .g-intro{margin-top:12px;font-size:16px;line-height:1.7;color:rgba(47,49,51,.75);}
-  .g-star{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);max-height:520px;max-width:1120px;margin:0 auto 18px;background:#fff;border-radius:18px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 18px 40px -24px rgba(47,49,51,.35);}
-  .g-star img{width:100%;height:100%;aspect-ratio:1/1;object-fit:cover;display:block;}
-  .g-star-text{display:flex;flex-direction:column;justify-content:center;padding:clamp(22px,4vw,54px);gap:12px;}
-  .g-star .g-name{font-family:'Fraunces',Georgia,serif;font-size:clamp(26px,3.4vw,40px);line-height:1.15;}
-  .g-star .g-preis{margin-top:4px;font-size:18px;}
-  .g-star .g-zeile{font-size:16px;line-height:1.7;color:rgba(47,49,51,.78);}
-  .g-gitter{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;max-width:1120px;margin:0 auto;}
-  .gericht{display:flex;flex-direction:column;background:#fff;border-radius:14px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 14px 30px -22px rgba(47,49,51,.4);transition:transform .25s ease,box-shadow .25s ease;}
-  .gericht:hover,.g-star:hover{transform:translateY(-3px);box-shadow:0 22px 40px -22px rgba(47,49,51,.45);}
-  .g-star{transition:transform .25s ease,box-shadow .25s ease;}
-  .gericht img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;display:block;transition:transform .5s ease;}
-  .gericht:hover img{transform:scale(1.04);}
-  .g-text{display:flex;flex-direction:column;gap:5px;padding:14px 16px 18px;flex:1;}
-  .gericht .g-name{font-family:'Fraunces',Georgia,serif;font-size:19px;line-height:1.25;}
-  .gericht .g-zeile{font-size:14px;line-height:1.55;color:rgba(47,49,51,.72);}
-  .g-preis{margin-top:auto;padding-top:6px;font-weight:600;color:var(--braun);font-size:15px;}
-  .gericht:focus-visible,.g-star:focus-visible,.g-aktion .btn:focus-visible{outline:2px solid var(--braun);outline-offset:3px;}
-  .g-aktion{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:38px auto 0;}
-  .g-aktion .btn.btn-haupt{background:var(--gold);border-color:var(--gold);color:var(--anthrazit);font-weight:600;}
-  .g-aktion .btn.g-menu{color:var(--braun);border-color:var(--braun);}
-  .g-aktion .btn.g-menu:hover{background:var(--braun);color:var(--ivory);}
-  .g-fest{margin-top:26px;}
-  .g-fest a{background:#fff;color:var(--anthrazit);border-color:rgba(142,113,52,.45);backdrop-filter:none;}
-  .g-fest a:hover{background:var(--gold);}
-  @media (max-width:900px){ .g-gitter{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;} }
-  @media (max-width:700px){
-    .gerichte{padding:52px 16px 48px;}
-    .g-star{grid-template-columns:minmax(0,1fr);}
-    .g-star img{height:auto;}
-    .g-star{max-height:none;}
-    .g-text{padding:11px 12px 14px;}
-    .gericht .g-name{font-size:16.5px;}
-    .gericht .g-zeile{font-size:13px;}
-    .g-preis{font-size:14px;}
-    .hero-satz{font-size:19px;margin-bottom:14px;}
-  }
-  @media (prefers-reduced-motion:reduce){ .gericht,.gericht img,.g-star{transition:none;} .gericht:hover,.g-star:hover{transform:none;} .gericht:hover img{transform:none;} }
-  @media (min-width:701px){ .g-star-rechts img{order:2;} }
-</style>
-
-<style>
-  .vn-kopf{position:fixed;top:0;left:0;right:0;z-index:40;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px clamp(16px,3vw,36px);transition:background-color .3s ease,box-shadow .3s ease;}
-  .vn-kopf.vn-fest{background:rgba(21,17,13,.94);box-shadow:0 8px 24px -18px rgba(0,0,0,.6);}
-  .vn-kopf-logo img{display:block;width:118px;height:auto;opacity:0;transition:opacity .3s ease;}
-  .vn-kopf.vn-fest .vn-kopf-logo img{opacity:1;}
-  .vn-kopf-nav{display:flex;align-items:center;gap:clamp(14px,1.8vw,26px);}
-  .vn-kopf-nav a{color:var(--ivory);text-decoration:none;font-size:14px;}
-  .vn-kopf-nav a:hover{color:var(--gold);}
-  .vn-kopf-nav a.vn-kopf-res{border:1px solid var(--gold);background:var(--gold);color:var(--anthrazit);font-weight:600;padding:9px 18px;border-radius:999px;}
-  .vn-kopf-nav a.vn-kopf-res:hover{background:#d6b87c;color:var(--anthrazit);}
-  .vn-kopf a:focus-visible,.vn-kopf button:focus-visible,.k-link:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
-  .vn-kopf-burger{display:none;width:44px;height:44px;border:1px solid rgba(248,245,238,.5);border-radius:10px;background:rgba(21,17,13,.55);cursor:pointer;position:relative;}
-  .vn-kopf-burger span{position:absolute;left:12px;right:12px;height:1.5px;background:var(--ivory);transition:transform .25s ease;}
-  .vn-kopf-burger span:first-child{top:17px;} .vn-kopf-burger span:last-child{top:25px;}
-  .vn-kopf-burger[aria-expanded="true"] span:first-child{transform:translateY(4px) rotate(45deg);}
-  .vn-kopf-burger[aria-expanded="true"] span:last-child{transform:translateY(-4px) rotate(-45deg);}
-  .saison{top:0;}
-  body.vn-hat-saison .vn-kopf{top:var(--saison-h,40px);}
-  body.vn-hat-saison .vn-kopf.vn-fest{top:0;}
-  @media (max-width:900px){
-    .vn-kopf-burger{display:block;}
-    .vn-kopf-nav{position:fixed;inset:0 0 auto 0;top:0;flex-direction:column;align-items:stretch;gap:0;padding:76px 16px 22px;background:rgba(21,17,13,.98);transform:translateY(-102%);transition:transform .3s ease;z-index:-1;}
-    .vn-kopf-nav.offen{transform:none;}
-    .vn-kopf-nav a{font-size:19px;padding:13px 4px;border-bottom:1px solid rgba(248,245,238,.12);font-family:'Fraunces',Georgia,serif;}
-    .vn-kopf-nav a.vn-kopf-res{margin-top:16px;text-align:center;font-family:'Inter',sans-serif;font-size:16px;border-bottom:1px solid var(--gold);}
-    .vn-kopf-logo img{width:100px;}
-  }
-  .kapitel{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(24px,4vw,64px);align-items:center;max-width:1180px;margin:0 auto;padding:clamp(56px,8vw,110px) 16px;}
-  #bar.kapitel{grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);}
-  #bar .k-bilder{order:2;}
-  .kapitel-band{background:var(--ivory);}
-  .k-bilder{display:grid;gap:14px;}
-  .k-bilder img{display:block;width:100%;height:100%;object-fit:cover;border-radius:16px;}
-  .k-bilder.k-2{grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);align-items:end;}
-  .k-bilder.k-2 img:first-child{aspect-ratio:4/5;}
-  .k-bilder.k-2 img:last-child{aspect-ratio:3/4;transform:translateY(28px);}
-  .k-bilder.k-1 img{aspect-ratio:3/2;}
-  .k-nr{font-size:15px;color:var(--gold);margin-bottom:12px;}
-  .k-nr-mitte{text-align:center;color:var(--braun);}
-  .k-titel{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:clamp(30px,4.2vw,50px);line-height:1.1;color:var(--ivory);overflow-wrap:break-word;min-width:0;}
-  .k-satz{margin-top:18px;font-size:17px;line-height:1.75;color:rgba(248,245,238,.78);max-width:46ch;}
-  .k-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px;}
-  .k-link{display:inline-flex;align-items:center;padding:12px 22px;border:1px solid var(--gold);border-radius:999px;color:var(--gold);text-decoration:none;font-size:14.5px;transition:background-color .25s ease,color .25s ease;}
-  .k-link:hover{background:var(--gold);color:var(--anthrazit);}
-  .k-fest{justify-content:start;grid-template-columns:repeat(2,auto);margin:22px 0 0;max-width:none;}
-  .k-fest a{font-size:12.5px;letter-spacing:0;}
-  #ankommen,#bar,#feiern{background:var(--anthrazit);}
-  .kapitel-wrap{background:var(--anthrazit);}
-  @media (max-width:820px){
-    .kapitel,#bar.kapitel{grid-template-columns:minmax(0,1fr);}
-    #bar .k-bilder{order:0;}
-    .k-bilder.k-2 img:last-child{transform:none;}
-    .k-satz{font-size:16px;}
-    .k-fest{grid-template-columns:1fr 1fr;}
-  }
-  @media (prefers-reduced-motion:reduce){ .vn-kopf,.vn-kopf-logo img,.vn-kopf-nav,.vn-kopf-burger span,.k-link{transition:none;} }
-</style>
-
-<style>
-  .facts-kurz{margin-top:18px;padding-top:14px;}
-  .facts-kurz .f-strong{font-size:12px;letter-spacing:.3px;}
-  .facts-kurz p{font-size:12px;}
-  .vn-fuss{background:#15110d;color:rgba(248,245,238,.78);padding:72px 16px 110px;}
-  .vn-fuss-innen{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1.3fr) repeat(3,minmax(0,1fr));gap:36px;}
-  .vn-fuss-marke img{width:190px;height:auto;display:block;margin-bottom:16px;}
-  .vn-fuss-marke p{font-size:15px;line-height:1.7;margin-bottom:20px;max-width:30ch;}
-  .vn-fuss h2{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:20px;color:var(--ivory);margin-bottom:12px;}
-  .vn-fuss p{font-size:15px;line-height:1.8;margin-bottom:10px;}
-  .vn-fuss a{color:var(--gold);text-decoration:none;}
-  .vn-fuss a:hover{text-decoration:underline;}
-  .vn-fuss a:focus-visible{outline:2px solid var(--gold);outline-offset:3px;}
-  .vn-fuss-links{display:flex;flex-wrap:wrap;gap:6px 16px;}
-  .vn-fuss-unten{max-width:1180px;margin:44px auto 0;padding-top:22px;border-top:1px solid rgba(248,245,238,.14);display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 30px;}
-  .vn-fuss-unten p{font-size:14px;margin:0;}
-  @media (max-width:900px){ .vn-fuss-innen{grid-template-columns:minmax(0,1fr) minmax(0,1fr);} .vn-fuss-marke{grid-column:1/-1;} }
-  @media (max-width:520px){ .vn-fuss-innen{grid-template-columns:minmax(0,1fr);} .vn-fuss{padding:56px 16px 120px;} }
-</style>
 </head>
 <body>
-<header class="vn-kopf" id="vnKopf">
-  <a class="vn-kopf-logo" href="./" aria-label="VIENERO Startseite"><img src="VIENERO-Logo-Weiss.png" width="811" height="219" alt="VIENERO"></a>
-  <nav class="vn-kopf-nav" id="vnNav" aria-label="Hauptmenu">
-    <a href="#gerichte">Küche</a>
-    <a href="#bar">Bar</a>
-    <a href="#feiern">Feiern</a>
-    <a href="#besuch">Besuch</a>
-    <a href="menu.html">Menu</a>
-    <a href="en.html" hreflang="en">English</a>
-    <a class="vn-kopf-res" href="reservierung.html">Tisch reservieren</a>
-  </nav>
-  <button class="vn-kopf-burger" id="vnBurger" type="button" aria-expanded="false" aria-controls="vnNav" aria-label="Menu öffnen"><span></span><span></span></button>
-</header>
 <div class="stage">
   <a class="saison" id="saison" href="veranstaltungen.html#anfrage" hidden></a>
   <picture>
-    <img src="VIENERO-Start-Schnitzel.webp" fetchpriority="high" decoding="async" alt="Wiener Schnitzel vom Kalb mit Zitrone im VIENERO am Dr.-Karl-Lueger-Platz 3 in 1010 Wien.">
+    <source media="(max-width:700px)" srcset="VIENERO-Start-Hoch.webp">
+    <img src="VIENERO-Start.webp" fetchpriority="high" decoding="async" alt="VIENERO. Der mediterrane Wiener. Restaurant und Bar am Dr.-Karl-Lueger-Platz 3 in 1010 Wien.">
   </picture>
-  <img class="hero-logo" src="VIENERO-Logo-Weiss.png" width="811" height="219" alt="VIENERO">
   <div class="overlay"></div>
   <div class="content">
-    <p class="hero-satz">Wiener Schnitzel vom Kalb, Pasta mit schwarzem Trüffel und ganzer Fisch vom Grill. Direkt am Stadtpark.</p>
     <div class="countdown" id="countdown">
       <div class="cd-item">
         <div class="cd-num" id="statusGross" style="font-size:clamp(22px,4vw,34px);">Willkommen</div>
@@ -457,68 +302,28 @@
       <a class="btn btn-haupt" href="reservierung.html">Tisch reservieren</a>
       <a class="btn karte-hint" href="#speisekarte">Menu ansehen <span>&#8595;</span></a>
     </div>
-    <p class="vn-hero-v" style="margin-top:16px;font-size:13px;line-height:1.7;color:rgba(248,245,238,.92);text-shadow:0 1px 8px rgba(0,0,0,.45);">★ 4,4 auf Google · über 1.500 Bewertungen</p>
-    <div class="facts facts-kurz">
-      <h1 class="f-strong">VIENERO · Der mediterrane Wiener · Restaurant und Bar in 1010 Wien</h1>
-      <p>Dr.-Karl-Lueger-Platz 3, direkt am Stadtpark · <a href="tel:+4319137005">01 913 70 05</a></p>
-    </div>
-  </div>
-</div>
-
-  <section class="gerichte" id="gerichte" aria-labelledby="gerichte-titel">
-    <div class="g-kopf">
-      <p class="k-nr k-nr-mitte">01 Genießen</p>
-      <h2 id="gerichte-titel" class="g-titel">Was bei uns auf den Teller kommt</h2>
-      <p class="g-intro">Wiener Klassiker und das Beste vom Mittelmeer, jeden Tag frisch gekocht. Mittags und abends.</p>
-    </div>
-    <a class="g-star" href="wiener-schnitzel.html">
-      <img src="VIENERO-Foto-Schnitzel.webp" width="900" height="900" loading="lazy" decoding="async" alt="Wiener Schnitzel vom Kalb im VIENERO Wien">
-      <span class="g-star-text"><span class="g-name">Wiener Schnitzel vom Kalb</span><span class="g-zeile">Zartes Kalb in luftig soufflierter Panade, mit Petersilienkartoffeln und auf Wunsch Preiselbeeren.</span></span>
-    </a>
-    <a class="g-star g-star-rechts" href="trueffelpasta-wien.html">
-      <img src="VIENERO-Foto-Tartufo.webp" width="900" height="900" loading="lazy" decoding="async" alt="Pasta al Tartufo mit schwarzem Trüffel im VIENERO Wien">
-      <span class="g-star-text"><span class="g-name">Pasta al Tartufo</span><span class="g-zeile">Cremige Pasta mit Trüffelbutter, Parmesan und frisch gehobeltem schwarzem Trüffel. Von Falstaff empfohlen.</span></span>
-    </a>
-    <div class="g-gitter"><a class="gericht" href="fisch-wien.html"><img src="VIENERO-Foto-Lachs.webp" width="900" height="900" loading="lazy" decoding="async" alt="Lachssteak auf Safranrisotto im VIENERO Wien"><span class="g-text"><span class="g-name">Lachssteak Safran</span><span class="g-zeile">Gegrillt, auf cremigem Safranrisotto mit Wildbrokkoli.</span></span></a><a class="gericht" href="fisch-wien.html"><img src="VIENERO-Foto-Wolfsbarsch.webp" width="900" height="900" loading="lazy" decoding="async" alt="Wolfsbarsch vom Grill im VIENERO Wien"><span class="g-text"><span class="g-name">Wolfsbarsch vom Grill</span><span class="g-zeile">Im Ganzen gegrillt, mit frischen Kräutern und Zitrone.</span></span></a><a class="gericht" href="steak-wien.html"><img src="VIENERO-Foto-Ribeye.webp" width="900" height="900" loading="lazy" decoding="async" alt="Ribeye Steak 300 g im VIENERO Wien"><span class="g-text"><span class="g-name">Ribeye Steak 300 g</span><span class="g-zeile">Vom Grill, auf Wunsch als Surf and Turf mit Garnelen.</span></span></a><a class="gericht" href="pasta-wien.html"><img src="VIENERO-Foto-Pistazie.webp" width="900" height="900" loading="lazy" decoding="async" alt="Pasta Zucchine e Pistacchio im VIENERO Wien"><span class="g-text"><span class="g-name">Pasta Zucchine e Pistacchio</span><span class="g-zeile">Geröstete Pistazien, zarte Zucchini und eine ganze Burrata.</span></span></a><a class="gericht" href="fisch-wien.html"><img src="VIENERO-Foto-Bouillabaisse.webp" width="900" height="900" loading="lazy" decoding="async" alt="Bouillabaisse im VIENERO Wien"><span class="g-text"><span class="g-name">Bouillabaisse</span><span class="g-zeile">Fischfilet, Muscheln, Calamari und Garnelen in Safransud.</span></span></a><a class="gericht" href="vegetarisch-wien.html"><img src="VIENERO-Foto-Burrata.webp" width="900" height="900" loading="lazy" decoding="async" alt="Burrata und Ofentomaten im VIENERO Wien"><span class="g-text"><span class="g-name">Burrata und Ofentomaten</span><span class="g-zeile">Cremige Burrata, Balsamico Honig Senf und Pinienkerne.</span></span></a><a class="gericht" href="menu.html"><img src="VIENERO-Foto-Zwiebelsuppe.webp" width="900" height="900" loading="lazy" decoding="async" alt="Zwiebelsuppe im VIENERO Wien"><span class="g-text"><span class="g-name">Zwiebelsuppe</span><span class="g-zeile">Samtig, mit Weißwein und knusprigen Mozzarella Croûtons.</span></span></a><a class="gericht" href="menu.html"><img src="VIENERO-Foto-Souffle2.webp" width="900" height="900" loading="lazy" decoding="async" alt="Schoko Soufflé im VIENERO Wien"><span class="g-text"><span class="g-name">Schoko Soufflé</span><span class="g-zeile">Mit einer Kugel Bourbon Vanilleeis.</span></span></a></div>
-    <div class="g-aktion"><a class="btn btn-haupt" href="reservierung.html">Tisch reservieren</a><a class="btn g-menu" href="menu.html">Ganzes Menu mit Preisen</a></div>
-  </section>
-
-  <section class="kapitel" id="ankommen" aria-labelledby="ankommen-titel">
-    <div class="k-bilder k-2"><img src="VIENERO-Abend.webp" width="1600" height="1067" loading="lazy" decoding="async" alt="Das VIENERO am Abend mit beleuchteter Markise am Dr.-Karl-Lueger-Platz"><img src="VIENERO-Vorderraum-Fenster.webp" width="1135" height="1400" loading="lazy" decoding="async" alt="Vorderer Gastraum des VIENERO mit Luster und großen Fenstern"></div>
-    <div class="k-text">
-      <p class="k-nr">02 Ankommen</p>
-      <h2 id="ankommen-titel" class="k-titel">Am Stadtpark, mitten in Wien.</h2>
-      <p class="k-satz">Gleich beim Stubentor, wo die Wollzeile auf den Ring trifft. Kristallluster, alte Ziegelwände und weiß gedeckte Tische: Der Abend beginnt schon beim Hereinkommen.</p>
-      <div class="k-links"><a class="k-link" href="https://maps.google.com/?q=VIENERO,+Dr.-Karl-Lueger-Platz+3,+1010+Wien">Route planen</a><a class="k-link" href="#besuch">Öffnungszeiten</a></div>
-    </div>
-  </section>
-
-  <section class="kapitel" id="bar" aria-labelledby="bar-titel">
-    <div class="k-bilder k-2"><img src="VIENERO-Champagner.webp" width="1067" height="1600" loading="lazy" decoding="async" alt="Champagner an der Bar im VIENERO"><img src="VIENERO-Aperitif.webp" width="1600" height="1067" loading="lazy" decoding="async" alt="Champagner im Kühler und Gläser zum Aperitif im VIENERO"></div>
-    <div class="k-text">
-      <p class="k-nr">03 Bleiben</p>
-      <h2 id="bar-titel" class="k-titel">Und danach an die Bar.</h2>
-      <p class="k-satz">Signature Cocktails, Weine aus Österreich, Frankreich und Italien und gut gekühlter Champagner. Die Bar hat jeden Tag bis Mitternacht offen.</p>
-      <div class="k-links"><a class="k-link" href="cocktailbar.html">Cocktailbar</a><a class="k-link" href="wein-wien.html">Weine</a></div>
-    </div>
-  </section>
-
-  <section class="kapitel" id="feiern" aria-labelledby="feiern-titel">
-    <div class="k-bilder k-1"><img src="VIENERO-Hinterer-Raum-Luster.webp" width="1400" height="929" loading="lazy" decoding="async" alt="Hinterer Raum des VIENERO mit Kristallluster für Feiern und Gruppen"></div>
-    <div class="k-text">
-      <p class="k-nr">04 Feiern</p>
-      <h2 id="feiern-titel" class="k-titel">Feiern mit bis zu 70 Gästen.</h2>
-      <p class="k-satz">Hochzeit, Geburtstag oder Firmenfeier: im ganzen Lokal oder im hinteren Raum für rund 40 Personen. DJ, Moderation und Blumenschmuck organisieren wir gern.</p>
-      <div class="k-links"><a class="k-link" href="gruppen-restaurant-wien.html">Gruppen und Hochzeiten</a><a class="k-link" href="veranstaltungen.html#anfrage">Feier anfragen</a></div>
-      <nav class="fest-row k-fest" aria-label="Feiern und Festtage">
+    <nav class="fest-row" aria-label="Feiern und Festtage">
       <a href="gansl-wild-wien.html">Gansl und Wild<span class="fest-zus">&nbsp;ab 1.11.</span></a>
       <a href="weihnachtsfeier.html">Weihnachtsfeier</a>
       <a href="veranstaltungen.html">Feiern und Events</a>
       <a href="gruppen-restaurant-wien.html">Gruppen und Hochzeiten</a>
       <a href="silvester-wien.html">Silvester mit DJ</a>
     </nav>
+    <p class="vn-hero-v" style="margin-top:16px;font-size:13px;line-height:1.7;color:rgba(248,245,238,.92);text-shadow:0 1px 8px rgba(0,0,0,.45);">★ 4,4 auf Google · über 1.500 Bewertungen</p>
+    <div class="social">
+      <a href="https://www.instagram.com/vienero.vienna" target="_blank" rel="noopener">Instagram</a>·<a href="https://www.tiktok.com/@vienero.vienna" target="_blank" rel="noopener">TikTok</a>·<a href="https://www.facebook.com/vienero.vienna" target="_blank" rel="noopener">Facebook</a>·<a href="https://www.youtube.com/@vienero.vienna" target="_blank" rel="noopener">YouTube</a>·<a href="en.html" hreflang="en" lang="en">English</a>·<a href="ristorante-vienna.html" hreflang="it" lang="it">Italiano</a>·<a href="restaurant-vienne.html" hreflang="fr" lang="fr">Français</a>
     </div>
-  </section>
+    <div class="facts">
+      <h1 class="f-strong">VIENERO · Der mediterrane Wiener</h1>
+      <p>Restaurant &amp; Bar · Pasta · Steak · Fisch · Cocktails</p>
+      <p class="f-gap">Dr.-Karl-Lueger-Platz 3, 1010 Wien · <a href="tel:+4319137005">01 913 70 05</a></p>
+      <p>Direkt am Stadtpark, zwischen erstem und drittem Bezirk.</p>
+      <p data-ab="2027-02-01" data-neu="Montag bis Sonntag 16:00 bis 24:00 Uhr · Küche bis 23:00 Uhr">Montag bis Sonntag 12:00 bis 24:00 Uhr · ab 1. Februar 2027 täglich 16:00 bis 24:00 Uhr, Küche bis 23:00 Uhr</p>
+      <p class="f-gap"><a href="reservierung.html">Tisch reservieren →</a> · <a href="veranstaltungen.html">Feier anfragen →</a></p>
+      <p class="f-gap"><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></p>
+    </div>
+  </div>
+</div>
 
   <!-- ===== VIENERO Speisekarte ===== -->
   <div class="karte" id="speisekarte">
@@ -710,35 +515,6 @@
   <p class="teaser-credit">Fotos: Raphael Fasching</p>
 </div>
 
-<footer class="vn-fuss" id="kontakt">
-  <div class="vn-fuss-innen">
-    <div class="vn-fuss-marke">
-      <img src="VIENERO-Logo-Weiss.png" width="811" height="219" alt="VIENERO" loading="lazy">
-      <p>Der mediterrane Wiener. Restaurant und Bar am Stadtpark.</p>
-      <a class="k-link" href="reservierung.html">Tisch reservieren</a>
-    </div>
-    <div class="vn-fuss-sp">
-      <h2>Adresse</h2>
-      <p>Dr.-Karl-Lueger-Platz 3<br>1010 Wien<br>U3 Stubentor</p>
-      <p><a href="https://maps.google.com/?q=VIENERO,+Dr.-Karl-Lueger-Platz+3,+1010+Wien" rel="noopener">Route planen</a></p>
-    </div>
-    <div class="vn-fuss-sp">
-      <h2>Öffnungszeiten</h2>
-      <p data-ab="2027-02-01" data-neu="Täglich 16 bis 24 Uhr<br>Küche bis 23 Uhr">Täglich 12 bis 24 Uhr<br>Küche bis 22 Uhr<br>Ab 1. Februar täglich 16 bis 24 Uhr</p>
-      <p><a href="tel:+4319137005">01 913 70 05</a><br><a href="mailto:Reservierung@vienero.at">Reservierung@vienero.at</a></p>
-    </div>
-    <div class="vn-fuss-sp">
-      <h2>Entdecken</h2>
-      <p class="vn-fuss-links"><a href="menu.html">Menu</a><a href="wiener-schnitzel.html">Wiener Schnitzel</a><a href="trueffelpasta-wien.html">Trüffelpasta</a><a href="pasta-wien.html">Pasta</a><a href="steak-wien.html">Steak</a><a href="fisch-wien.html">Fisch</a><a href="vegetarisch-wien.html">Vegetarisch</a><a href="wein-wien.html">Wein</a><a href="cocktailbar.html">Cocktailbar</a><a href="gruppen-restaurant-wien.html">Gruppen</a><a href="weihnachtsfeier.html">Weihnachtsfeier</a><a href="silvester-wien.html">Silvester</a><a href="faq.html">Fragen</a></p>
-    </div>
-  </div>
-  <div class="vn-fuss-unten">
-    <p class="vn-fuss-links"><a href="https://www.instagram.com/vienero.vienna" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@vienero.vienna" target="_blank" rel="noopener">TikTok</a><a href="https://www.facebook.com/vienero.vienna" target="_blank" rel="noopener">Facebook</a><a href="https://www.youtube.com/@vienero.vienna" target="_blank" rel="noopener">YouTube</a></p>
-    <p class="vn-fuss-links"><a href="en.html" hreflang="en" lang="en">English</a><a href="ristorante-vienna.html" hreflang="it" lang="it">Italiano</a><a href="restaurant-vienne.html" hreflang="fr" lang="fr">Français</a></p>
-    <p class="vn-fuss-links"><a href="impressum.html">Impressum</a><a href="datenschutz.html">Datenschutz</a></p>
-  </div>
-</footer>
-
 <div class="foto-box" id="fotoBox" data-open="0" role="dialog" aria-modal="true" aria-label="Foto">
   <button class="foto-zu" id="fotoZu" aria-label="Schließen">×</button>
   <button class="foto-pfeil links" id="fotoZurueck" aria-label="Vorheriges Foto">‹</button>
@@ -864,22 +640,6 @@
   else if(t>=20261201&&t<=20261223) s=['<b>Silvester</b> mit Menu, DJ und Champagner bis 2 Uhr. Noch Plätze frei. <span>Mehr erfahren →</span>','silvester-wien.html'];
   if(!s) return;
   e.innerHTML=s[0]; e.href=s[1]; e.hidden=false;
-})();
-</script>
-
-<script>
-/* Kopfleiste: nach dem Scrollen dunkel, Menu am Handy auf und zu. */
-(function(){
-  var k=document.getElementById('vnKopf'),b=document.getElementById('vnBurger'),n=document.getElementById('vnNav');
-  if(!k)return;
-  var sc=document.scrollingElement||document.documentElement;
-  function lage(){var y=Math.max(window.scrollY||0,document.body.scrollTop||0,sc.scrollTop||0);k.classList.toggle('vn-fest',y>60||n.classList.contains('offen'));}
-  window.addEventListener('scroll',lage,{passive:true});document.body.addEventListener('scroll',lage,{passive:true});lage();
-  var sa=document.getElementById('saison');
-  function saison(){if(sa&&!sa.hidden){document.body.classList.add('vn-hat-saison');document.body.style.setProperty('--saison-h',sa.offsetHeight+'px');}}
-  setTimeout(saison,50);setTimeout(saison,600);
-  b.addEventListener('click',function(){var auf=!n.classList.contains('offen');n.classList.toggle('offen',auf);b.setAttribute('aria-expanded',auf?'true':'false');b.setAttribute('aria-label',auf?'Menu schließen':'Menu öffnen');lage();});
-  n.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){n.classList.remove('offen');b.setAttribute('aria-expanded','false');lage();});});
 })();
 </script>
 </body>
