@@ -135,6 +135,32 @@
     .vbuehne .vtext p.ort{display:none}
   }
   @media (max-width:520px){ .vbuehne .buehne-knoepfe{flex-direction:column;align-items:center} .vbuehne .buehne-knoepfe .knopf{width:min(280px,100%);text-align:center} }
+
+  .vbuehne .vlogo{position:absolute;z-index:3;left:0;top:clamp(90px,14vh,150px);width:calc(100% - min(100svh*9/16,56vw));display:flex;flex-direction:column;align-items:center;text-align:center}
+  .vbuehne .vlogo img{position:static;width:clamp(200px,22vw,330px);height:auto}
+  .vbuehne .vlogo .label{margin-top:14px;color:rgba(255,255,255,.85);letter-spacing:.34em;font-size:12px}
+  .vbuehne .vtext{padding-top:clamp(220px,30vh,300px)}
+  @media (max-width:860px){
+    .vbuehne .vlogo{width:100%;top:88px}
+    .vbuehne .vlogo img{width:min(62vw,260px)}
+    .vbuehne .vlogo .label{font-size:11px;margin-top:10px}
+    .vbuehne .vfilm::after{background:linear-gradient(180deg,rgba(15,13,10,.6) 0%,rgba(15,13,10,.15) 30%,rgba(15,13,10,0) 50%,rgba(15,13,10,.78) 100%)}
+    .vbuehne .vtext{padding-top:0}
+  }
+
+  @media (min-width:861px){
+    .vbuehne{grid-template-columns:minmax(360px,36%) 1fr;overflow:hidden}
+    .vbuehne .vhinter{position:absolute;inset:-40px;z-index:0}
+    .vbuehne .vhinter video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:blur(28px) brightness(.55) saturate(1.1)}
+    .vbuehne .vtext{position:relative;z-index:2;background:rgba(16,13,10,.42);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+    .vbuehne .vfilm{position:relative;z-index:1;width:100%;aspect-ratio:auto;display:flex;justify-content:center}
+    .vbuehne .vfilm video,.vbuehne .vfilm img{position:relative;inset:auto;height:100%;width:auto;aspect-ratio:9/16;max-width:100%;object-fit:cover;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+    .vbuehne .vfilm img{position:absolute;left:50%;transform:translateX(-50%)}
+    .vbuehne .vlogo{width:max(360px,36%)}
+  }
+  @media (max-width:860px){ .vbuehne .vhinter{display:none} }
+  @media (min-width:861px){ .vbuehne .vtext h1{font-size:clamp(30px,2.7vw,44px)} .vbuehne .vtext{padding-top:clamp(260px,34vh,330px)} }
+
 </style>
 </head>
 <body>
@@ -151,6 +177,10 @@
 
 <main>
   <section class="vbuehne" aria-label="VIENERO im Video">
+    <div class="vlogo">
+      <img src="VIENERO-Logo-Weiss.png" width="811" height="219" alt="VIENERO">
+      <p class="label">Der mediterrane Wiener</p>
+    </div>
     <div class="vtext">
       <p class="label">Am Stadtpark · 1010 Wien</p>
       <h1>Wiener Küche<br>mit mediterranem Herz</h1>
@@ -159,6 +189,9 @@
         <a class="knopf" href="reservierung.html">Tisch reservieren</a>
         <a class="knopf" href="menu.html">Das Menu</a>
       </div>
+    </div>
+    <div class="vhinter" aria-hidden="true">
+      <video autoplay muted loop playsinline preload="auto" poster="VIENERO-Video-Abend-Poster.jpg"><source src="VIENERO-Video-Abend.mp4" type="video/mp4"></video>
     </div>
     <div class="vfilm">
       <img src="VIENERO-Video-Abend-Poster.jpg" alt="Der Speisesaal des VIENERO mit Kristallluster, weiß gedeckten Tischen und Gerichten.">
@@ -273,9 +306,9 @@
 </script>
 
 <script>
-  (function(){var v=document.querySelector('.vbuehne video'); if(!v)return;
+  (function(){var vs=document.querySelectorAll('.vbuehne video'); if(!vs.length)return;
     var still=(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||(navigator.connection&&navigator.connection.saveData);
-    if(still){v.remove();return;} var p=v.play&&v.play(); if(p&&p.catch)p.catch(function(){});})();
+    vs.forEach(function(v){ if(still){v.remove();return;} var p=v.play&&v.play(); if(p&&p.catch)p.catch(function(){}); });})();
 </script>
 </body>
 </html>
