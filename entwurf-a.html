@@ -160,7 +160,11 @@
   }
   @media (max-width:860px){ .vbuehne .vhinter{display:none} }
   @media (min-width:861px){ .vbuehne .vtext h1{font-size:clamp(30px,2.7vw,44px)} .vbuehne .vtext{padding-top:clamp(260px,34vh,330px)} }
-
+  .vbuehne .vthemen{margin-top:18px;display:flex;gap:12px;align-items:center;font-family:var(--sans);font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.7)}
+  .vbuehne .vthemen a{text-decoration:none;color:rgba(255,255,255,.88);padding:4px 0;border-bottom:1px solid transparent}
+  .vbuehne .vthemen a:hover{border-color:rgba(255,255,255,.6)}
+  .vbuehne .vthemen.nur-handy{display:none}
+  @media (max-width:860px){ .vbuehne .vlogo .vthemen{display:none} .vbuehne .vthemen.nur-handy{display:flex;justify-content:center;margin-top:22px;font-size:10.5px;gap:8px;letter-spacing:.18em} }
 </style>
 </head>
 <body>
@@ -180,6 +184,9 @@
     <div class="vlogo">
       <img src="VIENERO-Logo-Weiss.png" width="811" height="219" alt="VIENERO">
       <p class="label">Der mediterrane Wiener</p>
+      <nav class="vthemen" aria-label="Unsere Küche">
+        <a href="pasta-wien.html">Pasta</a><span aria-hidden="true">·</span><a href="steak-wien.html">Steak</a><span aria-hidden="true">·</span><a href="fisch-wien.html">Fisch</a><span aria-hidden="true">·</span><a href="cocktailbar.html">Cocktails</a>
+      </nav>
     </div>
     <div class="vtext">
       <p class="label">Am Stadtpark · 1010 Wien</p>
@@ -189,6 +196,9 @@
         <a class="knopf" href="reservierung.html">Tisch reservieren</a>
         <a class="knopf" href="menu.html">Das Menu</a>
       </div>
+      <nav class="vthemen nur-handy" aria-label="Unsere Küche, Kurzlinks">
+        <a href="pasta-wien.html">Pasta</a><span aria-hidden="true">·</span><a href="steak-wien.html">Steak</a><span aria-hidden="true">·</span><a href="fisch-wien.html">Fisch</a><span aria-hidden="true">·</span><a href="cocktailbar.html">Cocktails</a>
+      </nav>
     </div>
     <div class="vhinter" aria-hidden="true">
       <video autoplay muted loop playsinline preload="auto" poster="VIENERO-Video-Abend-Poster.jpg"><source src="VIENERO-Video-Abend.mp4" type="video/mp4"></video>
