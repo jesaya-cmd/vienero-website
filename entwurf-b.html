@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Entwurf B · VIENERO</title>
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400&family=Jost:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme:#F7F3EC; --papier:#EFE9DF; --tinte:#23251F; --gruen:#26342B; --gold:#B8955A;
+    --leise:rgba(35,37,31,.66);
+    --serif:'Fraunces',Georgia,serif; --sans:'Jost','Helvetica Neue',Arial,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{background:var(--creme);color:var(--tinte);font-family:var(--sans);font-size:17px;line-height:1.7;-webkit-font-smoothing:antialiased}
+  img{display:block;width:100%;height:100%;object-fit:cover}
+  a{color:inherit}
+  .label{font-family:var(--sans);font-size:12.5px;letter-spacing:.24em;text-transform:uppercase;font-weight:500}
+  .knopf{display:inline-block;font-family:var(--sans);font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;font-weight:500;
+    text-decoration:none;padding:14px 26px;border:1px solid currentColor;transition:background .3s,color .3s}
+  .knopf:hover{background:var(--tinte);color:var(--creme);border-color:var(--tinte)}
+  .knopf:focus-visible,a:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+
+  /* Kopfleiste */
+  .kopf{position:fixed;inset:0 0 auto 0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+    padding:22px clamp(16px,4vw,48px);color:#fff;transition:background .4s,color .4s,padding .4s}
+  .kopf.fest{background:rgba(247,243,236,.96);color:var(--tinte);padding-top:14px;padding-bottom:14px;box-shadow:0 1px 0 rgba(35,37,31,.08)}
+  .kopf nav{display:flex;gap:clamp(14px,2.4vw,30px);align-items:center}
+  .kopf nav a{text-decoration:none}
+  .kopf .marke{font-family:var(--serif);font-weight:300;font-size:24px;letter-spacing:.32em;text-decoration:none;opacity:0;transition:opacity .4s}
+  .kopf.fest .marke{opacity:1}
+  .kopf .marke{display:flex;flex-direction:column;align-items:center;line-height:1}
+  .kopf .marke .slogan{font-family:var(--serif);font-style:italic;font-weight:300;font-size:12.5px;letter-spacing:.06em;margin-top:6px}
+  @media (max-width:760px){ .kopf .marke .slogan{font-size:11px} }
+  .kopf .knopf{padding:11px 20px}
+  .kopf.fest .knopf:hover{background:var(--tinte);color:var(--creme)}
+  .nur-breit{display:inline}
+  @media (max-width:760px){ .nur-breit{display:none} .kopf .marke{font-size:20px} }
+
+  /* Bühne */
+  .buehne{position:relative;height:100svh;min-height:560px;overflow:hidden;color:#fff;background:#1a1712}
+  .buehne img{position:absolute;inset:0;object-position:50% 40%;animation:atmen 22s ease-in-out infinite alternate}
+  @keyframes atmen{from{transform:scale(1.02)}to{transform:scale(1.09)}}
+  .buehne::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,13,10,.45) 0%,rgba(15,13,10,0) 26%,rgba(15,13,10,0) 55%,rgba(15,13,10,.62) 100%)}
+  .buehne-text{position:absolute;z-index:2;left:0;right:0;bottom:clamp(36px,8vh,80px);text-align:center;padding:0 16px}
+  .buehne-text h1{font-family:var(--serif);font-weight:300;font-size:clamp(34px,5.4vw,68px);line-height:1.08;margin:14px 0 30px}
+  .buehne-knoepfe{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  @media (max-width:520px){ .buehne-knoepfe{flex-direction:column;align-items:center} .buehne-knoepfe .knopf{width:min(280px,100%);text-align:center} }
+  .buehne-knoepfe .knopf:hover{background:#fff;color:var(--tinte);border-color:#fff}
+
+  /* Einleitung */
+  .einleitung{max-width:760px;margin:0 auto;padding:clamp(80px,12vw,150px) 16px clamp(70px,10vw,120px);text-align:center}
+  .einleitung h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.6vw,54px);line-height:1.12;margin:18px 0 26px}
+  .einleitung h2 span{display:block}
+  .einleitung p{color:var(--leise);max-width:58ch;margin:0 auto}
+
+  /* Signature-Gerichte */
+  .gericht{display:grid;grid-template-columns:1fr 1fr;min-height:min(86vh,760px)}
+  .gericht .bild{overflow:hidden}
+  .gericht .bild img{transition:transform 1.4s ease}
+  .gericht:hover .bild img{transform:scale(1.035)}
+  .gericht .text{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:clamp(48px,7vw,110px) clamp(24px,5vw,80px)}
+  .gericht.dreh .bild{order:2}
+  .gericht .klein{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(20px,2vw,26px);color:var(--leise)}
+  .gericht h3{font-family:var(--sans);font-weight:500;font-size:clamp(28px,3.4vw,46px);letter-spacing:.14em;text-transform:uppercase;line-height:1.15;margin:10px 0 8px}
+  .gericht .unter{font-family:var(--serif);font-weight:300;font-style:italic;font-size:clamp(20px,2vw,26px);color:var(--leise);margin-bottom:28px}
+  .gericht p.besch{max-width:40ch;color:var(--leise);margin-bottom:34px}
+  .gericht.dunkel{background:var(--gruen);color:var(--creme)}
+  .gericht.dunkel .klein,.gericht.dunkel .unter,.gericht.dunkel p.besch{color:rgba(247,243,236,.72)}
+  .gericht.dunkel .knopf:hover{background:var(--creme);color:var(--gruen);border-color:var(--creme)}
+
+  /* Saison */
+  .saison{padding:clamp(80px,11vw,140px) clamp(16px,4vw,48px);background:var(--papier)}
+  .saison-kopf{text-align:center;margin-bottom:clamp(40px,6vw,70px)}
+  .saison-kopf h2{font-family:var(--serif);font-weight:300;font-size:clamp(30px,4vw,48px);line-height:1.15;margin-top:14px}
+  .saison-reihe{display:grid;grid-template-columns:1fr 1fr;gap:clamp(20px,3vw,40px);max-width:1180px;margin:0 auto}
+  .karte{background:var(--creme);display:flex;flex-direction:column}
+  .karte .bild{aspect-ratio:3/2;overflow:hidden}
+  .karte .text{padding:clamp(24px,3vw,40px);text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;flex:1}
+  .karte .zeit{color:var(--gold)}
+  .karte h3{font-family:var(--serif);font-weight:300;font-size:clamp(26px,2.6vw,34px);line-height:1.2;margin:10px 0 14px}
+  .karte .bild.poster{background:#3d3127}
+  .karte .bild.poster img{object-fit:contain;padding:14px 0}
+  .karte p{color:var(--leise);max-width:44ch;margin-bottom:26px;flex:1}
+
+  /* Haus */
+  .haus{position:relative;min-height:88vh;color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+  .haus img{position:absolute;inset:0}
+  .haus::after{content:"";position:absolute;inset:0;background:rgba(18,16,12,.5)}
+  .haus .inhalt{position:relative;z-index:2;padding:80px 16px;max-width:720px}
+  .haus h2{font-family:var(--serif);font-weight:300;font-size:clamp(32px,4.6vw,56px);line-height:1.12;margin:16px 0 22px}
+  .haus p{color:rgba(255,255,255,.85);margin-bottom:34px}
+  .haus .knopf:hover{background:#fff;color:var(--tinte);border-color:#fff}
+
+  /* Fuß */
+  .fuss{background:var(--tinte);color:rgba(247,243,236,.78);padding:clamp(60px,8vw,96px) clamp(16px,4vw,48px) 40px}
+  .fuss-raster{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;max-width:1180px;margin:0 auto}
+  .fuss .marke{font-family:var(--serif);font-weight:300;font-size:26px;letter-spacing:.32em;color:var(--creme);margin-bottom:10px}
+  .fuss h4{color:var(--creme);margin-bottom:12px}
+  .fuss a{text-decoration:none;border-bottom:1px solid rgba(247,243,236,.3)}
+  .fuss a:hover{border-color:var(--gold);color:var(--creme)}
+  .fuss .unten{max-width:1180px;margin:56px auto 0;padding-top:24px;border-top:1px solid rgba(247,243,236,.14);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:14px}
+
+  @media (max-width:860px){
+    .gericht,.gericht.dreh{grid-template-columns:1fr;min-height:0}
+    .gericht .bild{aspect-ratio:4/3}
+    .gericht.dreh .bild{order:0}
+    .saison-reihe{grid-template-columns:1fr}
+    .fuss-raster{grid-template-columns:1fr}
+  }
+  @media (prefers-reduced-motion:reduce){
+    .buehne img{animation:none}
+    .gericht .bild img{transition:none}
+    html{scroll-behavior:auto}
+  }
+
+  /* Video-Bühne */
+  .vbuehne{position:relative;height:100svh;min-height:560px;background:#16130f;color:#fff;display:grid;grid-template-columns:1fr minmax(0,auto)}
+  .vbuehne .vtext{display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:120px clamp(24px,5vw,80px) 60px}
+  .vbuehne .vtext h1{font-family:var(--serif);font-weight:300;font-size:clamp(36px,4.4vw,64px);line-height:1.08;margin:16px 0 22px}
+  .vbuehne .vtext p.ort{color:rgba(255,255,255,.72);max-width:36ch;margin-bottom:32px}
+  .vbuehne .vfilm{position:relative;height:100svh;min-height:560px;aspect-ratio:9/16;overflow:hidden}
+  .vbuehne video,.vbuehne .vfilm img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .vbuehne .knopf:hover{background:#fff;color:var(--tinte);border-color:#fff}
+  @media (max-width:860px){
+    .vbuehne{display:block}
+    .vbuehne .vfilm{position:absolute;inset:0;height:100%;aspect-ratio:auto;min-height:0}
+    .vbuehne .vfilm::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(15,13,10,.35) 0%,rgba(15,13,10,0) 22%,rgba(15,13,10,0) 50%,rgba(15,13,10,.75) 100%)}
+    .vbuehne .vtext{position:absolute;z-index:2;left:0;right:0;bottom:0;padding:0 16px 48px;justify-content:flex-end;height:auto}
+    .vbuehne .vtext p.ort{display:none}
+  }
+  @media (max-width:520px){ .vbuehne .buehne-knoepfe{flex-direction:column;align-items:center} .vbuehne .buehne-knoepfe .knopf{width:min(280px,100%);text-align:center} }
+</style>
+</head>
+<body>
+
+<header class="kopf" id="kopf">
+  <a class="marke" href="#"><span class="wort">VIENERO</span><span class="slogan">Der mediterrane Wiener</span></a>
+  <nav aria-label="Hauptnavigation">
+    <a class="label nur-breit" href="menu.html">Menu</a>
+    <a class="label nur-breit" href="gruppen-restaurant-wien.html">Feiern</a>
+    <a class="label nur-breit" href="en.html">EN</a>
+    <a class="knopf" href="reservierung.html">Reservieren</a>
+  </nav>
+</header>
+
+<main>
+  <section class="vbuehne" aria-label="VIENERO im Video">
+    <div class="vtext">
+      <p class="label">Am Stadtpark · 1010 Wien</p>
+      <h1>Wiener Küche<br>mit mediterranem Herz</h1>
+      <p class="ort">Dr.-Karl-Lueger-Platz 3, direkt an der U3 Stubentor. Täglich ab 12 Uhr, Bar bis Mitternacht.</p>
+      <div class="buehne-knoepfe">
+        <a class="knopf" href="reservierung.html">Tisch reservieren</a>
+        <a class="knopf" href="menu.html">Das Menu</a>
+      </div>
+    </div>
+    <div class="vfilm">
+      <img src="VIENERO-Video-Pasta-Poster.jpg" alt="Hausgemachte Pasta mit Trüffel bei Kerzenlicht im VIENERO.">
+      <video autoplay muted loop playsinline preload="auto" poster="VIENERO-Video-Pasta-Poster.jpg" aria-hidden="true"><source src="VIENERO-Video-Pasta.mp4" type="video/mp4"></video>
+    </div>
+  </section>
+
+  <section class="einleitung">
+    <p class="label">Willkommen im VIENERO</p>
+    <h2><span>Ein Abend,</span><span>der länger bleibt.</span></h2>
+    <p>Unter Kristalllustern und warmem Licht kochen wir die Wiener Klassiker und das Beste vom Mittelmeer, mit Pasta aus unserer eigenen Manufaktur. Mittags und abends, jeden Tag. Und wenn die Küche schließt, geht es an der Bar weiter, bis Mitternacht.</p>
+  </section>
+
+  <section class="gericht">
+    <div class="bild"><img src="1-VIENERO-Wiener-Schnitzel.jpg" alt="Wiener Schnitzel vom Kalb mit Zitrone im VIENERO." loading="lazy"></div>
+    <div class="text">
+      <p class="klein">Goldbraun und luftig</p>
+      <h3>Wiener Schnitzel</h3>
+      <p class="unter">vom Kalb</p>
+      <p class="besch">In soufflierter Panade herausgebacken, mit Petersilienkartoffeln und auf Wunsch Preiselbeeren. So, wie es in Wien sein soll.</p>
+      <a class="knopf" href="wiener-schnitzel.html">Mehr erfahren</a>
+    </div>
+  </section>
+
+  <section class="gericht dreh">
+    <div class="bild"><img src="VIENERO-Foto-Tartufo.webp" alt="Pasta al Tartufo mit frisch gehobeltem schwarzem Trüffel." loading="lazy"></div>
+    <div class="text">
+      <p class="klein">Hausgemacht in Wien</p>
+      <h3>Pasta al Tartufo</h3>
+      <p class="unter">mit schwarzem Trüffel</p>
+      <p class="besch">Unsere Pasta machen wir selbst, in unserer hauseigenen Manufaktur in Wien. Dazu Trüffelbutter, Parmesan und frisch gehobelter schwarzer Trüffel. Falstaff zählt sie zu den besten Trüffelgerichten Wiens.</p>
+      <a class="knopf" href="trueffelpasta-wien.html">Mehr erfahren</a>
+    </div>
+  </section>
+
+  <section class="gericht dunkel">
+    <div class="bild"><img src="VIENERO-Entwurf-Bar-Luster.webp" alt="Die Bar im VIENERO mit grüner Theke, Kristallluster und gedecktem Tisch." loading="lazy"></div>
+    <div class="text">
+      <p class="klein">Bis Mitternacht</p>
+      <h3>Die Bar</h3>
+      <p class="unter">Signature Cocktails und Wein</p>
+      <p class="besch">Ein Aperitif vor dem Essen, ein Glas Wein danach oder einfach der Abend an der Theke. Weine aus Österreich, Frankreich und Italien.</p>
+      <a class="knopf" href="cocktailbar.html">Zur Bar</a>
+    </div>
+  </section>
+
+  <section class="saison" aria-labelledby="saison-titel">
+    <div class="saison-kopf">
+      <p class="label">Das Beste aus Küche und Saison</p>
+      <h2 id="saison-titel">Gerade bei uns</h2>
+    </div>
+    <div class="saison-reihe">
+      <article class="karte">
+        <div class="bild poster"><img src="VIENERO-Gansl-Wild.webp" alt="Das Gansl und Wild Menu des VIENERO im November 2026." loading="lazy"></div>
+        <div class="text">
+          <p class="label zeit">November 2026</p>
+          <h3>Gansl und Wild</h3>
+          <p>Knusprige Ganslkeule mit Apfelrotkraut und Maroni, Ganslcremesuppe, Gänseleber, Rehragout und zum Abschluss ein ofenwarmer Bratapfel. Nur bis Ende November.</p>
+          <a class="knopf" href="gansl-wild-wien.html">Mehr Details</a>
+        </div>
+      </article>
+      <article class="karte">
+        <div class="bild"><img src="VIENERO-Aperitif.webp" alt="Champagner im Kübel und Gläser für den Silvesterabend im VIENERO." loading="lazy"></div>
+        <div class="text">
+          <p class="label zeit">31. Dezember 2026</p>
+          <h3>Silvester mit DJ</h3>
+          <p>Ein festliches Menu mit Auster, Hummer und Rinderfilet Rossini, Champagner um Mitternacht und danach DJ bis 2 Uhr früh. 169 € pro Person.</p>
+          <a class="knopf" href="silvester-wien.html">Mehr Details</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="haus" aria-label="Feiern im VIENERO">
+    <img src="VIENERO-Hinterer-Raum-Galerie.webp" alt="Der hintere Speisesaal des VIENERO mit Ziegelwand, Kristallluster und weiß gedeckten Tischen." loading="lazy">
+    <div class="inhalt">
+      <p class="label">Feiern und Gruppen</p>
+      <h2>Ihr Abend,<br>unser ganzes Haus.</h2>
+      <p>Geburtstag, Hochzeit oder Firmendinner: Bis 70 Gäste im ganzen Lokal oder bis 40 im eigenen Bereich, mit einem Menu nur für Sie.</p>
+      <a class="knopf" href="gruppen-restaurant-wien.html">Feier anfragen</a>
+    </div>
+  </section>
+</main>
+
+<footer class="fuss">
+  <div class="fuss-raster">
+    <div>
+      <p class="marke">VIENERO</p>
+      <p>Der mediterrane Wiener<br>Restaurant und Bar</p>
+    </div>
+    <div>
+      <h4 class="label">Besuch</h4>
+      <p>Dr.-Karl-Lueger-Platz 3, 1010 Wien<br>U3 Stubentor, direkt am Stadtpark<br><a href="https://maps.google.com/?q=VIENERO+Dr.-Karl-Lueger-Platz+3+Wien">Route planen</a></p>
+    </div>
+    <div>
+      <h4 class="label">Öffnungszeiten</h4>
+      <p>Täglich 12:00 bis 24:00<br>Küche bis 22:00<br><a href="tel:+4319137005">01 913 70 05</a> · <a href="mailto:reservierung@vienero.at">reservierung@vienero.at</a></p>
+    </div>
+  </div>
+  <div class="unten">
+    <span><a href="https://www.instagram.com/vienero.vienna">Instagram</a> · <a href="en.html">English</a> · <a href="ristorante-vienna.html">Italiano</a> · <a href="restaurant-vienne.html">Français</a></span>
+    <span><a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+  </div>
+</footer>
+
+<script>
+  (function(){
+    var k=document.getElementById('kopf');
+    function pruefe(){ k.classList.toggle('fest', window.scrollY > window.innerHeight*0.6); }
+    window.addEventListener('scroll', pruefe, {passive:true}); pruefe();
+  })();
+</script>
+
+<script>
+  (function(){var v=document.querySelector('.vbuehne video'); if(!v)return;
+    var still=(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)||(navigator.connection&&navigator.connection.saveData);
+    if(still){v.remove();return;} var p=v.play&&v.play(); if(p&&p.catch)p.catch(function(){});})();
+</script>
+</body>
+</html>
