@@ -34,6 +34,9 @@
   .kopf nav a{text-decoration:none}
   .kopf .marke{font-family:var(--serif);font-weight:300;font-size:24px;letter-spacing:.32em;text-decoration:none;opacity:0;transition:opacity .4s}
   .kopf.fest .marke{opacity:1}
+  .kopf .marke{display:flex;flex-direction:column;align-items:center;line-height:1}
+  .kopf .marke .slogan{font-family:var(--serif);font-style:italic;font-weight:300;font-size:12.5px;letter-spacing:.06em;margin-top:6px}
+  @media (max-width:760px){ .kopf .marke .slogan{font-size:11px} }
   .kopf .knopf{padding:11px 20px}
   .kopf.fest .knopf:hover{background:var(--tinte);color:var(--creme)}
   .nur-breit{display:inline}
@@ -120,7 +123,7 @@
 <body>
 
 <header class="kopf" id="kopf">
-  <a class="marke" href="#">VIENERO</a>
+  <a class="marke" href="#"><span class="wort">VIENERO</span><span class="slogan">Der mediterrane Wiener</span></a>
   <nav aria-label="Hauptnavigation">
     <a class="label nur-breit" href="menu.html">Menu</a>
     <a class="label nur-breit" href="gruppen-restaurant-wien.html">Feiern</a>
