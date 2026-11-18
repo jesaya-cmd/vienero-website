@@ -55,20 +55,27 @@
       optionen += '<option' + (ANLAESSE[i] === vorwahl ? ' selected' : '') + '>' + ANLAESSE[i] + '</option>';
     }
 
+    var zeiten = '<option value="">Bitte wählen</option>';
+    for (var h = 12; h <= 22; h++) {
+      zeiten += '<option>' + h + ':00</option>';
+      if (h < 22) zeiten += '<option>' + h + ':30</option>';
+    }
+
     var form = el('form', { 'class': 'vna', novalidate: 'novalidate' },
       '<h3>Feier anfragen</h3>' +
       '<p class="vna-sub">Ein paar Angaben genügen, wir melden uns innerhalb von 24 Stunden mit einem Vorschlag.</p>' +
       '<div class="vna-grid">' +
         '<div><label for="vnaAnlass">Anlass</label><select id="vnaAnlass" name="anlass" required>' + optionen + '</select></div>' +
-        '<div><label for="vnaDatum">Wunschdatum</label><input id="vnaDatum" name="datum" type="date" min="' + min + '"></div>' +
         '<div><label for="vnaGaeste">Gäste</label><input id="vnaGaeste" name="gaeste" type="number" inputmode="numeric" min="2" max="300" placeholder="z. B. 25"></div>' +
-        '<div><label for="vnaBereich">Bereich</label><select id="vnaBereich" name="bereich">' +
+        '<div><label for="vnaDatum">Wunschdatum</label><input id="vnaDatum" name="datum" type="date" min="' + min + '"></div>' +
+        '<div><label for="vnaZeit">Gewünschte Uhrzeit</label><select id="vnaZeit" name="uhrzeit" required>' + zeiten + '</select></div>' +
+        '<div class="vna-voll"><label for="vnaBereich">Bereich</label><select id="vnaBereich" name="bereich">' +
           '<option value="">Noch offen</option><option>Teilbereich</option><option>Ganzes Lokal</option></select></div>' +
         '<div><label for="vnaName">Name</label><input id="vnaName" name="name" autocomplete="name" required></div>' +
         '<div><label for="vnaFirma">Firma (optional)</label><input id="vnaFirma" name="firma" autocomplete="organization"></div>' +
         '<div><label for="vnaMail">E-Mail</label><input id="vnaMail" name="email" type="email" autocomplete="email" required></div>' +
         '<div><label for="vnaTel">Telefon</label><input id="vnaTel" name="telefon" type="tel" autocomplete="tel" required></div>' +
-        '<div class="vna-voll"><label for="vnaWunsch">Wünsche</label><textarea id="vnaWunsch" name="wuensche" placeholder="Menu, Getränke, Musik, DJ, Uhrzeit, alles, was Ihnen wichtig ist"></textarea></div>' +
+        '<div class="vna-voll"><label for="vnaWunsch">Wünsche</label><textarea id="vnaWunsch" name="wuensche" placeholder="Menu, Getränke, Musik, DJ, alles, was Ihnen wichtig ist"></textarea></div>' +
       '</div>' +
       '<div class="vna-falle" aria-hidden="true"><label>Webseite<input name="webseite" tabindex="-1" autocomplete="off"></label></div>' +
       '<button type="submit">Anfrage senden</button>' +
@@ -77,6 +84,18 @@
     box.appendChild(form);
 
     var knopf = form.querySelector('button');
+
+    /* Ab 1. Februar 2027 ist erst ab 16 Uhr offen: fruehere Zeiten sperren */
+    function zeitenPruefen() {
+      var d = form.elements.datum.value, sel = form.elements.uhrzeit;
+      var spaet = d && d >= '2027-02-01';
+      for (var i = 1; i < sel.options.length; i++) {
+        var aus = spaet && parseInt(sel.options[i].text, 10) < 16;
+        sel.options[i].disabled = aus;
+        if (aus && sel.selectedIndex === i) sel.selectedIndex = 0;
+      }
+    }
+    form.elements.datum.addEventListener('change', zeitenPruefen);
     var fehler = form.querySelector('.vna-fehler');
 
     function wert(n) { var f = form.elements[n]; return f ? String(f.value || '').trim() : ''; }
@@ -85,7 +104,7 @@
       var html = text;
       if (mitAusweg) {
         var datum = wert('datum');
-        var body = 'Anlass: ' + wert('anlass') + '\nWunschdatum: ' + datum + '\nGäste: ' + wert('gaeste') +
+        var body = 'Anlass: ' + wert('anlass') + '\nWunschdatum: ' + datum + '\nUhrzeit: ' + wert('uhrzeit') + '\nGäste: ' + wert('gaeste') +
                    '\nBereich: ' + wert('bereich') + '\nName: ' + wert('name') + '\nFirma: ' + wert('firma') +
                    '\nTelefon: ' + wert('telefon') + '\nWünsche: ' + wert('wuensche');
         var mail = 'mailto:Reservierung@vienero.at?subject=' + encodeURIComponent('Anfrage ' + (wert('anlass') || 'Feier') + ' im VIENERO') +
@@ -100,6 +119,7 @@
       ev.preventDefault();
       fehler.style.display = 'none';
       if (!wert('anlass')) { zeigeFehler('Bitte wählen Sie den Anlass.'); form.elements.anlass.focus(); return; }
+      if (!wert('uhrzeit')) { zeigeFehler('Bitte wählen Sie die gewünschte Uhrzeit.'); form.elements.uhrzeit.focus(); return; }
       if (!wert('name')) { zeigeFehler('Bitte geben Sie Ihren Namen an.'); form.elements.name.focus(); return; }
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(wert('email'))) { zeigeFehler('Bitte prüfen Sie Ihre E-Mail-Adresse.'); form.elements.email.focus(); return; }
       if (wert('telefon').replace(/[^0-9]/g, '').length < 6) { zeigeFehler('Bitte geben Sie eine Telefonnummer an, damit wir Sie rasch erreichen.'); form.elements.telefon.focus(); return; }
@@ -108,7 +128,7 @@
       if (/^\d{4}-\d{2}-\d{2}$/.test(datum)) { var t = datum.split('-'); datum = t[2] + '.' + t[1] + '.' + t[0]; }
 
       var daten = {
-        typ: 'anfrage', anlass: wert('anlass'), datum: datum, gaeste: wert('gaeste'), bereich: wert('bereich'),
+        typ: 'anfrage', anlass: wert('anlass'), datum: datum, uhrzeit: wert('uhrzeit'), gaeste: wert('gaeste'), bereich: wert('bereich'),
         name: wert('name'), firma: wert('firma'), email: wert('email'), telefon: wert('telefon'),
         wuensche: wert('wuensche'), webseite: wert('webseite'), seite: location.pathname
       };
