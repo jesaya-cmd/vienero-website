@@ -9,6 +9,34 @@
   var CONV = 'AW-18506650716/KYqYCLXTyK8dENyo1PhE'; /* Anfrage Feier und Gruppe (Formular), Wert 50 */
   var ANLAESSE = ['Weihnachtsfeier', 'Firmenfeier', 'Geburtstag', 'Hochzeit oder Taufe',
                   'Jubiläum', 'Kundenabend', 'Familienfeier', 'Sonstiges'];
+  /* Englische Fassung: <div id="vnAnfrage" data-lang="en">. Die Werte gehen auf Deutsch
+     ans Skript, damit Tabelle und Team-Mail einheitlich bleiben. */
+  var ANLAESSE_EN = ['Christmas party', 'Company party', 'Birthday', 'Wedding or christening',
+                     'Anniversary', 'Client dinner', 'Family celebration', 'Other'];
+  var T = {
+    de: { titel: 'Feier anfragen', sub: 'Ein paar Angaben genügen, wir melden uns innerhalb von 24 Stunden mit einem Vorschlag.',
+      anlass: 'Anlass', gaeste: 'Gäste', bsp: 'z. B. 25', datum: 'Wunschdatum', zeit: 'Gewünschte Uhrzeit', waehlen: 'Bitte wählen',
+      bereich: 'Bereich', offen: 'Noch offen', teil: 'Teilbereich', ganz: 'Ganzes Lokal', name: 'Name', firma: 'Firma (optional)',
+      mail: 'E-Mail', tel: 'Telefon', wunsch: 'Wünsche', wunschPh: 'Menu, Getränke, Musik, DJ, alles, was Ihnen wichtig ist',
+      senden: 'Anfrage senden', sendet: 'Wird gesendet …',
+      klein: 'Unverbindlich. Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten. <a href="datenschutz.html">Datenschutz</a>',
+      fAnlass: 'Bitte wählen Sie den Anlass.', fZeit: 'Bitte wählen Sie die gewünschte Uhrzeit.', fName: 'Bitte geben Sie Ihren Namen an.',
+      fMail: 'Bitte prüfen Sie Ihre E-Mail-Adresse.', fTel: 'Bitte geben Sie eine Telefonnummer an, damit wir Sie rasch erreichen.',
+      fSenden: 'Das Senden hat gerade nicht geklappt. Ihre Angaben sind noch da.', perMail: 'Per Mail senden', oder: 'oder anrufen:',
+      danke: 'Danke, ', dankeText: 'Ihre Anfrage ist bei uns. Wir melden uns innerhalb von 24 Stunden mit einem Vorschlag, meistens schneller. Eine Bestätigung ist schon an ',
+      dankeEnde: ' unterwegs.' },
+    en: { titel: 'Request your event', sub: 'A few details are enough. We will get back to you within 24 hours with a proposal.',
+      anlass: 'Occasion', gaeste: 'Guests', bsp: 'e.g. 25', datum: 'Preferred date', zeit: 'Preferred time', waehlen: 'Please choose',
+      bereich: 'Area', offen: 'Not decided yet', teil: 'Part of the restaurant', ganz: 'Whole restaurant', name: 'Name', firma: 'Company (optional)',
+      mail: 'Email', tel: 'Phone', wunsch: 'Your wishes', wunschPh: 'Menu, drinks, music, DJ, anything that matters to you',
+      senden: 'Send request', sendet: 'Sending …',
+      klein: 'No obligation. We only use your details to answer your request. <a href="datenschutz.html">Privacy</a>',
+      fAnlass: 'Please choose the occasion.', fZeit: 'Please choose your preferred time.', fName: 'Please enter your name.',
+      fMail: 'Please check your email address.', fTel: 'Please enter a phone number so we can reach you quickly.',
+      fSenden: 'Sending did not work just now. Your details are still here.', perMail: 'Send by email', oder: 'or call:',
+      danke: 'Thank you, ', dankeText: 'We have received your request and will get back to you within 24 hours with a proposal, usually sooner. A confirmation is on its way to ',
+      dankeEnde: '.' }
+  };
 
   function el(tag, attrs, html) {
     var e = document.createElement(tag);
@@ -21,6 +49,9 @@
     var box = document.getElementById('vnAnfrage');
     if (!box) return;
     var vorwahl = box.getAttribute('data-anlass') || '';
+    var en = box.getAttribute('data-lang') === 'en';
+    var t = en ? T.en : T.de;
+    var BEREICH_DE = { offen: '', teil: 'Teilbereich', ganz: 'Ganzes Lokal' };
 
     var css = el('style');
     css.textContent =
@@ -50,36 +81,38 @@
     var heute = new Date();
     var min = heute.getFullYear() + '-' + ('0' + (heute.getMonth() + 1)).slice(-2) + '-' + ('0' + heute.getDate()).slice(-2);
 
-    var optionen = '<option value="">Bitte wählen</option>';
+    var optionen = '<option value="">' + t.waehlen + '</option>';
     for (var i = 0; i < ANLAESSE.length; i++) {
-      optionen += '<option' + (ANLAESSE[i] === vorwahl ? ' selected' : '') + '>' + ANLAESSE[i] + '</option>';
+      optionen += '<option value="' + ANLAESSE[i] + '"' + (ANLAESSE[i] === vorwahl ? ' selected' : '') + '>' +
+                  (en ? ANLAESSE_EN[i] : ANLAESSE[i]) + '</option>';
     }
 
-    var zeiten = '<option value="">Bitte wählen</option>';
+    var zeiten = '<option value="">' + t.waehlen + '</option>';
     for (var h = 12; h <= 22; h++) {
-      zeiten += '<option>' + h + ':00</option>';
-      if (h < 22) zeiten += '<option>' + h + ':30</option>';
+      zeiten += '<option value="' + h + ':00">' + h + ':00</option>';
+      if (h < 22) zeiten += '<option value="' + h + ':30">' + h + ':30</option>';
     }
 
-    var form = el('form', { 'class': 'vna', novalidate: 'novalidate' },
-      '<h3>Feier anfragen</h3>' +
-      '<p class="vna-sub">Ein paar Angaben genügen, wir melden uns innerhalb von 24 Stunden mit einem Vorschlag.</p>' +
+    var form = el('form', { 'class': 'vna', novalidate: 'novalidate', translate: 'no' },
+      '<h3>' + t.titel + '</h3>' +
+      '<p class="vna-sub">' + t.sub + '</p>' +
       '<div class="vna-grid">' +
-        '<div><label for="vnaAnlass">Anlass</label><select id="vnaAnlass" name="anlass" required>' + optionen + '</select></div>' +
-        '<div><label for="vnaGaeste">Gäste</label><input id="vnaGaeste" name="gaeste" type="number" inputmode="numeric" min="2" max="300" placeholder="z. B. 25"></div>' +
-        '<div><label for="vnaDatum">Wunschdatum</label><input id="vnaDatum" name="datum" type="date" min="' + min + '"></div>' +
-        '<div><label for="vnaZeit">Gewünschte Uhrzeit</label><select id="vnaZeit" name="uhrzeit" required>' + zeiten + '</select></div>' +
-        '<div class="vna-voll"><label for="vnaBereich">Bereich</label><select id="vnaBereich" name="bereich">' +
-          '<option value="">Noch offen</option><option>Teilbereich</option><option>Ganzes Lokal</option></select></div>' +
-        '<div><label for="vnaName">Name</label><input id="vnaName" name="name" autocomplete="name" required></div>' +
-        '<div><label for="vnaFirma">Firma (optional)</label><input id="vnaFirma" name="firma" autocomplete="organization"></div>' +
-        '<div><label for="vnaMail">E-Mail</label><input id="vnaMail" name="email" type="email" autocomplete="email" required></div>' +
-        '<div><label for="vnaTel">Telefon</label><input id="vnaTel" name="telefon" type="tel" autocomplete="tel" required></div>' +
-        '<div class="vna-voll"><label for="vnaWunsch">Wünsche</label><textarea id="vnaWunsch" name="wuensche" placeholder="Menu, Getränke, Musik, DJ, alles, was Ihnen wichtig ist"></textarea></div>' +
+        '<div><label for="vnaAnlass">' + t.anlass + '</label><select id="vnaAnlass" name="anlass" required>' + optionen + '</select></div>' +
+        '<div><label for="vnaGaeste">' + t.gaeste + '</label><input id="vnaGaeste" name="gaeste" type="number" inputmode="numeric" min="2" max="300" placeholder="' + t.bsp + '"></div>' +
+        '<div><label for="vnaDatum">' + t.datum + '</label><input id="vnaDatum" name="datum" type="date" min="' + min + '"></div>' +
+        '<div><label for="vnaZeit">' + t.zeit + '</label><select id="vnaZeit" name="uhrzeit" required>' + zeiten + '</select></div>' +
+        '<div class="vna-voll"><label for="vnaBereich">' + t.bereich + '</label><select id="vnaBereich" name="bereich">' +
+          '<option value="">' + t.offen + '</option><option value="Teilbereich">' + t.teil + '</option>' +
+          '<option value="Ganzes Lokal">' + t.ganz + '</option></select></div>' +
+        '<div><label for="vnaName">' + t.name + '</label><input id="vnaName" name="name" autocomplete="name" required></div>' +
+        '<div><label for="vnaFirma">' + t.firma + '</label><input id="vnaFirma" name="firma" autocomplete="organization"></div>' +
+        '<div><label for="vnaMail">' + t.mail + '</label><input id="vnaMail" name="email" type="email" autocomplete="email" required></div>' +
+        '<div><label for="vnaTel">' + t.tel + '</label><input id="vnaTel" name="telefon" type="tel" autocomplete="tel" required></div>' +
+        '<div class="vna-voll"><label for="vnaWunsch">' + t.wunsch + '</label><textarea id="vnaWunsch" name="wuensche" placeholder="' + t.wunschPh + '"></textarea></div>' +
       '</div>' +
       '<div class="vna-falle" aria-hidden="true"><label>Webseite<input name="webseite" tabindex="-1" autocomplete="off"></label></div>' +
-      '<button type="submit">Anfrage senden</button>' +
-      '<p class="vna-klein">Unverbindlich. Wir verwenden Ihre Angaben nur, um Ihre Anfrage zu beantworten. <a href="datenschutz.html">Datenschutz</a></p>' +
+      '<button type="submit">' + t.senden + '</button>' +
+      '<p class="vna-klein">' + t.klein + '</p>' +
       '<div class="vna-fehler" role="alert"></div>');
     box.appendChild(form);
 
@@ -109,7 +142,7 @@
                    '\nTelefon: ' + wert('telefon') + '\nWünsche: ' + wert('wuensche');
         var mail = 'mailto:Reservierung@vienero.at?subject=' + encodeURIComponent('Anfrage ' + (wert('anlass') || 'Feier') + ' im VIENERO') +
                    '&body=' + encodeURIComponent(body);
-        html += '<br><a href="' + mail + '">Per Mail senden</a> oder anrufen: <a href="tel:+4319137005">01 913 70 05</a>';
+        html += '<br><a href="' + mail + '">' + t.perMail + '</a> ' + t.oder + ' <a href="tel:+4319137005">' + (en ? '+43 1 913 70 05' : '01 913 70 05') + '</a>';
       }
       fehler.innerHTML = html;
       fehler.style.display = 'block';
@@ -118,23 +151,23 @@
     form.addEventListener('submit', function (ev) {
       ev.preventDefault();
       fehler.style.display = 'none';
-      if (!wert('anlass')) { zeigeFehler('Bitte wählen Sie den Anlass.'); form.elements.anlass.focus(); return; }
-      if (!wert('uhrzeit')) { zeigeFehler('Bitte wählen Sie die gewünschte Uhrzeit.'); form.elements.uhrzeit.focus(); return; }
-      if (!wert('name')) { zeigeFehler('Bitte geben Sie Ihren Namen an.'); form.elements.name.focus(); return; }
-      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(wert('email'))) { zeigeFehler('Bitte prüfen Sie Ihre E-Mail-Adresse.'); form.elements.email.focus(); return; }
-      if (wert('telefon').replace(/[^0-9]/g, '').length < 6) { zeigeFehler('Bitte geben Sie eine Telefonnummer an, damit wir Sie rasch erreichen.'); form.elements.telefon.focus(); return; }
+      if (!wert('anlass')) { zeigeFehler(t.fAnlass); form.elements.anlass.focus(); return; }
+      if (!wert('uhrzeit')) { zeigeFehler(t.fZeit); form.elements.uhrzeit.focus(); return; }
+      if (!wert('name')) { zeigeFehler(t.fName); form.elements.name.focus(); return; }
+      if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(wert('email'))) { zeigeFehler(t.fMail); form.elements.email.focus(); return; }
+      if (wert('telefon').replace(/[^0-9]/g, '').length < 6) { zeigeFehler(t.fTel); form.elements.telefon.focus(); return; }
 
       var datum = wert('datum');
-      if (/^\d{4}-\d{2}-\d{2}$/.test(datum)) { var t = datum.split('-'); datum = t[2] + '.' + t[1] + '.' + t[0]; }
+      if (/^\d{4}-\d{2}-\d{2}$/.test(datum)) { var dt = datum.split('-'); datum = dt[2] + '.' + dt[1] + '.' + dt[0]; }
 
       var daten = {
         typ: 'anfrage', anlass: wert('anlass'), datum: datum, uhrzeit: wert('uhrzeit'), gaeste: wert('gaeste'), bereich: wert('bereich'),
         name: wert('name'), firma: wert('firma'), email: wert('email'), telefon: wert('telefon'),
-        wuensche: wert('wuensche'), webseite: wert('webseite'), seite: location.pathname
+        wuensche: wert('wuensche'), sprache: en ? 'en' : 'de', webseite: wert('webseite'), seite: location.pathname
       };
 
       knopf.disabled = true;
-      knopf.textContent = 'Wird gesendet …';
+      knopf.textContent = t.sendet;
 
       fetch(ZIEL, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(daten) })
         .then(function (r) { return r.json(); })
@@ -147,16 +180,15 @@
             }
           } catch (x) {}
           var danke = el('div', { 'class': 'vna vna-danke', role: 'status' },
-            '<b>Danke, ' + daten.name.replace(/[<>&]/g, '') + '.</b>' +
-            '<p>Ihre Anfrage ist bei uns. Wir melden uns innerhalb von 24 Stunden mit einem Vorschlag, meistens schneller. ' +
-            'Eine Bestätigung ist schon an ' + daten.email.replace(/[<>&]/g, '') + ' unterwegs.</p>');
+            '<b>' + t.danke + daten.name.replace(/[<>&]/g, '') + '.</b>' +
+            '<p>' + t.dankeText + daten.email.replace(/[<>&]/g, '') + t.dankeEnde + '</p>');
           box.replaceChild(danke, form);
           danke.scrollIntoView({ behavior: 'smooth', block: 'center' });
         })
         .catch(function () {
           knopf.disabled = false;
-          knopf.textContent = 'Anfrage senden';
-          zeigeFehler('Das Senden hat gerade nicht geklappt. Ihre Angaben sind noch da.', true);
+          knopf.textContent = t.senden;
+          zeigeFehler(t.fSenden, true);
         });
     });
   }
