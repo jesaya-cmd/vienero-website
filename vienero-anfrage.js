@@ -13,8 +13,21 @@
      ans Skript, damit Tabelle und Team-Mail einheitlich bleiben. */
   var ANLAESSE_EN = ['Christmas party', 'Company party', 'Birthday', 'Wedding or christening',
                      'Anniversary', 'Client dinner', 'Family celebration', 'Other'];
+  /* Benoetigte Leistungen: Werte gehen auf Deutsch ans Skript */
+  var LEISTUNGEN = ['Speisen', 'Getränke', 'Dekoration', 'Entertainment', 'Service/Personal'];
+  var LEISTUNGEN_EN = ['Food', 'Drinks', 'Decoration', 'Entertainment', 'Service/Staff'];
+  var SPEISEN = ['Fingerfood', 'Flying Dinner', 'Gala Dinner', 'Buffet'];
+  var SPEISEN_EN = ['Finger food', 'Flying dinner', 'Gala dinner', 'Buffet'];
+  var GETRAENKE = ['Weißwein', 'Rotwein', 'Alkoholfreies', 'Cocktails', 'Weinverkostung'];
+  var GETRAENKE_EN = ['White wine', 'Red wine', 'Non-alcoholic drinks', 'Cocktails', 'Wine tasting'];
+  var DEKO = ['Blumendeko', 'Weihnachtsdeko', 'Tischdeko', 'Geburtstagsdeko', 'Ballons', 'Kerzen und Licht'];
+  var DEKO_EN = ['Flower decoration', 'Christmas decoration', 'Table decoration', 'Birthday decoration', 'Balloons', 'Candles and lighting'];
+  var ENTERTAINMENT = ['DJ', 'Sänger', 'Moderator', 'Tänzer', 'Live Musik', 'Fotobox'];
+  var ENTERTAINMENT_EN = ['DJ', 'Singer', 'Host', 'Dancers', 'Live music', 'Photo booth'];
   var T = {
     de: { titel: 'Feier anfragen', sub: 'Ein paar Angaben genügen, wir melden uns innerhalb von 24 Stunden mit einem Vorschlag.',
+      leistungen: 'Benötigte Leistungen *', speisen: 'Speisen', getraenke: 'Getränke', deko: 'Dekoration', unterhaltung: 'Entertainment',
+      fLeistung: 'Bitte wählen Sie mindestens eine benötigte Leistung.',
       anlass: 'Anlass', gaeste: 'Gäste', bsp: 'z. B. 25', datum: 'Wunschdatum', zeit: 'Gewünschte Uhrzeit', waehlen: 'Bitte wählen',
       bereich: 'Bereich', offen: 'Noch offen', teil: 'Teilbereich', ganz: 'Ganzes Lokal', name: 'Name', firma: 'Firma (optional)',
       mail: 'E-Mail', tel: 'Telefon', wunsch: 'Wünsche', wunschPh: 'Menu, Getränke, Musik, DJ, alles, was Ihnen wichtig ist',
@@ -26,6 +39,8 @@
       danke: 'Danke, ', dankeText: 'Ihre Anfrage ist bei uns. Wir melden uns innerhalb von 24 Stunden mit einem Vorschlag, meistens schneller. Eine Bestätigung ist schon an ',
       dankeEnde: ' unterwegs.' },
     en: { titel: 'Request your event', sub: 'A few details are enough. We will get back to you within 24 hours with a proposal.',
+      leistungen: 'Services needed *', speisen: 'Food', getraenke: 'Drinks', deko: 'Decoration', unterhaltung: 'Entertainment',
+      fLeistung: 'Please choose at least one service.',
       anlass: 'Occasion', gaeste: 'Guests', bsp: 'e.g. 25', datum: 'Preferred date', zeit: 'Preferred time', waehlen: 'Please choose',
       bereich: 'Area', offen: 'Not decided yet', teil: 'Part of the restaurant', ganz: 'Whole restaurant', name: 'Name', firma: 'Company (optional)',
       mail: 'Email', tel: 'Phone', wunsch: 'Your wishes', wunschPh: 'Menu, drinks, music, DJ, anything that matters to you',
@@ -64,6 +79,14 @@
       '.vna input,.vna select,.vna textarea{width:100%;box-sizing:border-box;border:1px solid #E4DFD4;border-radius:10px;padding:12px 13px;font:15px/1.4 Inter,system-ui,sans-serif;color:#2F3133;background:#FDFBF7;-webkit-appearance:none;appearance:none}' +
       '.vna select{background-image:linear-gradient(45deg,transparent 50%,#8E7134 50%),linear-gradient(135deg,#8E7134 50%,transparent 50%);background-position:calc(100% - 18px) 52%,calc(100% - 13px) 52%;background-size:5px 5px;background-repeat:no-repeat;padding-right:34px}' +
       '.vna textarea{min-height:96px;resize:vertical}' +
+      '.vna fieldset{border:0;margin:0;padding:0;min-width:0}' +
+      '.vna legend{display:block;font:600 10.5px/1.4 Inter,system-ui,sans-serif;letter-spacing:1.6px;text-transform:uppercase;color:#8E7134;margin-bottom:7px;padding:0}' +
+      '.vna-chips{display:flex;flex-wrap:wrap;gap:8px}' +
+      '.vna-chips label{display:inline-flex;align-items:center;gap:7px;margin:0;padding:9px 13px;border:1px solid #E4DFD4;border-radius:999px;background:#FDFBF7;cursor:pointer;font:500 13.5px/1.2 Inter,system-ui,sans-serif;letter-spacing:0;text-transform:none;color:#2F3133}' +
+      '.vna-chips input{width:16px;height:16px;margin:0;padding:0;accent-color:#8E7134;-webkit-appearance:auto;appearance:auto}' +
+      '.vna-chips label:has(input:checked){border-color:#C8A76A;background:#F6EEDD}' +
+      '.vna-unter{margin-top:12px;padding:12px 14px;border-left:2px solid #C8A76A;background:#FBF8F1;border-radius:0 10px 10px 0}' +
+      '.vna-unter[hidden]{display:none}' +
       '.vna input:focus,.vna select:focus,.vna textarea:focus{outline:2px solid #C8A76A;outline-offset:1px;border-color:#C8A76A}' +
       '.vna .vna-falle{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}' +
       '.vna button{margin-top:18px;width:100%;border:0;border-radius:999px;padding:15px 20px;background:#C8A76A;color:#2F3133;font:600 12.5px Inter,system-ui,sans-serif;letter-spacing:2px;text-transform:uppercase;cursor:pointer}' +
@@ -93,6 +116,14 @@
       if (h < 22) zeiten += '<option value="' + h + ':30">' + h + ':30</option>';
     }
 
+    function chips(name, werte, en_) {
+      var h = '';
+      for (var k = 0; k < werte.length; k++) {
+        h += '<label><input type="checkbox" name="' + name + '" value="' + werte[k] + '">' + (en ? en_[k] : werte[k]) + '</label>';
+      }
+      return h;
+    }
+
     var form = el('form', { 'class': 'vna', novalidate: 'novalidate', translate: 'no' },
       '<h3>' + t.titel + '</h3>' +
       '<p class="vna-sub">' + t.sub + '</p>' +
@@ -108,6 +139,17 @@
         '<div><label for="vnaFirma">' + t.firma + '</label><input id="vnaFirma" name="firma" autocomplete="organization"></div>' +
         '<div><label for="vnaMail">' + t.mail + '</label><input id="vnaMail" name="email" type="email" autocomplete="email" required></div>' +
         '<div><label for="vnaTel">' + t.tel + '</label><input id="vnaTel" name="telefon" type="tel" autocomplete="tel" required></div>' +
+        '<fieldset class="vna-voll" id="vnaLeistungen"><legend>' + t.leistungen + '</legend>' +
+          '<div class="vna-chips">' + chips('leistung', LEISTUNGEN, LEISTUNGEN_EN) + '</div>' +
+          '<div class="vna-unter" id="vnaUnterSpeisen" hidden><legend>' + t.speisen + '</legend>' +
+            '<div class="vna-chips">' + chips('speise', SPEISEN, SPEISEN_EN) + '</div></div>' +
+          '<div class="vna-unter" id="vnaUnterGetraenke" hidden><legend>' + t.getraenke + '</legend>' +
+            '<div class="vna-chips">' + chips('getraenk', GETRAENKE, GETRAENKE_EN) + '</div></div>' +
+          '<div class="vna-unter" id="vnaUnterDeko" hidden><legend>' + t.deko + '</legend>' +
+            '<div class="vna-chips">' + chips('deko', DEKO, DEKO_EN) + '</div></div>' +
+          '<div class="vna-unter" id="vnaUnterEnt" hidden><legend>' + t.unterhaltung + '</legend>' +
+            '<div class="vna-chips">' + chips('ent', ENTERTAINMENT, ENTERTAINMENT_EN) + '</div></div>' +
+        '</fieldset>' +
         '<div class="vna-voll"><label for="vnaWunsch">' + t.wunsch + '</label><textarea id="vnaWunsch" name="wuensche" placeholder="' + t.wunschPh + '"></textarea></div>' +
       '</div>' +
       '<div class="vna-falle" aria-hidden="true"><label>Webseite<input name="webseite" tabindex="-1" autocomplete="off"></label></div>' +
@@ -129,6 +171,20 @@
       }
     }
     form.elements.datum.addEventListener('change', zeitenPruefen);
+
+    /* Unterpunkte zu Speisen und Getraenken nur zeigen, wenn angehakt */
+    function gewaehlt(name) {
+      return [].slice.call(form.querySelectorAll('input[name="' + name + '"]:checked')).map(function (i) { return i.value; });
+    }
+    function unterPruefen() {
+      var l = gewaehlt('leistung');
+      if (l.length) fehler.style.display = 'none';
+      form.querySelector('#vnaUnterSpeisen').hidden = l.indexOf('Speisen') < 0;
+      form.querySelector('#vnaUnterGetraenke').hidden = l.indexOf('Getränke') < 0;
+      form.querySelector('#vnaUnterDeko').hidden = l.indexOf('Dekoration') < 0;
+      form.querySelector('#vnaUnterEnt').hidden = l.indexOf('Entertainment') < 0;
+    }
+    [].slice.call(form.querySelectorAll('input[name="leistung"]')).forEach(function (i) { i.addEventListener('change', unterPruefen); });
     var fehler = form.querySelector('.vna-fehler');
 
     function wert(n) { var f = form.elements[n]; return f ? String(f.value || '').trim() : ''; }
@@ -139,7 +195,9 @@
         var datum = wert('datum');
         var body = 'Anlass: ' + wert('anlass') + '\nWunschdatum: ' + datum + '\nUhrzeit: ' + wert('uhrzeit') + '\nGäste: ' + wert('gaeste') +
                    '\nBereich: ' + wert('bereich') + '\nName: ' + wert('name') + '\nFirma: ' + wert('firma') +
-                   '\nTelefon: ' + wert('telefon') + '\nWünsche: ' + wert('wuensche');
+                   '\nTelefon: ' + wert('telefon') + '\nLeistungen: ' + gewaehlt('leistung').join(', ') +
+                   '\nSpeisen: ' + gewaehlt('speise').join(', ') + '\nGetränke: ' + gewaehlt('getraenk').join(', ') +
+                   '\nDekoration: ' + gewaehlt('deko').join(', ') + '\nEntertainment: ' + gewaehlt('ent').join(', ') + '\nWünsche: ' + wert('wuensche');
         var mail = 'mailto:Reservierung@vienero.at?subject=' + encodeURIComponent('Anfrage ' + (wert('anlass') || 'Feier') + ' im VIENERO') +
                    '&body=' + encodeURIComponent(body);
         html += '<br><a href="' + mail + '">' + t.perMail + '</a> ' + t.oder + ' <a href="tel:+4319137005">' + (en ? '+43 1 913 70 05' : '01 913 70 05') + '</a>';
@@ -153,6 +211,7 @@
       fehler.style.display = 'none';
       if (!wert('anlass')) { zeigeFehler(t.fAnlass); form.elements.anlass.focus(); return; }
       if (!wert('uhrzeit')) { zeigeFehler(t.fZeit); form.elements.uhrzeit.focus(); return; }
+      if (!gewaehlt('leistung').length) { zeigeFehler(t.fLeistung); form.querySelector('input[name="leistung"]').focus(); return; }
       if (!wert('name')) { zeigeFehler(t.fName); form.elements.name.focus(); return; }
       if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(wert('email'))) { zeigeFehler(t.fMail); form.elements.email.focus(); return; }
       if (wert('telefon').replace(/[^0-9]/g, '').length < 6) { zeigeFehler(t.fTel); form.elements.telefon.focus(); return; }
@@ -163,7 +222,12 @@
       var daten = {
         typ: 'anfrage', anlass: wert('anlass'), datum: datum, uhrzeit: wert('uhrzeit'), gaeste: wert('gaeste'), bereich: wert('bereich'),
         name: wert('name'), firma: wert('firma'), email: wert('email'), telefon: wert('telefon'),
-        wuensche: wert('wuensche'), sprache: en ? 'en' : 'de', webseite: wert('webseite'), seite: location.pathname
+        wuensche: wert('wuensche'),
+        leistungen: gewaehlt('leistung').join(', '),
+        speisen: gewaehlt('leistung').indexOf('Speisen') >= 0 ? gewaehlt('speise').join(', ') : '',
+        getraenke: gewaehlt('leistung').indexOf('Getränke') >= 0 ? gewaehlt('getraenk').join(', ') : '',
+        deko: gewaehlt('leistung').indexOf('Dekoration') >= 0 ? gewaehlt('deko').join(', ') : '',
+        entertainment: gewaehlt('leistung').indexOf('Entertainment') >= 0 ? gewaehlt('ent').join(', ') : '', sprache: en ? 'en' : 'de', webseite: wert('webseite'), seite: location.pathname
       };
 
       knopf.disabled = true;
