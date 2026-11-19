@@ -27,7 +27,7 @@
   document.head.appendChild(s);
   gtag('js', new Date());
   gtag('config', AW);
-  if (location.pathname.indexOf('/reservierung') !== -1) gtag('event', 'conversion', { send_to: CONV });
+  if (/\/reservierung|\/book-a-table/.test(location.pathname)) gtag('event', 'conversion', { send_to: CONV });
 
   /* Datumsabhaengige Texte (z. B. neue Sonntagszeiten ab 3.1.2027) automatisch umstellen */
   function datumTexte() {
@@ -91,7 +91,7 @@
   /* ===== Reservieren-Leiste: am Handy unten fix, am Computer als Knopf rechts unten ===== */
   function leiste() {
     var p = location.pathname;
-    if (/reservierung|impressum|datenschutz|presse|service|aktion|preopening/.test(p)) return;
+    if (/reservierung|book-a-table|impressum|datenschutz|presse|service|aktion|preopening/.test(p)) return;
     if (document.getElementById('vnLeiste')) return;
     var LL = {
       en: {res: 'Book a table', tel: 'Call', info: '★ 4.4 on Google · more than 1,500 reviews'},
@@ -117,7 +117,7 @@
       '#vnLeiste .r{gap:8px}body.vnPlatz{padding-bottom:0}}';
     document.head.appendChild(css);
     var anker = document.getElementById('reservieren') || document.getElementById('reserve');
-    var ziel = anker ? '#' + anker.id : 'reservierung.html';
+    var ziel = anker ? '#' + anker.id : (lg === 'en' ? 'book-a-table.html' : 'reservierung.html');
     var d = document.createElement('div');
     d.id = 'vnLeiste';
     d.innerHTML = '<div class="i">' + L.info + '</div><div class="r">' +
