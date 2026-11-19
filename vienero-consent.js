@@ -113,7 +113,8 @@
       '#vnLeiste .y{background:#C8A76A;color:#2F3133;flex:1.6}' +
       '#vnLeiste .n{border:1px solid #AEB2A0;color:#F8F5EE}' +
       'body.vnPlatz{padding-bottom:96px}' +
-      '@media (min-width:761px){#vnLeiste{left:auto;right:22px;bottom:22px;border-radius:18px;padding:12px 14px;max-width:340px}' +
+      '@media (min-width:761px){#vnLeiste{left:auto;right:22px;bottom:22px;border-radius:18px;padding:14px 16px;max-width:380px}' +
+      '#vnLeiste a{padding:14px 12px;font-size:14px}' +
       '#vnLeiste .r{gap:8px}body.vnPlatz{padding-bottom:0}}';
     document.head.appendChild(css);
     var anker = document.getElementById('reservieren') || document.getElementById('reserve');
@@ -125,7 +126,8 @@
       '<a class="n" href="tel:+4319137005">' + L.tel + '</a></div>';
     document.body.appendChild(d);
     document.body.classList.add('vnPlatz');
-    var start = (p === '/' || /index\.html$|\/en\.html$/.test(p)) ? window.innerHeight * 0.7 : 160;
+    var breit = window.innerWidth > 760;
+    var start = (p === '/' || /index\.html$|\/en\.html$/.test(p)) ? (breit ? 260 : window.innerHeight * 0.7) : (breit ? 0 : 160);
     function pruefen() {
       var bannerOffen = !!document.getElementById('vnConsent');
       var y = Math.max(window.scrollY || 0, document.body.scrollTop || 0, document.documentElement.scrollTop || 0);
@@ -160,7 +162,27 @@
     var body = JSON.stringify({ typ: 'besuch', seite: location.pathname, herkunft: herkunft,
       geraet: geraet, sprache: (navigator.language || '').slice(0, 2), neu: neu });
     var ziel = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec';
-    if (navigator.sendBeacon) navigator.sendBeacon(ziel, new Blob([body], { type: 'text/plain;charset=utf-8' }));
-    else fetch(ziel, { method: 'POST', body: body, keepalive: true, mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+    function senden(b) {
+      if (navigator.sendBeacon) navigator.sendBeacon(ziel, new Blob([b], { type: 'text/plain;charset=utf-8' }));
+      else fetch(ziel, { method: 'POST', body: b, keepalive: true, mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
+    }
+    senden(body);
+
+    /* Klicks auf Reservieren und Anrufen mitzaehlen (als Eintrag "/klick/..." mit der Seite, von der geklickt wurde) */
+    var gezaehlt = {};
+    window.vnKlick = function (was) {
+      var k = was + location.pathname;
+      if (gezaehlt[k]) return;
+      gezaehlt[k] = 1;
+      senden(JSON.stringify({ typ: 'besuch', seite: '/klick/' + was + ' von ' + location.pathname, herkunft: '',
+        geraet: geraet, sprache: (navigator.language || '').slice(0, 2), neu: 0 }));
+    };
+    document.addEventListener('click', function (ev) {
+      var a = ev.target && ev.target.closest ? ev.target.closest('a') : null;
+      if (!a) return;
+      var h = a.getAttribute('href') || '';
+      if (/^tel:/.test(h)) window.vnKlick('anrufen');
+      else if (/reservierung\.html|book-a-table\.html|#reservieren|#reserve|#reserver|thefork/.test(h)) window.vnKlick('reservieren');
+    }, true);
   } catch (e) {}
 })();
