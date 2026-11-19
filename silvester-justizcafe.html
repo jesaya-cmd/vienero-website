@@ -142,6 +142,16 @@ footer{background:#141516;}
 .plaetze small{display:block;font-size:10px;letter-spacing:1px;color:rgba(248,245,238,.45);margin-top:5px;}
 .plaetze.aus{background:var(--gold);}
 .plaetze.aus p,.plaetze.aus p b,.plaetze.aus small{color:#1E1F21;}
+.buchung{border:1px solid rgba(200,167,106,.55);border-radius:16px;padding:22px 18px;margin:30px 0 6px;background:#26282B;text-align:center;}
+.buchung h2{font-family:'Fraunces',Georgia,serif;font-weight:400;font-size:22px;margin-bottom:14px;color:var(--ivory);}
+.buchung .zeile{display:flex;justify-content:space-between;gap:12px;padding:10px 4px;border-bottom:1px solid rgba(200,167,106,.2);font-size:14px;text-align:left;}
+.buchung .zeile span:first-child{color:var(--gold);font-size:11px;letter-spacing:2px;text-transform:uppercase;padding-top:2px;}
+.buchung .zeile b{color:var(--ivory);font-weight:500;text-align:right;}
+.slots{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0 4px;}
+.slots span{border:1px solid rgba(200,167,106,.5);border-radius:999px;padding:6px 12px;font-size:13px;color:var(--ivory);}
+.buchung .btn{margin-top:16px;display:inline-block;}
+.buchung small{display:block;margin-top:10px;font-size:11.5px;color:rgba(248,245,238,.55);line-height:1.6;}
+
 .skyline-hero{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:14px;display:block;margin:26px 0 0;border:1px solid rgba(200,167,106,.35);}
 .skyline-galerie{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:22px 0 22px;}
 .skyline-galerie img{width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:12px;display:block;border:1px solid rgba(200,167,106,.3);}
@@ -276,8 +286,7 @@ footer{background:#141516;}
 <p class="intro">Eine Nacht. Ein Ausblick. Nur 150 Gäste.<br>Zu Silvester öffnet das VIENERO das Justizcafé ganz oben im Justizpalast, mit Rundumblick über die Skyline der Stadt, vom Rathaus bis zum Parlament. Ein festliches 4-Gang-Menu mit frischem Trüffel, Champagner und um Mitternacht das Feuerwerk über ganz Wien. Danach legt der DJ auf, und die Party läuft bis 4 Uhr früh.</p>
 <img class="skyline-hero" src="VIENERO-Skyline-1.jpg" alt="Festlich gedeckte Tische im Justizcafé mit Blick auf das Wiener Rathaus" width="1600" height="900" onerror="this.remove()">
 <div class="zahlen"><div class="zahl"><b>399 €</b><span>pro Person</span></div><div class="zahl"><b>150</b><span>Gäste, limitiert</span></div><div class="zahl"><b>18:30</b><span>bis 21 Uhr Einlass</span></div></div>
-<div class="aktion"><a class="btn gold" href="https://book.stripe.com/cNi9ASgyLbWB5v5fZi7Re00?locale=de">Platz sichern</a><a class="btn" href="tel:+4319137005">01 913 70 05</a></div>
-<p class="hinweis" style="margin-top:10px">Sofort online buchen, 1 bis 4 Personen. Bezahlung mit Karte, Klarna oder eps. Vorauskasse, keine Rückerstattung. Ab 5 Personen bitte per Anfrage.</p>
+<div class="buchung" id="buchen"><h2>Ihre Buchung</h2><div class="zeile"><span>Datum</span><b>Donnerstag, 31. Dezember 2026</b></div><div class="zeile"><span>Ort</span><b>Justizcafé, Schmerlingplatz 10-11, 5. Stock</b></div><div class="zeile"><span>Personen</span><b>1 bis 4 pro Buchung</b></div><div class="zeile"><span>Ankunftszeit</span><b>wählen Sie beim Buchen</b></div><div class="slots"><span>18:30</span><span>19:00</span><span>19:30</span><span>20:00</span><span>20:30</span><span>21:00</span></div><a class="btn gold" href="https://book.stripe.com/cNi9ASgyLbWB5v5fZi7Re00?locale=de">Platz sichern</a><small>Sofort online buchen, 1 bis 4 Personen. Bezahlung mit Karte, Klarna oder eps. Vorauskasse, keine Rückerstattung. Ab 5 Personen bitte per Anfrage.</small></div>
 <section class="blk"><h2>Das Silvester Menu</h2>
 <div class="menu-karte"><h3>Amuse Gueule</h3><p>Gillardeau Austern mit Rotwein Balsamico Schalotten Vinaigrette</p><h3>Vorspeise</h3><p><b>Tatar Variation</b><br>Beef Tatar, Lachstatar und Pilztatar</p><h3>Suppe</h3><p>Trüffel Parmesan Suppe mit frischem Trüffel</p><h3>Hauptgang zur Auswahl</h3><p>Trüffel Gnocchi mit gegrillten Black Tiger Garnelen</p><p class="oder">oder</p><p>Zwei Beef Steak Schaschlik auf Kartoffel Parmesan Püree, mit Wildbrokkoli und Pommes Frites</p><p class="oder">oder</p><p>Lachsfilet Steak auf Safranrisotto mit gegrilltem mediterranem Gemüse</p><h3>Dessert</h3><p>Schoko Soufflé mit Bourbon Vanille Eis<br>dazu ein Glas Champagner</p></div>
 <p class="hinweis"><b>399 Euro pro Person.</b> Inklusive Amuse Gueule, 4-Gang-Menu, einem Glas Champagner, Mineralwasser sowie DJ und Entertainment bis 4 Uhr früh. Einlass von 18:30 bis 21:00 Uhr. Weitere Getränke werden extra verrechnet. Limitiert auf 150 Gäste, Vergabe nur mit Vorauskasse.</p></section><section class="blk"><h2>Ins neue Jahr über der Skyline von Wien</h2>
