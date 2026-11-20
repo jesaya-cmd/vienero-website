@@ -1,9 +1,10 @@
-/* VIENERO: Einwilligung fuer Google Ads Messung mit Consent Mode v2. Ohne Zustimmung keine Cookies. */
+/* VIENERO: Einwilligung fuer Google Analytics und Google Ads Messung mit Consent Mode v2. Ohne Zustimmung keine Cookies. */
 (function () {
   var AW = 'AW-18506650716';
+  var GA = 'G-FJ2ZZ9SF1T'; /* Google Analytics 4, Property vienero.at */
   var CONV = 'AW-18506650716/FYBXCNr-g5kdENyo1PhE'; /* Seitenaufruf Reservierung (sekundaer) */
   var CONV_TEL = 'AW-18506650716/SwAgCLLTyK8dENyo1PhE'; /* Klick auf Telefonnummer (Website), Wert 15 */
-  var KEY = 'vienero_consent_v1';
+  var KEY = 'vienero_consent_v2'; /* v2 seit 20.11.2026: Analytics dazu, deshalb alle neu fragen */
   var en = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
   var lg = (document.documentElement.lang || 'de').toLowerCase().slice(0,2);
 
@@ -18,7 +19,7 @@
      Ohne Zustimmung setzt Google keine Cookies und bekommt nur einfache Signale ohne Kennungen. */
   gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
   gtag('set', 'ads_data_redaction', true);
-  function erlauben() { gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted' }); }
+  function erlauben() { gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', analytics_storage: 'granted' }); }
   if (get() === 'yes') erlauben();
 
   var s = document.createElement('script');
@@ -27,6 +28,7 @@
   document.head.appendChild(s);
   gtag('js', new Date());
   gtag('config', AW);
+  gtag('config', GA);
   if (/\/reservierung|\/book-a-table/.test(location.pathname)) gtag('event', 'conversion', { send_to: CONV });
 
   /* Datumsabhaengige Texte (z. B. neue Sonntagszeiten ab 3.1.2027) automatisch umstellen */
@@ -47,13 +49,18 @@
     if (!a) return;
     var h = a.getAttribute('href') || '';
     if (h.indexOf('tel:') === 0) gtag('event', 'conversion', { send_to: CONV_TEL });
+    /* Analytics: wichtige Klicks als eigene Ereignisse */
+    if (h.indexOf('tel:') === 0) gtag('event', 'anruf_klick', { send_to: GA, seite: location.pathname });
+    else if (/book\.stripe\.com/.test(h)) gtag('event', 'silvester_buchen_klick', { send_to: GA, seite: location.pathname });
+    else if (/reservierung\.html|book-a-table\.html|thefork/.test(h)) gtag('event', 'reservieren_klick', { send_to: GA, seite: location.pathname });
+    else if (/^mailto:/.test(h)) gtag('event', 'email_klick', { send_to: GA, seite: location.pathname });
   }, true);
 
   var TT = {
-    en: {text: 'We use Google Ads to see which of our ads bring guests to VIENERO. With your consent we set cookies for this. Without it, Google only receives simple signals without cookies. The website works the same either way.', yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'},
-    fr: {text: "Nous utilisons Google Ads pour savoir quelles annonces amènent nos clients chez VIENERO. Avec votre accord, nous déposons des cookies à cet effet. Sans accord, Google ne reçoit que des signaux simples, sans cookies. Le site fonctionne de la même façon dans les deux cas.", yes: 'Accepter', no: 'Refuser', more: 'Confidentialité', href: 'datenschutz.html'},
-    it: {text: 'Usiamo Google Ads per capire quali annunci portano ospiti da VIENERO. Con il tuo consenso impostiamo dei cookie a questo scopo, senza consenso Google riceve solo semplici segnali senza cookie. Il sito funziona allo stesso modo in entrambi i casi.', yes: 'Accetta', no: 'Rifiuta', more: 'Privacy', href: 'datenschutz.html'},
-    de: {text: 'Wir nutzen Google Ads, um zu sehen, welche unserer Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt Google nur einfache Signale ohne Cookies. Die Seite funktioniert in beiden Fällen genauso.', yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'}
+    en: {text: 'We use Google Analytics and Google Ads to see how our website is used and which ads bring guests to VIENERO. With your consent we set cookies for this. Without it, Google only receives simple signals without cookies. The website works the same either way.', yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'},
+    fr: {text: "Nous utilisons Google Analytics et Google Ads pour savoir comment notre site est utilisé et quelles annonces amènent nos clients chez VIENERO. Avec votre accord, nous déposons des cookies à cet effet. Sans accord, Google ne reçoit que des signaux simples, sans cookies. Le site fonctionne de la même façon dans les deux cas.", yes: 'Accepter', no: 'Refuser', more: 'Confidentialité', href: 'datenschutz.html'},
+    it: {text: 'Usiamo Google Analytics e Google Ads per capire come viene usato il sito e quali annunci portano ospiti da VIENERO. Con il tuo consenso impostiamo dei cookie a questo scopo, senza consenso Google riceve solo semplici segnali senza cookie. Il sito funziona allo stesso modo in entrambi i casi.', yes: 'Accetta', no: 'Rifiuta', more: 'Privacy', href: 'datenschutz.html'},
+    de: {text: 'Wir nutzen Google Analytics und Google Ads, um zu sehen, wie unsere Website genutzt wird und welche Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt Google nur einfache Signale ohne Cookies. Die Seite funktioniert in beiden Fällen genauso.', yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'}
   };
   var T = TT[lg] || TT.de;
 
@@ -182,6 +189,7 @@
       if (!a) return;
       var h = a.getAttribute('href') || '';
       if (/^tel:/.test(h)) window.vnKlick('anrufen');
+      else if (/book\.stripe\.com/.test(h)) window.vnKlick('silvester-buchen');
       else if (/reservierung\.html|book-a-table\.html|#reservieren|#reserve|#reserver|thefork/.test(h)) window.vnKlick('reservieren');
     }, true);
   } catch (e) {}
