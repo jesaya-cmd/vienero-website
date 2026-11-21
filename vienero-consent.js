@@ -57,10 +57,10 @@
   }, true);
 
   var TT = {
-    en: {text: 'We use Google Analytics and Google Ads to see how our website is used and which ads bring guests to VIENERO. With your consent we set cookies for this. Without it, Google only receives simple signals without cookies. The website works the same either way.', yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'},
-    fr: {text: "Nous utilisons Google Analytics et Google Ads pour savoir comment notre site est utilisé et quelles annonces amènent nos clients chez VIENERO. Avec votre accord, nous déposons des cookies à cet effet. Sans accord, Google ne reçoit que des signaux simples, sans cookies. Le site fonctionne de la même façon dans les deux cas.", yes: 'Accepter', no: 'Refuser', more: 'Confidentialité', href: 'datenschutz.html'},
-    it: {text: 'Usiamo Google Analytics e Google Ads per capire come viene usato il sito e quali annunci portano ospiti da VIENERO. Con il tuo consenso impostiamo dei cookie a questo scopo, senza consenso Google riceve solo semplici segnali senza cookie. Il sito funziona allo stesso modo in entrambi i casi.', yes: 'Accetta', no: 'Rifiuta', more: 'Privacy', href: 'datenschutz.html'},
-    de: {text: 'Wir nutzen Google Analytics und Google Ads, um zu sehen, wie unsere Website genutzt wird und welche Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt Google nur einfache Signale ohne Cookies. Die Seite funktioniert in beiden Fällen genauso.', yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'}
+    en: {text: 'We use Google Analytics and Google Ads to see how our website is used and which ads bring guests to VIENERO. With your consent we set cookies for this. Without it, Google only receives simple signals without cookies. With consent we also look up via ipapi.co roughly which city and internet provider you are visiting from, without storing your IP address. The website works the same either way.', yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'},
+    fr: {text: "Nous utilisons Google Analytics et Google Ads pour savoir comment notre site est utilisé et quelles annonces amènent nos clients chez VIENERO. Avec votre accord, nous déposons des cookies à cet effet. Sans accord, Google ne reçoit que des signaux simples, sans cookies. Avec votre accord, nous déterminons aussi via ipapi.co la ville et le fournisseur d’accès approximatifs, sans enregistrer votre adresse IP. Le site fonctionne de la même façon dans les deux cas.", yes: 'Accepter', no: 'Refuser', more: 'Confidentialité', href: 'datenschutz.html'},
+    it: {text: 'Usiamo Google Analytics e Google Ads per capire come viene usato il sito e quali annunci portano ospiti da VIENERO. Con il tuo consenso impostiamo dei cookie a questo scopo, senza consenso Google riceve solo semplici segnali senza cookie. Con il consenso rileviamo anche tramite ipapi.co la città e il provider approssimativi, senza salvare il tuo indirizzo IP. Il sito funziona allo stesso modo in entrambi i casi.', yes: 'Accetta', no: 'Rifiuta', more: 'Privacy', href: 'datenschutz.html'},
+    de: {text: 'Wir nutzen Google Analytics und Google Ads, um zu sehen, wie unsere Website genutzt wird und welche Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt Google nur einfache Signale ohne Cookies. Mit Zustimmung ermitteln wir außerdem über ipapi.co ungefähr Stadt und Internetanbieter, ohne deine IP-Adresse zu speichern. Die Seite funktioniert in beiden Fällen genauso.', yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'}
   };
   var T = TT[lg] || TT.de;
 
@@ -81,7 +81,7 @@
     d.setAttribute('role', 'dialog');
     d.innerHTML = '<p>' + T.text + ' <a href="' + T.href + '">' + T.more + '</a></p>' +
       '<div class="r"><button class="n" type="button">' + T.no + '</button><button class="y" type="button">' + T.yes + '</button></div>';
-    d.querySelector('.y').onclick = function () { set('yes'); d.remove(); erlauben(); };
+    d.querySelector('.y').onclick = function () { set('yes'); d.remove(); erlauben(); if (window.vnOrt) window.vnOrt(); };
     d.querySelector('.n').onclick = function () { set('no'); d.remove(); };
     document.body.appendChild(d);
   }
@@ -177,11 +177,41 @@
     var body = JSON.stringify({ typ: 'besuch', seite: location.pathname, herkunft: herkunft,
       geraet: geraet, sprache: (navigator.language || '').slice(0, 2), neu: neu, zone: zone });
     var ziel = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec';
+    var zugestimmt = false;
+    try { zugestimmt = localStorage.getItem('vienero_consent_v2') === 'yes'; } catch (e) {}
+    /* Nur mit Zustimmung: ungefaehrer Ort und Internetanbieter ueber ipapi.co. Die IP-Adresse selbst wird nicht gespeichert. */
+    function ortHolen(fertig) {
+      var erledigt = false;
+      var ende = function (o) { if (!erledigt) { erledigt = true; fertig(o || {}); } };
+      setTimeout(function () { ende(); }, 2000);
+      try {
+        fetch('https://ipapi.co/json/').then(function (r) { return r.json(); }).then(function (j) {
+          if (!j || j.error) return ende();
+          ende({ ort: [j.postal, j.city].filter(Boolean).join(' ').slice(0, 60),
+                 land: String(j.country_name || '').slice(0, 40),
+                 netz: String(j.org || '').slice(0, 80) });
+        }).catch(function () { ende(); });
+      } catch (e) { ende(); }
+    }
     function senden(b) {
       if (navigator.sendBeacon) navigator.sendBeacon(ziel, new Blob([b], { type: 'text/plain;charset=utf-8' }));
       else fetch(ziel, { method: 'POST', body: b, keepalive: true, mode: 'no-cors', headers: { 'Content-Type': 'text/plain;charset=utf-8' } });
     }
-    senden(body);
+    if (zugestimmt && neu) {
+      ortHolen(function (o) {
+        var d = JSON.parse(body); d.ort = o.ort || ''; d.land = o.land || ''; d.netz = o.netz || '';
+        senden(JSON.stringify(d));
+      });
+    } else senden(body);
+
+    /* Wer im Hinweis zustimmt, wird einmal mit Ort nachgetragen (zaehlt nicht als neuer Besuch) */
+    window.vnOrt = function () {
+      ortHolen(function (o) {
+        if (!o.land) return;
+        senden(JSON.stringify({ typ: 'besuch', seite: '/ort ' + location.pathname, herkunft: '', geraet: geraet,
+          sprache: (navigator.language || '').slice(0, 2), neu: 0, zone: zone, ort: o.ort, land: o.land, netz: o.netz }));
+      });
+    };
 
     /* Klicks auf Reservieren und Anrufen mitzaehlen (als Eintrag "/klick/..." mit der Seite, von der geklickt wurde) */
     var gezaehlt = {};
