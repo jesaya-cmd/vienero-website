@@ -161,13 +161,21 @@
     var ref = '', neu = 1;
     try { if (document.referrer) ref = new URL(document.referrer).hostname.replace(/^www\./, ''); } catch (e) {}
     if (ref === 'vienero.at') { neu = 0; ref = ''; }
+    /* Neu laden, Zurueck-Taste und die Danke-Seite nach einer Buchung sind kein neuer Besuch */
+    try {
+      var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+      if (nav && (nav.type === 'reload' || nav.type === 'back_forward')) neu = 0;
+    } catch (e) {}
+    if (/danke-reservierung/.test(location.pathname)) neu = 0;
+    var zone = '';
+    try { zone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
     var q = new URLSearchParams(location.search);
     var herkunft = q.get('gclid') || q.get('gbraid') || q.get('wbraid') ? 'Google Anzeige'
                  : (q.get('utm_source') || ref || 'direkt');
     if (!neu) herkunft = '';
     var geraet = /iPad|Tablet/i.test(ua) ? 'Tablet' : (/Mobi|Android|iPhone/i.test(ua) ? 'Handy' : 'Computer');
     var body = JSON.stringify({ typ: 'besuch', seite: location.pathname, herkunft: herkunft,
-      geraet: geraet, sprache: (navigator.language || '').slice(0, 2), neu: neu });
+      geraet: geraet, sprache: (navigator.language || '').slice(0, 2), neu: neu, zone: zone });
     var ziel = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec';
     function senden(b) {
       if (navigator.sendBeacon) navigator.sendBeacon(ziel, new Blob([b], { type: 'text/plain;charset=utf-8' }));
