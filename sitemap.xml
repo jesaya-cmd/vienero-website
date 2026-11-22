@@ -100,4 +100,12 @@
   <url><loc>https://vienero.at/menu-photos.html</loc><lastmod>2026-11-11</lastmod><priority>0.8</priority></url>
   <url><loc>https://vienero.at/group-dining-vienna.html</loc><lastmod>2026-11-12</lastmod><priority>0.8</priority></url>
   <url><loc>https://vienero.at/gruppen-restaurant-wien.html</loc><lastmod>2026-11-12</lastmod><priority>0.8</priority></url>
+  <url><loc>https://vienero.at/restaurant-konzerthaus-wien.html</loc><lastmod>2026-11-22</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/restaurant-konzerthaus-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/restaurant-near-konzerthaus-vienna.html"/></url>
+  <url><loc>https://vienero.at/restaurant-near-konzerthaus-vienna.html</loc><lastmod>2026-11-22</lastmod><priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="de" href="https://vienero.at/restaurant-konzerthaus-wien.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://vienero.at/restaurant-near-konzerthaus-vienna.html"/></url>
+  <url><loc>https://vienero.at/dry-aged-steak-wien.html</loc><lastmod>2026-11-22</lastmod><priority>0.8</priority></url>
+  <url><loc>https://vienero.at/restaurant-stadtpark-wien.html</loc><lastmod>2026-11-22</lastmod><priority>0.8</priority></url>
 </urlset>
