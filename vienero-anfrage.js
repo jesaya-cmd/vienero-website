@@ -8,11 +8,11 @@
   var ZIEL = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec';
   var CONV = 'AW-18506650716/KYqYCLXTyK8dENyo1PhE'; /* Anfrage Feier und Gruppe (Formular), Wert 50 */
   var ANLAESSE = ['Weihnachtsfeier', 'Firmenfeier', 'Geburtstag', 'Hochzeit oder Taufe',
-                  'Jubiläum', 'Kundenabend', 'Familienfeier', 'Sonstiges'];
+                  'Jubiläum', 'Kundenabend', 'Familienfeier', 'Catering', 'Sonstiges'];
   /* Englische Fassung: <div id="vnAnfrage" data-lang="en">. Die Werte gehen auf Deutsch
      ans Skript, damit Tabelle und Team-Mail einheitlich bleiben. */
   var ANLAESSE_EN = ['Christmas party', 'Company party', 'Birthday', 'Wedding or christening',
-                     'Anniversary', 'Client dinner', 'Family celebration', 'Other'];
+                     'Anniversary', 'Client dinner', 'Family celebration', 'Catering', 'Other'];
   /* Benoetigte Leistungen: Werte gehen auf Deutsch ans Skript */
   var LEISTUNGEN = ['Speisen', 'Getränke', 'Dekoration', 'Entertainment', 'Service/Personal'];
   var LEISTUNGEN_EN = ['Food', 'Drinks', 'Decoration', 'Entertainment', 'Service/Staff'];
@@ -132,7 +132,7 @@
         '<div><label for="vnaGaeste">' + t.gaeste + '</label><input id="vnaGaeste" name="gaeste" type="number" inputmode="numeric" min="2" max="300" placeholder="' + t.bsp + '"></div>' +
         '<div><label for="vnaDatum">' + t.datum + '</label><input id="vnaDatum" name="datum" type="date" min="' + min + '"></div>' +
         '<div><label for="vnaZeit">' + t.zeit + '</label><select id="vnaZeit" name="uhrzeit" required>' + zeiten + '</select></div>' +
-        '<div class="vna-voll"><label for="vnaBereich">' + t.bereich + '</label><select id="vnaBereich" name="bereich">' +
+        '<div class="vna-voll"' + (vorwahl === 'Catering' ? ' hidden' : '') + '><label for="vnaBereich">' + t.bereich + '</label><select id="vnaBereich" name="bereich">' +
           '<option value="">' + t.offen + '</option><option value="Teilbereich">' + t.teil + '</option>' +
           '<option value="Ganzes Lokal">' + t.ganz + '</option></select></div>' +
         '<div><label for="vnaName">' + t.name + '</label><input id="vnaName" name="name" autocomplete="name" required></div>' +
