@@ -4,7 +4,8 @@
   var GA = 'G-FJ2ZZ9SF1T'; /* Google Analytics 4, Property vienero.at */
   var CONV = 'AW-18506650716/FYBXCNr-g5kdENyo1PhE'; /* Seitenaufruf Reservierung (sekundaer) */
   var CONV_TEL = 'AW-18506650716/SwAgCLLTyK8dENyo1PhE'; /* Klick auf Telefonnummer (Website), Wert 15 */
-  var KEY = 'vienero_consent_v2'; /* v2 seit 20.11.2026: Analytics dazu, deshalb alle neu fragen */
+  var KEY = 'vienero_consent_v3'; /* v3 seit 25.11.2026: ChatGPT Anzeigen (OpenAI) dazu, deshalb alle neu fragen */
+  var OAI = 'BBYf3SVPXrhV1dn1iDSFQd'; /* OpenAI Ads Pixel, Datenquelle vienero.at Website */
   var en = (document.documentElement.lang || '').toLowerCase().indexOf('en') === 0;
   var lg = (document.documentElement.lang || 'de').toLowerCase().slice(0,2);
 
@@ -19,7 +20,14 @@
      Ohne Zustimmung setzt Google keine Cookies und bekommt nur einfache Signale ohne Kennungen. */
   gtag('consent', 'default', { ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'denied', wait_for_update: 500 });
   gtag('set', 'ads_data_redaction', true);
-  function erlauben() { gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', analytics_storage: 'granted' }); }
+  /* OpenAI Ads Pixel (ChatGPT Anzeigen): nur mit Zustimmung laden, Reservierung auf der Danke-Seite zaehlen */
+  function openai() {
+    if (window.oaiq) return;
+    !function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f);}(window,document,'script','https://bzrcdn.openai.com/sdk/oaiq.min.js');
+    window.oaiq('init', { pixelId: OAI });
+    if (/danke-reservierung/.test(location.pathname)) window.oaiq('measure', 'appointment_scheduled', { type: 'customer_action' });
+  }
+  function erlauben() { gtag('consent', 'update', { ad_storage: 'granted', ad_user_data: 'granted', analytics_storage: 'granted' }); openai(); }
   if (get() === 'yes') erlauben();
 
   var s = document.createElement('script');
@@ -57,10 +65,10 @@
   }, true);
 
   var TT = {
-    en: {text: 'We use Google Analytics and Google Ads to see how our website is used and which ads bring guests to VIENERO. With your consent we set cookies for this. Without it, Google only receives simple signals without cookies. With consent we also look up via ipapi.co roughly which city and internet provider you are visiting from, without storing your IP address. The website works the same either way.', yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'},
-    fr: {text: "Nous utilisons Google Analytics et Google Ads pour savoir comment notre site est utilisé et quelles annonces amènent nos clients chez VIENERO. Avec votre accord, nous déposons des cookies à cet effet. Sans accord, Google ne reçoit que des signaux simples, sans cookies. Avec votre accord, nous déterminons aussi via ipapi.co la ville et le fournisseur d’accès approximatifs, sans enregistrer votre adresse IP. Le site fonctionne de la même façon dans les deux cas.", yes: 'Accepter', no: 'Refuser', more: 'Confidentialité', href: 'datenschutz.html'},
-    it: {text: 'Usiamo Google Analytics e Google Ads per capire come viene usato il sito e quali annunci portano ospiti da VIENERO. Con il tuo consenso impostiamo dei cookie a questo scopo, senza consenso Google riceve solo semplici segnali senza cookie. Con il consenso rileviamo anche tramite ipapi.co la città e il provider approssimativi, senza salvare il tuo indirizzo IP. Il sito funziona allo stesso modo in entrambi i casi.', yes: 'Accetta', no: 'Rifiuta', more: 'Privacy', href: 'datenschutz.html'},
-    de: {text: 'Wir nutzen Google Analytics und Google Ads, um zu sehen, wie unsere Website genutzt wird und welche Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt Google nur einfache Signale ohne Cookies. Mit Zustimmung ermitteln wir außerdem über ipapi.co ungefähr Stadt und Internetanbieter, ohne deine IP-Adresse zu speichern. Die Seite funktioniert in beiden Fällen genauso.', yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'}
+    en: {text: 'We use Google Analytics, Google Ads and ChatGPT ads (OpenAI) to see how our website is used and which ads bring guests to VIENERO. With your consent we set cookies for this. Without it, OpenAI receives nothing and Google only receives simple signals without cookies. With consent we also look up via ipapi.co roughly which city and internet provider you are visiting from, without storing your IP address. The website works the same either way.', yes: 'Accept', no: 'Decline', more: 'Privacy', href: 'datenschutz.html'},
+    fr: {text: "Nous utilisons Google Analytics, Google Ads et les annonces ChatGPT (OpenAI) pour savoir comment notre site est utilisé et quelles annonces amènent nos clients chez VIENERO. Avec votre accord, nous déposons des cookies à cet effet. Sans accord, OpenAI ne reçoit rien et Google ne reçoit que des signaux simples, sans cookies. Avec votre accord, nous déterminons aussi via ipapi.co la ville et le fournisseur d’accès approximatifs, sans enregistrer votre adresse IP. Le site fonctionne de la même façon dans les deux cas.", yes: 'Accepter', no: 'Refuser', more: 'Confidentialité', href: 'datenschutz.html'},
+    it: {text: 'Usiamo Google Analytics, Google Ads e gli annunci ChatGPT (OpenAI) per capire come viene usato il sito e quali annunci portano ospiti da VIENERO. Con il tuo consenso impostiamo dei cookie a questo scopo, senza consenso OpenAI non riceve nulla e Google riceve solo semplici segnali senza cookie. Con il consenso rileviamo anche tramite ipapi.co la città e il provider approssimativi, senza salvare il tuo indirizzo IP. Il sito funziona allo stesso modo in entrambi i casi.', yes: 'Accetta', no: 'Rifiuta', more: 'Privacy', href: 'datenschutz.html'},
+    de: {text: 'Wir nutzen Google Analytics, Google Ads und Anzeigen in ChatGPT (OpenAI), um zu sehen, wie unsere Website genutzt wird und welche Anzeigen Gäste ins VIENERO bringen. Mit deiner Zustimmung setzen wir dafür Cookies, ohne bekommt OpenAI nichts und Google nur einfache Signale ohne Cookies. Mit Zustimmung ermitteln wir außerdem über ipapi.co ungefähr Stadt und Internetanbieter, ohne deine IP-Adresse zu speichern. Die Seite funktioniert in beiden Fällen genauso.', yes: 'Akzeptieren', no: 'Ablehnen', more: 'Datenschutz', href: 'datenschutz.html'}
   };
   var T = TT[lg] || TT.de;
 
@@ -178,7 +186,7 @@
       geraet: geraet, sprache: (navigator.language || '').slice(0, 2), neu: neu, zone: zone });
     var ziel = 'https://script.google.com/macros/s/AKfycbx4_5Qh1dGi-EBwv_Fz3uUpVO4S-TRnhfEq2SbcNCjtyJXAkBORKECpc1W3AW6Rqy3H/exec';
     var zugestimmt = false;
-    try { zugestimmt = localStorage.getItem('vienero_consent_v2') === 'yes'; } catch (e) {}
+    try { zugestimmt = localStorage.getItem('vienero_consent_v3') === 'yes'; } catch (e) {}
     /* Nur mit Zustimmung: ungefaehrer Ort und Internetanbieter ueber ipapi.co. Die IP-Adresse selbst wird nicht gespeichert. */
     function ortHolen(fertig) {
       var erledigt = false;
