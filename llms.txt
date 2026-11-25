@@ -40,6 +40,7 @@
 ## Seiten
 - [Menu mit Preisen](https://vienero.at/menu.html)
 - [Tisch reservieren](https://vienero.at/reservierung.html)
+- [Monatsspecial, wechselt jeden Monat](https://vienero.at/monatsspecial-wien.html)
 - [Wiener Schnitzel](https://vienero.at/wiener-schnitzel.html)
 - [Trüffelpasta](https://vienero.at/trueffelpasta-wien.html)
 - [Pasta aus eigener Manufaktur](https://vienero.at/pasta-wien.html)
